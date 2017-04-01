@@ -14,6 +14,7 @@ gem "sass-rails", github: "rails/sass-rails"
 
 gem "uglifier", ">= 1.3.0"
 gem "jbuilder", "~> 2.5"
+gem "webpacker", github: "rails/webpacker"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
