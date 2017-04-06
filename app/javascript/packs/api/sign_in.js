@@ -1,20 +1,19 @@
 import "./setup_axios";
 import { post, CancelToken } from "axios";
 
-function signUp(email, password, passwordConfirmation) {
+function signIn(email, password) {
   const cancellationSource = CancelToken.source();
 
   const data = {
     user: {
       email,
       password,
-      "password_confirmation": passwordConfirmation,
     },
   };
   const config = {
     cancelToken: cancellationSource.token,
   };
-  const promise = post("/users", data, config);
+  const promise = post("/users/sign_in", data, config);
 
   return {
     cancel() {
@@ -24,4 +23,4 @@ function signUp(email, password, passwordConfirmation) {
   };
 }
 
-export default signUp;
+export default signIn;
