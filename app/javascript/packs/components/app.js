@@ -1,16 +1,12 @@
 import React from "react";
 
 import Session from "./session";
-import SignUp from "./sign_up";
-import SignIn from "./sign_in";
-import SignOut from "./sign_out";
+import Auth from "./auth";
 
 function App() {
   return (
-    <Session>
-      <SignUp />
-      <SignIn />
-      <SignOut />
+    <Session >
+      <Auth />
     </Session>
   );
 }
