@@ -15,5 +15,9 @@ Bundler.require(*Rails.groups)
 module NotesRails
   class Application < Rails::Application
     config.load_defaults 5.1
+
+    config.to_prepare do
+      DeviseController.respond_to :json
+    end
   end
 end
