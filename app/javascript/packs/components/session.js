@@ -4,7 +4,7 @@ class Session extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      signedIn: false
+      signedIn: props.signedIn,
     };
     this.toggleAuthenticated = this.toggleAuthenticated.bind(this);
   }
@@ -23,6 +23,10 @@ class Session extends Component {
   render() {
     return <div>{this.props.children}</div>;
   }
+}
+
+Session.propTypes = {
+  signedIn: PropTypes.bool,
 }
 
 Session.childContextTypes = {

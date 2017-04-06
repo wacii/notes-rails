@@ -29,8 +29,8 @@ class SignIn extends Component {
 
     promise
       .then(_response => {
-        toggleAuthenticated(true);
         this.setState({ loading: false });
+        toggleAuthenticated(true);
       })
       .catch(({ data }) => this.setState({ loading: false, error: data }));
 
