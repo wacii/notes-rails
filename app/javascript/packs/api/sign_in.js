@@ -1,26 +1,18 @@
-import "./setup_axios";
-import { post, CancelToken } from "axios";
+import request from "./cancellable_request";
 
 function signIn(email, password) {
-  const cancellationSource = CancelToken.source();
-
   const data = {
     user: {
       email,
       password,
     },
   };
-  const config = {
-    cancelToken: cancellationSource.token,
-  };
-  const promise = post("/users/sign_in", data, config);
 
-  return {
-    cancel() {
-      cancellationSource.cancel()
-    },
-    promise
-  };
+  return request({
+    url: "/users/sign_in",
+    method: "POST",
+    data,
+  });
 }
 
 export default signIn;
