@@ -10,7 +10,7 @@ function signIn(email, password) {
 
   return request({
     url: "/users/sign_in",
-    method: "POST",
+    method: "post",
     data,
   });
 }

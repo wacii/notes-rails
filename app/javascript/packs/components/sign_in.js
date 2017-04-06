@@ -50,7 +50,7 @@ class SignIn extends Component {
     const { email, password } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.submit}>
         <label>
           Email:
           <input type="text"
@@ -68,7 +68,7 @@ class SignIn extends Component {
         </label>
 
         <button type="submit">
-          Login
+          Sign In
         </button>
       </form>
     )
