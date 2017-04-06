@@ -1,10 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
-import SignUp from "./components/sign_up";
-
-function App() {
-  return <SignUp />;
-}
+import App from "./components/app"
 
 document.addEventListener("DOMContentLoaded", () => {
   render(

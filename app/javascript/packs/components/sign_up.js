@@ -19,7 +19,7 @@ class SignUp extends Component {
 
   submit(event) {
     const { email, password, passwordConfirmation } = this.state;
-    // const { toggleAuthenticated } = this.context;
+    const { toggleAuthenticated } = this.context;
 
     if (typeof this.cancelRequest === "function")
       this.cancelRequest();
@@ -28,7 +28,10 @@ class SignUp extends Component {
     const { cancel, promise } = signUp(email, password, passwordConfirmation);
     this.cancelRequest = cancel;
     promise
-      .then(null)
+      .then(_response => {
+        this.setState({ loading: false });
+        toggleAuthenticated(true);
+      })
       .catch(_response => this.setState({ loading: false, error: true }));
 
     event.preventDefault();
@@ -80,8 +83,8 @@ class SignUp extends Component {
   }
 }
 
-// SignUp.contextTypes = {
-//   toggleAuthenticated: PropTypes.function
-// };
+SignUp.contextTypes = {
+  toggleAuthenticated: PropTypes.func
+};
 
 export default SignUp;
