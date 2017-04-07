@@ -1,6 +1,124 @@
 import React, { Component, PropTypes } from "react";
 import signIn from "../api/sign_in";
 
+function ErrorMessage({ children }) {
+  return <p className="error">{children}</p>;
+}
+
+class EmailField extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      present: false,
+      validEmail: false,
+      touched: false,
+    };
+
+    this.updateForm = this.updateForm.bind(this);
+    this.touch = this.touch.bind(this);
+  }
+
+  updateForm(event) {
+    const value = event.target.value;
+
+    const present = (value !== "");
+    const validEmail = EmailField.re.test(value);
+
+    this.setState({ present, validEmail });
+    this.props.update({ value, valid: present && validEmail });
+  }
+
+  touch() {
+    this.setState({ touched: true });
+  }
+
+  render() {
+    const { present, validEmail, touched } = this.state;
+    const { value } = this.props;
+
+    let error;
+    if (!touched)
+      error = null;
+    else if (!present)
+      error = "Email required";
+    else if (!validEmail)
+      error = "Email invalid";
+
+    return (
+      <div>
+        <label>
+          Email:
+          <input type="text"
+                 name="email"
+                 value={value}
+                 onChange={this.updateForm}
+                 onBlur={this.touch} />
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+        </label>
+      </div>
+    );
+  }
+}
+
+EmailField.re = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+
+EmailField.propTypes = {
+  value: PropTypes.string.isRequired,
+  update: PropTypes.func.isRequired,
+}
+
+class PasswordField extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      touched: false,
+      present: false,
+    };
+
+    this.updateForm = this.updateForm.bind(this);
+    this.touch = this.touch.bind(this);
+  }
+
+  updateForm(event) {
+    const value = event.target.value;
+    const present = (value !== "");
+    this.setState({ present });
+    this.props.update({ value, valid: present });
+  }
+
+  touch() {
+    this.setState({ touched: true });
+  }
+
+  render() {
+    const { present, touched } = this.state;
+    const { value } = this.props;
+
+    const error = (touched && !present ? "Password required" : null);
+
+    return (
+      <div>
+        <label>
+          Password:
+          <input type="password"
+                 name="password"
+                 value={value}
+                 onChange={this.updateForm}
+                 onBlur={this.touch} />
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+        </label>
+      </div>  
+    );
+  }
+}
+
+PasswordField.propTypes = {
+  value: PropTypes.string.isRequired,
+  update: PropTypes.func.isRequired,
+};
+
 class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -8,8 +126,14 @@ class SignIn extends Component {
     this.state = {
       loading: false,
       error: null,
-      email: "",
-      password: "",
+      email: {
+        value: "",
+        valid: false,
+      },
+      password: {
+        value: "",
+        valid: false,
+      },
     };
 
     this.submit = this.submit.bind(this);
@@ -17,7 +141,8 @@ class SignIn extends Component {
   }
 
   submit(event) {
-    const { email, password } = this.state;
+    const email = this.state.email.value;
+    const password = this.state.password.value;
     const { toggleAuthenticated } = this.context;
 
     if (this.cancelRequest)
@@ -38,7 +163,7 @@ class SignIn extends Component {
   }
 
   updateField(name) {
-    return event => this.setState({ [name]: event.target.value });
+    return data => this.setState({ [name]: data });
   }
 
   componentWillUnmount() {
@@ -48,26 +173,19 @@ class SignIn extends Component {
 
   render() {
     const { email, password } = this.state;
+    const isValid = email.valid && password.valid;
 
     return (
       <form onSubmit={this.submit}>
-        <label>
-          Email:
-          <input type="text"
-                 name="email"
-                 value={email}
-                 onChange={this.updateField("email")}/>
-        </label>
+        <EmailField
+          value={email.value}
+          update={this.updateField("email")} />
 
-        <label>
-          Password:
-          <input type="password"
-                 name="password"
-                 value={password}
-                 onChange={this.updateField("password")}/>
-        </label>
+        <PasswordField
+          value={password.value}
+          update={this.updateField("password")} />
 
-        <button type="submit">
+        <button type="submit" disabled={!isValid}>
           Sign In
         </button>
       </form>
