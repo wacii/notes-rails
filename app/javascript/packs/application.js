@@ -1,6 +1,8 @@
 import React from "react";
 import { render } from "react-dom";
-import App from "./components/app"
+import Session from "./components/session";
+import UserApp from "./components/user_app";
+import GuestApp from "./components/guest_app";
 
 document.addEventListener("DOMContentLoaded", () => {
   const el = document.getElementById("auth");
@@ -8,7 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const signedIn = !!email;
 
   render(
-    <App signedIn={signedIn} />,
+    <Session signedIn={signedIn}>
+      {signedIn => signedIn ? <UserApp /> : <GuestApp />}
+    </Session>,
     document.getElementById("app")
   );
 });

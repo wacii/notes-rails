@@ -21,17 +21,19 @@ class Session extends Component {
   }
 
   render() {
-    return <div>{this.props.children}</div>;
+    const { signedIn } = this.state;
+    return this.props.children(signedIn);
   }
 }
 
 Session.propTypes = {
-  signedIn: PropTypes.bool,
-}
+  signedIn: PropTypes.bool.isRequired,
+  children: PropTypes.func.isRequired,
+};
 
 Session.childContextTypes = {
   signedIn: PropTypes.bool,
   toggleAuthenticated: PropTypes.func,
-}
+};
 
 export default Session;
