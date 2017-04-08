@@ -1,4 +1,5 @@
 import request from "./cancellable_request";
+import axios from "axios";
 
 function signUp(email, password, passwordConfirmation) {
   const data = {
@@ -9,11 +10,18 @@ function signUp(email, password, passwordConfirmation) {
     },
   };
 
-  return request({
+  const { cancel, promise} = request({
     url: "/users",
     method: "POST",
     data,
   });
+
+  promise.then(({ headers }) => {
+    const token = headers["x-csrf-token"];
+    axios.defaults.headers.common["X-CSRF-Token"] = token;
+  });
+
+  return { cancel, promise };
 }
 
 export default signUp;
