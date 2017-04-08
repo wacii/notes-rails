@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from "react";
-import createNote from "../api/create_note";
+import { createNote } from "../stores/notes";
 
 function ErrorAlert({ children }) {
   return (
