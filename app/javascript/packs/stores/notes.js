@@ -2,7 +2,7 @@
 
 import * as api from "../api/notes.js";
 
-const notes = [];
+let notes = [];
 
 function create(text) {
   const { cancel, promise } = api.create(text);
@@ -29,8 +29,12 @@ function update(id, attributes) {
 }
 
 const listeners = [];
+let hasNotFetched = true;
 
 function register(listener) {
+  if (hasNotFetched)
+    fetch();
+
   listeners.push(listener);
   return () => {
     const i = listeners.indexOf(listener);
@@ -41,6 +45,15 @@ function register(listener) {
 function broadcast() {
   const copy = [...notes];
   listeners.forEach(fn => fn(copy));
+}
+
+function fetch() {
+  const { promise } = api.index();
+  promise.then(({ data }) => {
+    notes = data;
+    hasNotFetched = false;
+    broadcast();
+  });
 }
 
 export {

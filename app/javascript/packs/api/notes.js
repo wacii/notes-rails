@@ -1,5 +1,12 @@
 import request from "./cancellable_request";
 
+function index() {
+  return request({
+    url: "/notes",
+    method: "get",
+  });
+}
+
 function create(text) {
   const data = {
     note: {
@@ -32,6 +39,7 @@ function update(id, attributes) {
 }
 
 export {
+  index,
   create,
   destroy,
   update,
