@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from "react";
+import { Link } from "react-router-dom";
 import signIn from "../api/sign_in";
 
 function ErrorMessage({ children }) {
@@ -109,7 +110,7 @@ class PasswordField extends Component {
                  onBlur={this.touch} />
           {error && <ErrorMessage>{error}</ErrorMessage>}
         </label>
-      </div>  
+      </div>
     );
   }
 }
@@ -188,6 +189,10 @@ class SignIn extends Component {
         <button type="submit" disabled={!isValid}>
           Sign In
         </button>
+
+        <Link to="/sign-up">
+          Sign up
+        </Link>
       </form>
     )
   }

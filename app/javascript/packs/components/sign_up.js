@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from "react";
+import { Link } from "react-router-dom";
 import signUp from "../api/sign_up";
 
 class SignUp extends Component {
@@ -78,6 +79,10 @@ class SignUp extends Component {
         <button type="submit">
           Sign up
         </button>
+
+        <Link to="/sign_in">
+          Sign in
+        </Link>
       </form>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from "react";
+import { Link } from "react-router-dom";
 import injectNotes from "../stores/inject_notes";
 
 function NoteItem({ note, destroy }) {
@@ -27,6 +28,9 @@ class NoteList extends Component {
       <div>
         <h1>Notes</h1>
         <ul>{noteItems}</ul>
+        <Link to="/">
+          Back
+        </Link>
       </div>
     );
   }
