@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from "react";
 import { Link } from "react-router-dom";
-import { signIn } from "../api/auth";
+import injectAuth from "../stores/inject_auth";
 
 function ErrorMessage({ children }) {
   return <p className="error">{children}</p>;
@@ -144,7 +144,7 @@ class SignIn extends Component {
   submit(event) {
     const email = this.state.email.value;
     const password = this.state.password.value;
-    const { toggleAuthenticated } = this.context;
+    const { signIn } = this.props;
 
     if (this.cancelRequest)
       this.cancelRequest();
@@ -156,7 +156,6 @@ class SignIn extends Component {
     promise
       .then(_response => {
         this.setState({ loading: false });
-        toggleAuthenticated(true);
       })
       .catch(({ data }) => this.setState({ loading: false, error: data }));
 
@@ -198,8 +197,8 @@ class SignIn extends Component {
   }
 }
 
-SignIn.contextTypes = {
-  toggleAuthenticated: PropTypes.func,
-}
+SignIn.propTypes = {
+  signIn: PropTypes.func.isRequired,
+};
 
-export default SignIn;
+export default injectAuth(SignIn);

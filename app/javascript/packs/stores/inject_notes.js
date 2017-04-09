@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { create, destroy, update, register } from "./notes";
+import { create, destroy, update, subscribe } from "./notes";
 
 function injectNotes(WrappedComponent) {
   return class extends Component {
@@ -18,11 +18,11 @@ function injectNotes(WrappedComponent) {
     }
 
     componentDidMount() {
-      this.unregister = register(this.updateNotes);
+      this.unsubscribe = subscribe(this.updateNotes);
     }
 
     componentWillUnmount() {
-      this.unregister();
+      this.unsubscribe();
     }
 
     render() {

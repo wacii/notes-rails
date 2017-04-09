@@ -1,5 +1,3 @@
-// NOTE: should auth move over to something like this?
-
 import * as api from "../api/notes.js";
 
 let notes = [];
@@ -31,9 +29,9 @@ function update(id, attributes) {
 const listeners = [];
 let hasNotFetched = true;
 
-function register(listener) {
+function subscribe(listener) {
   listener([...notes]);
-  
+
   if (hasNotFetched)
     fetch();
 
@@ -65,5 +63,5 @@ export {
   create,
   destroy,
   update,
-  register,
+  subscribe,
 };

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from "react";
 import { Link } from "react-router-dom";
-import { signUp } from "../api/auth";
+import injectAuth from "../stores/inject_auth";
 
 class SignUp extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class SignUp extends Component {
 
   submit(event) {
     const { email, password, passwordConfirmation } = this.state;
-    const { toggleAuthenticated } = this.context;
+    const { signUp } = this.props;
 
     if (typeof this.cancelRequest === "function")
       this.cancelRequest();
@@ -31,7 +31,6 @@ class SignUp extends Component {
     promise
       .then(_response => {
         this.setState({ loading: false });
-        toggleAuthenticated(true);
       })
       .catch(_response => this.setState({ loading: false, error: true }));
 
@@ -88,8 +87,8 @@ class SignUp extends Component {
   }
 }
 
-SignUp.contextTypes = {
-  toggleAuthenticated: PropTypes.func
+SignUp.propTypes = {
+  signUp: PropTypes.func.isRequired,
 };
 
-export default SignUp;
+export default injectAuth(SignUp);

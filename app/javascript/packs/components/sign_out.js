@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from "react";
-import { signOut } from "../api/auth";
+import injectAuth from "../stores/inject_auth";
 
 class SignOut extends Component {
   constructor(props) {
@@ -8,13 +8,13 @@ class SignOut extends Component {
   }
 
   signOut() {
+    const { signOut } = this.props;
+
     if (this.cancelRequest)
       this.cancelRequest();
 
     const { cancel, promise } = signOut();
     this.cancelRequest = cancel;
-
-    this.context.toggleAuthenticated(false);
 
     // TODO: handle failure
   }
@@ -33,8 +33,8 @@ class SignOut extends Component {
   }
 }
 
-SignOut.contextTypes = {
-  toggleAuthenticated: PropTypes.func,
-}
+SignOut.propTypes = {
+  signOut: PropTypes.func.isRequired,
+};
 
-export default SignOut;
+export default injectAuth(SignOut);
