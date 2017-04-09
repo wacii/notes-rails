@@ -6,7 +6,7 @@ function UserApp() {
   return (
     <div>
       <SignOut />
-      <NewNote addNote={text => console.log(text)} />
+      <NewNote />
     </div>
   );
 }

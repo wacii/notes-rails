@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from "react";
-import { createNote } from "../stores/notes";
+import injectNotes from "../stores/inject_notes";
 
 function ErrorAlert({ children }) {
   return (
@@ -25,7 +25,7 @@ class NewNote extends Component {
 
   submit(event) {
     const { text } = this.state;
-    const { addNote } = this.props;
+    const { createNote } = this.props;
 
     if (this.cancelRequest)
       this.cancelRequest();
@@ -34,8 +34,6 @@ class NewNote extends Component {
     this.cancelRequest = cancel;
     promise.catch(_request => this.setState({ error: true }));
 
-    if (addNote)
-      addNote(text);
     this.setState({ text: "", error: false });
 
     event.preventDefault();
@@ -68,7 +66,7 @@ class NewNote extends Component {
 }
 
 NewNote.propTypes = {
-  addNote: PropTypes.func,
+  createNote: PropTypes.func.isRequired,
 }
 
-export default NewNote;
+export default injectNotes(NewNote);

@@ -1,11 +1,11 @@
 // NOTE: should auth move over to something like this?
 
-import { create, destroy, update } from "../api/notes.js";
+import * as api from "../api/notes.js";
 
 const notes = [];
 
-function createNote(text) {
-  const { cancel, promise } = create(text);
+function create(text) {
+  const { cancel, promise } = api.create(text);
   promise.then(({ data }) => {
     notes.push(data.note);
   });
@@ -13,25 +13,25 @@ function createNote(text) {
   return { cancel, promise };
 }
 
-function destroyNote(id) {
+function destroy(id) {
   const i = notes.findIndex(note => note.id === id)
   notes.splice(i, 1);
   broadcast();
-  return destroy(id);
+  return api.destroy(id);
 }
 
-function updateNote(id, attributes) {
+function update(id, attributes) {
   const note = notes.find(note => note.id === id);
   for (key in attributes)
     note[key] = attributes[key];
   broadcast();
-  return update(id, attributes);
+  return api.update(id, attributes);
 }
 
 const listeners = [];
 
 function register(listener) {
-  listenerns.push(listener);
+  listeners.push(listener);
   return () => {
     const i = listeners.indexOf(listener);
     listeners.splice(i, 1);
@@ -44,8 +44,8 @@ function broadcast() {
 }
 
 export {
-  createNote,
-  destroyNote,
-  updateNote,
+  create,
+  destroy,
+  update,
   register,
 };
