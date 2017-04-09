@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from "react";
-import signOut from "../api/sign_out";
+import { signOut } from "../api/auth";
 
 class SignOut extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class SignOut extends Component {
     this.cancelRequest = cancel;
 
     this.context.toggleAuthenticated(false);
-    
+
     // TODO: handle failure
   }
 

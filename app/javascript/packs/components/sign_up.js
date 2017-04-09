@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from "react";
 import { Link } from "react-router-dom";
-import signUp from "../api/sign_up";
+import { signUp } from "../api/auth";
 
 class SignUp extends Component {
   constructor(props) {

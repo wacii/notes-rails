@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from "react";
 import { Link } from "react-router-dom";
-import signIn from "../api/sign_in";
+import { signIn } from "../api/auth";
 
 function ErrorMessage({ children }) {
   return <p className="error">{children}</p>;
