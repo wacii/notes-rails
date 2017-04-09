@@ -32,6 +32,8 @@ const listeners = [];
 let hasNotFetched = true;
 
 function register(listener) {
+  listener([...notes]);
+  
   if (hasNotFetched)
     fetch();
 
