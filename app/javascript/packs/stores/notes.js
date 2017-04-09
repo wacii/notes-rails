@@ -7,9 +7,9 @@ const notes = [];
 function create(text) {
   const { cancel, promise } = api.create(text);
   promise.then(({ data }) => {
-    notes.push(data.note);
+    notes.push(data);
+    broadcast();
   });
-  broadcast();
   return { cancel, promise };
 }
 
