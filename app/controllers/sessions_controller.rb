@@ -4,6 +4,6 @@ class SessionsController < Devise::SessionsController
   private
 
   def set_csrf_header
-    headers['X-CSRF-Token'] = form_authenticity_token if protect_against_forgery?
+    headers['X-CSRF-Token'] = form_authenticity_token
   end
 end
