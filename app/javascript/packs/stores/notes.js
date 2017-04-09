@@ -51,6 +51,9 @@ function fetch() {
   const { promise } = api.index();
   promise.then(({ data }) => {
     notes = data;
+    notes.forEach(note => {
+      note.review_after = new Date(note.review_after);
+    });
     hasNotFetched = false;
     broadcast();
   });

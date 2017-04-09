@@ -3,9 +3,6 @@ import injectNotes from "../stores/inject_notes";
 
 function CurrentNote({ notes, destroyNote, updateNote }) {
   const today = new Date;
-  notes.forEach(note => {
-    note.review_after = Date.parse(note.review_after);
-  })
   const currentNote = notes
     .filter(note => note.review_after < today)
     .sort(note => note.review_after)[0];
