@@ -41,7 +41,7 @@ class PasswordField extends Component {
             onChange={this.updateForm}
             onBlur={this.touch} />
         </label>
-        {error && <ErrorMessage>{error}</ErrorMessage>}
+        {error && <p>{error}</p>}
       </div>
     );
   }
