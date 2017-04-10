@@ -55,7 +55,7 @@ class SignIn extends Component {
 
   render() {
     const { email, password } = this.state;
-    const isValid = email.valid && password.valid;
+    const isValid = (email.valid && password.valid);
 
     return (
       <form onSubmit={this.submit}>

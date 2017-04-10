@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from "react";
 import { Link } from "react-router-dom";
 import injectAuth from "../stores/inject_auth";
+import EmailField from "./email_field";
+import PasswordField from "./password_field";
+import PasswordConfirmationField from "./password_confirmation_field";
 
 class SignUp extends Component {
   constructor(props) {
@@ -9,9 +12,18 @@ class SignUp extends Component {
     this.state = {
       loading: false,
       error: false,
-      email: "",
-      password: "",
-      passwordConfirmation: "",
+      email: {
+        value: "",
+        valid: false,
+      },
+      password: {
+        value: "",
+        valid: false,
+      },
+      passwordConfirmation: {
+        value: "",
+        valid: false,
+      },
     };
 
     this.submit = this.submit.bind(this);
@@ -19,7 +31,9 @@ class SignUp extends Component {
   }
 
   submit(event) {
-    const { email, password, passwordConfirmation } = this.state;
+    const email = this.state.email.value;
+    const password = this.state.password.value;
+    const passwordConfirmation = this.state.passwordConfirmation.value;
     const { signUp } = this.props;
 
     if (typeof this.cancelRequest === "function")
@@ -38,7 +52,7 @@ class SignUp extends Component {
   };
 
   updateField(name) {
-    return event => this.setState({ [name]: event.target.value });
+    return data => this.setState({ [name]: event.target.value });
   }
 
   componentWillUnmount() {
@@ -48,34 +62,25 @@ class SignUp extends Component {
 
   render() {
     const { email, password, passwordConfirmation } = this.state;
+    const isValid =
+      (email.valid && password.valid && passwordConfirmation.valid);
 
     return (
       <form onSubmit={this.submit}>
-        <label>
-          Email:
-          <input type="text"
-                 name="email"
-                 value={email}
-                 onChange={this.updateField("email")} />
-        </label>
+        <EmailField
+          value={email.value}
+          onChange={this.updateField("email")} />
 
-        <label>
-          Password:
-          <input type="password"
-                 name="password"
-                 value={password}
-                 onChange={this.updateField("password")} />
-        </label>
+        <PasswordField
+          value={password.value}
+          onChange={this.updateField("password")} />
 
-        <label>
-          Password confirmation:
-          <input type="password"
-                 name="password-confirmation"
-                 value={passwordConfirmation}
-                 onChange={this.updateField("passwordConfirmation")} />
-        </label>
+        <PasswordConfirmationField
+          value={passwordConfirmation.value}
+          password={password.value}
+          onChange={this.updateField("passwordConfirmation")} />
 
-        <button type="submit">
+        <button type="submit" disabled={!isValid}>
           Sign up
         </button>
 

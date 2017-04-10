@@ -40,8 +40,8 @@ class PasswordField extends Component {
             value={value}
             onChange={this.updateForm}
             onBlur={this.touch} />
-          {error && <ErrorMessage>{error}</ErrorMessage>}
         </label>
+        {error && <ErrorMessage>{error}</ErrorMessage>}
       </div>
     );
   }
