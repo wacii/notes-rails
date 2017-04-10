@@ -69,16 +69,16 @@ class SignUp extends Component {
       <form onSubmit={this.submit}>
         <EmailField
           value={email.value}
-          onChange={this.updateField("email")} />
+          update={this.updateField("email")} />
 
         <PasswordField
           value={password.value}
-          onChange={this.updateField("password")} />
+          update={this.updateField("password")} />
 
         <PasswordConfirmationField
           value={passwordConfirmation.value}
           password={password.value}
-          onChange={this.updateField("passwordConfirmation")} />
+          update={this.updateField("passwordConfirmation")} />
 
         <button type="submit" disabled={!isValid}>
           Sign up
