@@ -10,8 +10,6 @@ class SignUp extends Component {
     super(props);
 
     this.state = {
-      loading: false,
-      error: false,
       email: {
         value: "",
         valid: false,
@@ -36,17 +34,7 @@ class SignUp extends Component {
     const passwordConfirmation = this.state.passwordConfirmation.value;
     const { signUp } = this.props;
 
-    if (typeof this.cancelRequest === "function")
-      this.cancelRequest();
-    this.setState({ loading: true, error: false });
-
-    const { cancel, promise } = signUp(email, password, passwordConfirmation);
-    this.cancelRequest = cancel;
-    promise
-      .then(_response => {
-        this.setState({ loading: false });
-      })
-      .catch(_response => this.setState({ loading: false, error: true }));
+    signUp(email, password, passwordConfirmation);
 
     event.preventDefault();
   };
@@ -55,12 +43,9 @@ class SignUp extends Component {
     return data => this.setState({ [name]: event.target.value });
   }
 
-  componentWillUnmount() {
-    if (typeof this.cancelRequest === "function")
-      this.cancelRequest();
-  }
-
   render() {
+    // TODO
+    // const { loading, error, message } = this.props;
     const { email, password, passwordConfirmation } = this.state;
     const isValid =
       (email.valid && password.valid && passwordConfirmation.valid);
@@ -94,6 +79,9 @@ class SignUp extends Component {
 
 SignUp.propTypes = {
   signUp: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.bool.isRequired,
+  message: PropTypes.string,
 };
 
 export default injectAuth(SignUp);

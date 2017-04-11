@@ -7,6 +7,9 @@ function injectAuth(WrappedComponent) {
       super(props);
       this.state = {
         signedIn: false,
+        loading: false,
+        error: false,
+        message: null,
       };
       this.updateAuth = this.updateAuth.bind(this);
     }
@@ -19,19 +22,17 @@ function injectAuth(WrappedComponent) {
       this.unsubscribe();
     }
 
-    updateAuth(signedIn) {
-      this.setState({ signedIn });
+    updateAuth(data) {
+      this.setState(data);
     }
 
     render() {
-      const { signedIn } = this.state;
-
       return (
         <WrappedComponent
-          signedIn={signedIn}
           signIn={signIn}
           signOut={signOut}
           signUp={signUp}
+          {...this.state}
           {...this.props} />
       );
     }

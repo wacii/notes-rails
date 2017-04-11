@@ -3,7 +3,7 @@ import axios, { CancelToken } from "axios";
 
 function cancellableRequest(config) {
   const cancellationSource = CancelToken.source();
-  const { cancelToken } = cancellationSource;
+  const cancelToken = cancellationSource.token;
   const promise = axios(Object.assign({}, config, { cancelToken }));
 
   return {

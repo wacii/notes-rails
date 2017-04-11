@@ -9,8 +9,6 @@ class SignIn extends Component {
     super(props);
 
     this.state = {
-      loading: false,
-      error: null,
       email: {
         value: "",
         valid: false,
@@ -30,16 +28,7 @@ class SignIn extends Component {
     const password = this.state.password.value;
     const { signIn } = this.props;
 
-    if (this.cancelRequest)
-      this.cancelRequest();
-    this.setState({ loading: true, error: false });
-
-    const { cancel, promise } = signIn(email, password);
-    this.cancelRequest = cancel;
-
-    promise
-      .then(_response => this.setState({ loading: false }))
-      .catch(({ data }) => this.setState({ loading: false, error: data }));
+    signIn(email, password);
 
     event.preventDefault();
   }
@@ -48,12 +37,9 @@ class SignIn extends Component {
     return data => this.setState({ [name]: data });
   }
 
-  componentWillUnmount() {
-    if (this.cancelRequest)
-      this.cancelRequest();
-  }
-
   render() {
+    // TODO
+    // const { loading, error, message } = this.props;
     const { email, password } = this.state;
     const isValid = (email.valid && password.valid);
 
@@ -81,6 +67,9 @@ class SignIn extends Component {
 
 SignIn.propTypes = {
   signIn: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.bool.isRequired,
+  message: PropTypes.string,
 };
 
 export default injectAuth(SignIn);
