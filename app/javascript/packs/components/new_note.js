@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from "react";
-import injectNotes from "../stores/inject_notes";
 
 function ErrorAlert({ children }) {
   return (
@@ -69,4 +68,4 @@ NewNote.propTypes = {
   createNote: PropTypes.func.isRequired,
 }
 
-export default injectNotes(NewNote);
+export default NewNote;

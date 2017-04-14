@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from "react";
 import { Link } from "react-router-dom";
-import injectNotes from "../stores/inject_notes";
 
 function NoteItem({ note, destroy }) {
   return (
@@ -41,4 +40,4 @@ NoteList.propTypes = {
   destroyNote: PropTypes.func.isRequired,
 };
 
-export default injectNotes(NoteList);
+export default NoteList;

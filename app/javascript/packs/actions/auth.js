@@ -1,5 +1,5 @@
-import "../api/setup_axios";
 import axios, { CancelToken } from "axios";
+import { fetch as fetchNotes } from "./notes";
 
 const cancellationSource = CancelToken.source();
 
@@ -23,6 +23,7 @@ function signIn(email, password) {
 
     promise.then(_request => {
       dispatch({ type: "SIGN_IN_SUCCESS" });
+      dispatch(fetchNotes());
     });
 
     promise.catch(({ status }) => {
@@ -83,6 +84,7 @@ function signUp(email, password, passwordConfirmation) {
 
     promise.then(_request => {
       dispatch({ type: "SIGN_UP_SUCCESS" });
+      dispatch(fetchNotes());
     });
 
     promise.catch(({ status }) => {

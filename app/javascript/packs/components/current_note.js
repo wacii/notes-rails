@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from "react";
-import injectNotes from "../stores/inject_notes";
 
 function CurrentNote({ notes, destroyNote, updateNote }) {
   const today = new Date;
@@ -43,4 +42,4 @@ function CurrentNote({ notes, destroyNote, updateNote }) {
   );
 }
 
-export default injectNotes(CurrentNote);
+export default CurrentNote;

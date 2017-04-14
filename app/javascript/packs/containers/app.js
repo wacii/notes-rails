@@ -7,5 +7,5 @@ function mapStateToProps({ auth: { signedIn }}) {
 
 export default connect(
   mapStateToProps,
-  () => null
+  () => ({})
 )(AppComponent);

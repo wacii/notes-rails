@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import NewNote from "./new_note";
-import CurrentNote from "./current_note";
+import NewNote from "../containers/new_note";
+import CurrentNote from "../containers/current_note";
 
 function Main() {
   return (

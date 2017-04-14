@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import SignOut from "../containers/sign_out";
 import Main from "./main";
-import NoteList from "./note_list";
+import NoteList from "../containers/note_list";
 
 function UserApp() {
   return (
