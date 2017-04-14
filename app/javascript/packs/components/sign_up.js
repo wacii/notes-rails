@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from "react";
 import { Link } from "react-router-dom";
-import injectAuth from "../stores/inject_auth";
 import EmailField from "./email_field";
 import PasswordField from "./password_field";
 import PasswordConfirmationField from "./password_confirmation_field";
@@ -45,7 +44,7 @@ class SignUp extends Component {
 
   render() {
     // TODO
-    // const { loading, error, message } = this.props;
+    // const { loading, error } = this.props;
     const { email, password, passwordConfirmation } = this.state;
     const isValid =
       (email.valid && password.valid && passwordConfirmation.valid);
@@ -80,8 +79,7 @@ class SignUp extends Component {
 SignUp.propTypes = {
   signUp: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  error: PropTypes.bool.isRequired,
-  message: PropTypes.string,
+  error: PropTypes.bool,
 };
 
-export default injectAuth(SignUp);
+export default SignUp;

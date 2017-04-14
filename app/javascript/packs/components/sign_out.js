@@ -1,5 +1,4 @@
-import React, { Component, PropTypes } from "react";
-import injectAuth from "../stores/inject_auth";
+import React, { PropTypes } from "react";
 
 function SignOut({ signOut }) {
   return (
@@ -13,4 +12,4 @@ SignOut.propTypes = {
   signOut: PropTypes.func.isRequired,
 };
 
-export default injectAuth(SignOut);
+export default SignOut;

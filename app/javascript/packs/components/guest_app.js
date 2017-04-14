@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import SignIn from "./sign_in";
-import SignUp from "./sign_up";
+import SignIn from "../containers/sign_in";
+import SignUp from "../containers/sign_up";
 
 function GuestApp() {
   return (
