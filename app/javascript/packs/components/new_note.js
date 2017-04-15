@@ -1,71 +1,43 @@
-import React, { Component, PropTypes } from "react";
+import React from "react";
+import { Field, reduxForm } from "redux-form";
 
-function ErrorAlert({ children }) {
+const errorMessage = "There was an error saving your note."
+
+// TODO: rename 'error' 'server error'?
+
+function NewNote({ handleSubmit, error }) {
   return (
-    <p className="error banner">
-      {children}
-    </p>
+    <form onSubmit={handleSubmit}>
+      {error && <p>{errorMessage}</p>}
+
+      <Field name="text" component={renderField} validate={required} />
+
+      <button type="submit">
+        Create note
+      </button>
+    </form>
   );
 }
 
-// TODO: validate presence of text
-
-class NewNote extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      text: "",
-      error: false,
-    };
-
-    this.submit = this.submit.bind(this);
-  }
-
-  submit(event) {
-    const { text } = this.state;
-    const { createNote } = this.props;
-
-    if (this.cancelRequest)
-      this.cancelRequest();
-
-    const { cancel, promise } = createNote(text);
-    this.cancelRequest = cancel;
-    promise.catch(_request => this.setState({ error: true }));
-
-    this.setState({ text: "", error: false });
-
-    event.preventDefault();
-  }
-
-  componentWillUnmount() {
-    if (this.cancelRequest)
-      this.cancelRequest();
-  }
-
-  render() {
-    const { text, error } = this.state;
-    const errorMessage = "There was an error saving your note."
-
-    return (
-      <form onSubmit={this.submit}>
-        {error && <ErrorAlert>{errorMessage}</ErrorAlert>}
-
-        <textarea
-          name="text"
-          value={text}
-          onChange={event => this.setState({ text: event.target.value})} />
-
-        <button type="submit">
-          Create note
-        </button>
-      </form>
-    );
-  }
+function renderField({ input, meta: { touched, error }}) {
+  return (
+    <div>
+      <textarea {...input} />
+      {touched && error && <p>{error}</p>}
+    </div>
+  )
 }
 
-NewNote.propTypes = {
-  createNote: PropTypes.func.isRequired,
+function required(value) {
+  return (value ? undefined : "Required");
 }
 
-export default NewNote;
+function onSubmit({ text }, _dispatch, { createNote, reset}) {
+  createNote(text);
+  reset();
+}
+
+export default reduxForm({
+  form: "newNote",
+  onSubmit,
+})(NewNote);

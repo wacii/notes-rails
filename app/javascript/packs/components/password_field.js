@@ -1,55 +1,46 @@
-import React, { Component, PropTypes } from "react";
+import React from "react";
+import { Field } from "redux-form";
 
-class PasswordField extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      touched: false,
-      present: false,
-    };
-
-    this.updateForm = this.updateForm.bind(this);
-    this.touch = this.touch.bind(this);
-  }
-
-  updateForm(event) {
-    const value = event.target.value;
-    const present = (value !== "");
-    this.setState({ present });
-    this.props.update({ value, valid: present });
-  }
-
-  touch() {
-    this.setState({ touched: true });
-  }
-
-  render() {
-    const { present, touched } = this.state;
-    const { value } = this.props;
-
-    const error = (touched && !present ? "Password required" : null);
-
-    return (
-      <div>
-        <label>
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={value}
-            onChange={this.updateForm}
-            onBlur={this.touch} />
-        </label>
-        {error && <p>{error}</p>}
-      </div>
-    );
-  }
+function PasswordField() {
+  return (
+    <Field type="password"
+      name="password"
+      component={renderField}
+      validate={[required, min(8), max(25)]}
+      label="Password" />
+  );
 }
 
-PasswordField.propTypes = {
-  value: PropTypes.string.isRequired,
-  update: PropTypes.func.isRequired,
-};
+function renderField({ input, label, type, meta: { touched, error } }) {
+  return (
+    <div>
+      <label>{label}</label>
+      <input type={type} {...input} />
+      {touched && error && <p>{error}</p>}
+    </div>
+  )
+}
+
+function required(value) {
+  return (value ? undefined : "Required");
+}
+
+function min(length) {
+  return value => {
+    return (value && value.length < length
+      ? `Must be at least ${length}`
+      : undefined
+    );
+  };
+}
+
+function max(length) {
+  return value => {
+    return (value && length < value.length
+      ? `Must be at most ${length}`
+      : undefined
+    );
+  };
+}
 
 export default PasswordField;
