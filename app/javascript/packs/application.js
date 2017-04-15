@@ -12,12 +12,26 @@ axios.defaults.headers.common["Accept"] = "application/json";
 const token = document.querySelector("meta[name='csrf-token']").content;
 axios.defaults.headers.common["X-CSRF-Token"] = token;
 
-const store = createStore(
-  rootReducer,
-  applyMiddleware(thunk)
-);
-
 document.addEventListener("DOMContentLoaded", () => {
+  const preload = document.getElementById("preload");
+  let initialState;
+  if (preload == null) {
+    initialState = {};
+  } else {
+    const notes = JSON.parse(preload.dataset.notes);
+    notes.forEach(note => note.review_after = new Date(note.review_after));
+    initialState = {
+      auth: { signedIn: true },
+      notes: { data: notes },
+    };
+  }
+
+  const store = createStore(
+    rootReducer,
+    initialState,
+    applyMiddleware(thunk)
+  );
+
   render(
     <Provider store={store}>
       <App />

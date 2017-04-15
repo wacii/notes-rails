@@ -14,6 +14,8 @@ function fetch() {
     });
 
     promise.then(({ data }) => {
+      data.forEach(note => note.review_after = new Date(note.review_after));
+      
       dispatch({
         type: "FETCH_NOTES_SUCCESS",
         data,
@@ -88,7 +90,7 @@ function destroy(id) {
 
 function update(id, attributes) {
   return (dispatch, getState) => {
-    const { notes } = getState();
+    const { notes: { data: notes } } = getState();
     const note = notes.find(note => note.id === id);
 
     dispatch({
