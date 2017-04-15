@@ -34,8 +34,8 @@ function notesReducer(state = defaultState, action) {
     case "CREATE_NOTE_REQUEST":
       return Object.assign({}, state, { loading: true, error: null });
     case "CREATE_NOTE_SUCCESS":
-      const notes = state.notes.concat(action.data);
-      return Object.assign({}, state, { notes, loading: false, error: null });
+      data = state.data.concat(action.data);
+      return Object.assign({}, state, { data, loading: false, error: null });
     case "CREATE_NOTE_FAILURE":
       return Object.assign({}, state, { loading: false, error: action.data });
 
