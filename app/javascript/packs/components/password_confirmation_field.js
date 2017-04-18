@@ -1,7 +1,7 @@
 import React from "react";
-import Field from "redux-form";
+import { Field } from "redux-form";
 
-function PasswordConfirmation() {
+function PasswordConfirmationField() {
   return (
     <Field type="password"
       name="password_confirmation"
@@ -27,4 +27,4 @@ function confirm(password) {
   };
 }
 
-export default PasswordConfirmation;
+export default PasswordConfirmationField;
