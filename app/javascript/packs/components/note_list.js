@@ -1,14 +1,17 @@
 import React, { Component, PropTypes } from "react";
 import { Link } from "react-router-dom";
 
+// TODO: setup due in x days
+
 function NoteItem({ note, destroy }) {
   return (
-    <li>
-      {note.text}
-      <button onClick={destroy}>
-        &times;
-      </button>
-    </li>
+    <tr>
+      <td>{note.text}</td>
+      <td>
+        <Link to="#">You</Link>
+      </td>
+      <td>6 days</td>
+    </tr>
   );
 }
 
@@ -24,13 +27,19 @@ class NoteList extends Component {
     ));
 
     return (
-      <div>
-        <h1>Notes</h1>
-        <ul>{noteItems}</ul>
-        <Link to="/">
-          Back
-        </Link>
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Note</th>
+            <th>From</th>
+            <th>Due</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {noteItems}
+        </tbody>
+      </table>
     );
   }
 }

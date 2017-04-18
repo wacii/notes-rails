@@ -2,7 +2,7 @@ import React, { PropTypes } from "react";
 
 function SignOut({ signOut }) {
   return (
-    <button onClick={signOut}>
+    <button className="button-secondary" onClick={signOut}>
       Sign Out
     </button>
   );

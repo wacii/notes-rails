@@ -26,17 +26,23 @@ function CurrentNote({ notes, destroyNote, updateNote }) {
   return (
     <div>
       {currentNote ? (
-        <p>{currentNote.text}</p>
+        <blockquote className="note-card">
+          <p>{currentNote.text}</p>
+        </blockquote>
       ) : (
         <p>There are no notes to review.</p>
       )}
 
-      <button onClick={destroyCurrentNote}>
-        Discard
+      <button className="button-primary delay" onClick={resetReviewAfter}>
+        Keep
       </button>
 
-      <button onClick={resetReviewAfter}>
-        Keep
+      <button className="button-secondary delay">Reset</button>
+
+      <button
+        className="button-secondary float-right remove"
+        onClick={destroyCurrentNote}>
+        Remove
       </button>
     </div>
   );
