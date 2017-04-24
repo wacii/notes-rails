@@ -9,15 +9,18 @@ function CurrentNote({ currentNote, destroyNote, keepNote }) {
     destroyNote(currentNote.id);
   }
 
+  if (currentNote == null)
+    return (
+      <div className="empty">
+        <h4 className="empty-title">There are no notes to review.</h4>
+      </div>
+    );
+
   return (
     <div>
-      {currentNote ? (
-        <blockquote className="note-card">
-          <p>{currentNote.text}</p>
-        </blockquote>
-      ) : (
-        <p>There are no notes to review.</p>
-      )}
+      <blockquote className="note-card">
+        <p>{currentNote.text}</p>
+      </blockquote>
 
       <button className="button-primary delay" onClick={keepCurrentNote}>
         Keep
