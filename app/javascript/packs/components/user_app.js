@@ -12,6 +12,7 @@ import CurrentNote from "../containers/current_note";
 import NoteList from "../containers/note_list";
 import Header from "./header";
 import Sidebar from "./sidebar";
+import ActiveLink from "./active_link";
 
 // TODO: add active class to tabs
 
@@ -31,9 +32,9 @@ function UserApp() {
               </div>
 
               <div className="flex">
-                <Link to="/" className="tab">Private</Link>
+                <ActiveLink to="/" className="tab">Private</ActiveLink>
                 <Link to="#" className="tab disabled">Shared</Link>
-                <Link to="/all" className="tab">Overview</Link>
+                <ActiveLink to="/all" className="tab">Overview</ActiveLink>
               </div>
 
               <div className="card-content">
