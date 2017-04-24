@@ -1,14 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { reduxForm } from "redux-form";
-import EmailField from "./email_field";
-import PasswordField from "./password_field";
+import { reduxForm, Field } from "redux-form";
+import Input from "./input";
+import { email, required, min, max } from "../utils/validations";
 
 function SignIn({ handleSubmit, submitting }) {
   return (
     <form onSubmit={handleSubmit}>
-      <EmailField />
-      <PasswordField />
+      <Field type="email"
+        name="email"
+        component={Input}
+        validate={email}
+        label="Email" />
+
+
+      <Field type="password"
+        name="password"
+        component={Input}
+        validate={[required, min(8), max(25)]}
+        label="Password" />
 
       <button type="submit" disabled={submitting}>
         Sign In

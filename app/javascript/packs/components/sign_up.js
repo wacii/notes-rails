@@ -1,16 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { reduxForm } from "redux-form";
-import EmailField from "./email_field";
-import PasswordField from "./password_field";
-import PasswordConfirmationField from "./password_confirmation_field";
+import { reduxForm, Field } from "redux-form";
+import Input from "./input";
+import { email, required, min, max, confirm } from "../utils/validations";
 
-function SignUp({ handleSubmit, submitting }) {
+function SignUp({ handleSubmit, submitting, values: { password } }) {
   return (
     <form onSubmit={handleSubmit}>
-      <EmailField />
-      <PasswordField />
-      <PasswordConfirmationField />
+      <Field type="email"
+        name="email"
+        component={Input}
+        validate={email}
+        label="Email" />
+
+      <Field type="password"
+        name="password"
+        component={Input}
+        validate={[required, min(8), max(25)]}
+        label="Password" />
+
+      <Field type="password"
+        name="password_confirmation"
+        component={Input}
+        validations={confirm(password)}
+        label="Password confirmation" />
 
       <button type="submit" disabled={submitting}>
         Sign up
