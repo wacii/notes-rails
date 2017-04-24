@@ -15,7 +15,7 @@ function fetch() {
 
     promise.then(({ data }) => {
       data.forEach(note => note.review_after = new Date(note.review_after));
-      
+
       dispatch({
         type: "FETCH_NOTES_SUCCESS",
         data,
@@ -125,9 +125,23 @@ function update(id, attributes) {
   }
 }
 
+function keep(id, currentInterval) {
+  const interval = currentInterval + 1;
+  const reviewAfter = new Date;
+  reviewAfter.setDate(reviewAfter.getDate() + interval);
+
+  const attributes = {
+    interval,
+    review_after: reviewAfter,
+  };
+
+  return update(id, attributes);
+}
+
 export {
   fetch,
   create,
   destroy,
   update,
+  keep,
 };

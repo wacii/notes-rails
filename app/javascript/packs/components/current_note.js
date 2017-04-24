@@ -1,22 +1,8 @@
 import React, { Component, PropTypes } from "react";
 
-function CurrentNote({ notes, destroyNote, updateNote }) {
-  const today = new Date;
-  const currentNote = notes
-    .filter(note => note.review_after < today)
-    .sort(note => note.review_after)[0];
-
-  function resetReviewAfter() {
-    const interval = currentNote.interval + 1;
-    const reviewAfter = new Date;
-    reviewAfter.setDate(reviewAfter.getDate() + interval);
-
-    const attributes = {
-      interval,
-      review_after: reviewAfter,
-    };
-
-    updateNote(currentNote.id, attributes);
+function CurrentNote({ currentNote, destroyNote, keepNote }) {
+  function keepCurrentNote() {
+    keepNote(currentNote.id, currentNote.interval);
   }
 
   function destroyCurrentNote() {
@@ -33,7 +19,7 @@ function CurrentNote({ notes, destroyNote, updateNote }) {
         <p>There are no notes to review.</p>
       )}
 
-      <button className="button-primary delay" onClick={resetReviewAfter}>
+      <button className="button-primary delay" onClick={keepCurrentNote}>
         Keep
       </button>
 
