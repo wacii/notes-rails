@@ -1,45 +1,57 @@
-import React from "react";
-import { Field, reduxForm } from "redux-form";
+import React, { Component } from "react";
 
 const errorMessage = "There was an error saving your note."
 
 // TODO: rename 'error' 'server error'?
-// TODO: how to do button groups with redux-form
+// TODO: submit on enter
+// TODO: implement using redux form
 
-function NewNote({ handleSubmit, error }) {
-  return (
-    <form onSubmit={handleSubmit}>
-      {error && <p>{errorMessage}</p>}
+class NewNote extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { text: "" };
+    this.handleChange = this.handleChange.bind(this);
+    this.post = this.post.bind(this);
+    this.share = this.share.bind(this);
+  }
 
-      <Field name="text" component={renderField} validate={required} />
-    </form>
-  );
-}
+  handleChange(event) {
+    this.setState({ text: event.target.value });
+  }
 
-function renderField({ input, meta: { touched, error }}) {
-  return (
-    <div>
-      <div className="flex">
-        <input type="text" {...input} />
-        <button type="submit" className="button-secondary">
-          Post
-        </button>
+  post() {
+    const { text } = this.state;
+    this.props.createNote({ text, public: false });
+    this.setState({ text: "" });
+  }
+
+  share() {
+    const { text } = this.state;
+    this.props.createNote({ text, public: true });
+    this.setState({ text: "" });
+  }
+
+  render() {
+    const { error } = this.props;
+    const { text } = this.state;
+
+    return (
+      <div>
+        <div className="flex">
+          <input type="text" value={text} onChange={this.handleChange} />
+          <div>
+            <button className="button-primary" onClick={this.post}>
+              Post
+            </button>
+            <button className="button-secondary" onClick={this.share}>
+              Share
+            </button>
+          </div>
+        </div>
+        {error && <p>{errorMessage}</p>}
       </div>
-      {touched && error && <p>{error}</p>}
-    </div>
-  )
+    )
+  }
 }
 
-function required(value) {
-  return (value ? undefined : "Required");
-}
-
-function onSubmit({ text }, _dispatch, { createNote, reset}) {
-  createNote(text);
-  reset();
-}
-
-export default reduxForm({
-  form: "newNote",
-  onSubmit,
-})(NewNote);
+export default NewNote

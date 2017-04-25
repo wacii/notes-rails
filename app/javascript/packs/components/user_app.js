@@ -32,8 +32,7 @@ function UserApp() {
               </div>
 
               <div className="flex">
-                <ActiveLink to="/" className="tab">Private</ActiveLink>
-                <Link to="#" className="tab disabled">Shared</Link>
+                <ActiveLink to="/" className="tab">Notes</ActiveLink>
                 <ActiveLink to="/all" className="tab">Overview</ActiveLink>
               </div>
 

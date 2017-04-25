@@ -31,14 +31,12 @@ function fetch() {
   }
 }
 
-function create(text) {
+function create(attributes) {
   return dispatch => {
     dispatch({ type: "CREATE_NOTE_REQUEST" });
 
     const data = {
-      note: {
-        text,
-      },
+      note: attributes,
     };
 
     const promise = axios({
