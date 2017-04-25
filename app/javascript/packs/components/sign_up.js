@@ -4,9 +4,15 @@ import { reduxForm, Field } from "redux-form";
 import Input from "./input";
 import { email, required, min, max, confirm } from "../utils/validations";
 
-function SignUp({ handleSubmit, submitting, values: { password } }) {
+function SignUp({ handleSubmit, submitting, password }) {
   return (
     <form onSubmit={handleSubmit}>
+      <Field type="text"
+        name="username"
+        component={Input}
+        validate={required}
+        label="Username" />
+
       <Field type="email"
         name="email"
         component={Input}
@@ -22,7 +28,7 @@ function SignUp({ handleSubmit, submitting, values: { password } }) {
       <Field type="password"
         name="password_confirmation"
         component={Input}
-        validations={confirm(password)}
+        validate={confirm(password)}
         label="Password confirmation" />
 
       <button type="submit" disabled={submitting}>
@@ -36,9 +42,9 @@ function SignUp({ handleSubmit, submitting, values: { password } }) {
   );
 }
 
-function onSubmit(props, _dispatch, { signUp }) {
-  const { email, password, passwordConfirmation } = props;
-  signUp(email, password, passwordConfirmation);
+function onSubmit(values, _dispatch, { signUp }) {
+  const { username, email, password, passwordConfirmation } = values;
+  signUp(username, email, password, passwordConfirmation);
 }
 
 export default reduxForm({

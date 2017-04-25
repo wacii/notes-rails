@@ -64,7 +64,7 @@ function signOut() {
   }
 }
 
-function signUp(email, password, passwordConfirmation) {
+function signUp(username, email, password, passwordConfirmation) {
   return dispatch => {
     cancellationSource.cancel();
     cancellationSource = CancelToken.source()
@@ -73,6 +73,7 @@ function signUp(email, password, passwordConfirmation) {
 
     const data = {
       user: {
+        username,
         email,
         password,
         "password_confirmation": passwordConfirmation,
