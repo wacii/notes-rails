@@ -10,9 +10,13 @@ class User < ApplicationRecord
   has_many :followed, class_name: "Follow"
 
   def all_notes
-    Note
-      .joins("INNER JOIN users ON notes.user_id = users.id")
+    notes = Note
+      .joins(:user)
       .joins("LEFT OUTER JOIN follows ON follows.follower_id = users.id")
-      .where("notes.user_id = :id OR follows.follower_id = :id", id: id)
+      .references(:follows)
+
+    notes.where(user_id: id).or(
+      notes.where(follows: { follower_id: id }, public: true)
+    )
   end
 end
