@@ -1,10 +1,6 @@
 import axios, { CancelToken } from "axios";
 
-let cancellationSource = CancelToken.source();
 function fetch() {
-  cancellationSource.cancel();
-  cancellationSource = CancelToken.source();
-
   return dispatch => {
     dispatch({ type: "FETCH_NOTES_REQUEST" });
 

@@ -14,8 +14,7 @@ import Header from "./header";
 import ProfileSidebar from "../containers/profile_sidebar";
 import BrowseSidebar from "../containers/browse_sidebar";
 import ActiveLink from "./active_link";
-
-// TODO: add active class to tabs
+import Profile from "../containers/profile";
 
 function UserApp() {
   return (
@@ -44,10 +43,13 @@ function UserApp() {
                 <Switch>
                   <Route exact path="/" component={CurrentNote} />
                   <Route path="/all" component={NoteList} />
-                  <Redirect to="/" />
+                  <Redirect from="/sign-in" to="/" />
+                  <Redirect from="/sign-up" to="/" />
                 </Switch>
               </div>
             </div>
+
+            <Route path="/profile/:id" component={Profile} />
           </div>
         </div>
       </div>
