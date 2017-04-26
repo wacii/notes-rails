@@ -11,7 +11,8 @@ import NewNote from "../containers/new_note";
 import CurrentNote from "../containers/current_note";
 import NoteList from "../containers/note_list";
 import Header from "./header";
-import Sidebar from "./sidebar";
+import ProfileSidebar from "../containers/profile_sidebar";
+import BrowseSidebar from "../containers/browse_sidebar";
 import ActiveLink from "./active_link";
 
 // TODO: add active class to tabs
@@ -23,7 +24,10 @@ function UserApp() {
         <Header />
 
         <div className="flex">
-          <Sidebar />
+          <div className="nav hidden-small">
+            <ProfileSidebar />
+            <BrowseSidebar />
+          </div>
 
           <div className="content">
             <div className="card">
