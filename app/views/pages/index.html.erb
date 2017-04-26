@@ -1,7 +1,2 @@
-<% if user_signed_in? -%>
-  <%= content_tag("div", nil,
-    id: "preload",
-    data: { username: current_user.username, notes: current_user.all_notes }
-  ) %>
-<% end -%>
+<%= content_tag("div", nil, id: "preload", data: @data) %>
 <div id="app"></div>

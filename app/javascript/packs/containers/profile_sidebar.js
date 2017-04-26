@@ -1,11 +1,11 @@
 import { connect } from "react-redux";
-import AppComponent from "../components/app";
+import ProfileSidebarComponent from "../components/profile_sidebar";
 
 function mapStateToProps({ auth: { username }}) {
-  return { signedIn: username !== "" };
+  return { username };
 }
 
 export default connect(
   mapStateToProps,
   () => ({})
-)(AppComponent);
+)(ProfileSidebarComponent);

@@ -1,31 +1,29 @@
 const defaultState = {
-  signedIn: false,
+  username: "",
   loading: false,
   error: null,
 };
 
+const extend = Object.assign.bind({});
+
 function authReducer(state = defaultState, action) {
   switch (action.type) {
+    case "SIGN_UP_REQUEST":
     case "SIGN_IN_REQUEST":
-      return { signedIn: false, loading: true, error: null };
+      return extend(defaultState, { loading: true });
+    case "SIGN_UP_SUCCESS":
     case "SIGN_IN_SUCCESS":
-      return { signedIn: true, loading: false, error: null };
+      return extend(defaultState, { username: action.data });
+    case "SIGN_UP_FAILURE":
     case "SIGN_IN_FAILURE":
-      return { signedIn: false, loading: false, error: action.message };
+      return extend(defaultState, { error: action.message });
 
     case "SIGN_OUT_REQUEST":
-      return { signedIn: true, loading: true, error: null };
+      return extend(state, { loading: true, error: null });
     case "SIGN_OUT_SUCCESS":
-      return { signedIn: false, loading: false, error: null };
+      return extend(defaultState);
     case "SIGN_OUT_FAILURE":
-      return { signedIn: false, loading: false, error: action.message };
-
-      case "SIGN_UP_REQUEST":
-        return { signedIn: false, loading: true, error: null };
-      case "SIGN_UP_SUCCESS":
-        return { signedIn: true, loading: false, error: null };
-      case "SIGN_UP_FAILURE":
-        return { signedIn: false, loading: false, error: action.message };
+      return extend(defaultState, { error: action.message });
 
     default:
       return state;

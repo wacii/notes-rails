@@ -1,31 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ProfileSidebar from "../containers/profile_sidebar";
 
 function Sidebar() {
   return (
     <div className="nav hidden-small">
-      <div className="card">
-        <div className="card-top">
-          <div className="avatar">
-            <i className="ion-android-person" />
-          </div>
-          <Link to="#" className="user">@signo</Link>
-        </div>
-
-        <div className="flex">
-          <Link to="#" className="tab following">
-            Following
-            <br />
-            <small>4</small>
-          </Link>
-
-          <Link to="#" className="tab user-card">
-            Followers
-            <br />
-            <small>93</small>
-          </Link>
-        </div>
-      </div>
+      <ProfileSidebar />
 
       <div className="card">
         <div className="card-top">

@@ -23,8 +23,8 @@ function signIn(email, password) {
 
     promise.then(updateCSRFToken);
 
-    promise.then(_request => {
-      dispatch({ type: "SIGN_IN_SUCCESS" });
+    promise.then(({ data: { username }}) => {
+      dispatch({ type: "SIGN_IN_SUCCESS", data: username });
       dispatch(fetchNotes());
     });
 
@@ -89,8 +89,8 @@ function signUp(username, email, password, passwordConfirmation) {
 
     promise.then(updateCSRFToken);
 
-    promise.then(_request => {
-      dispatch({ type: "SIGN_UP_SUCCESS" });
+    promise.then(({ data: { username } }) => {
+      dispatch({ type: "SIGN_UP_SUCCESS", data: username });
       dispatch(fetchNotes());
     });
 
