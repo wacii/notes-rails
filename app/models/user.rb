@@ -9,7 +9,6 @@ class User < ApplicationRecord
   )
 
   has_many :notes
-  has_many :follows, foreign_key: "follower_id"
   has_many :followers, class_name: "Follow"
   has_many :followed, class_name: "Follow"
 

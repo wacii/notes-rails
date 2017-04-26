@@ -3,7 +3,7 @@ class PagesController < ApplicationController
     @data =
       if user_signed_in?
         {
-          username: current_user.username,
+          auth: current_user,
           notes: current_user.all_notes
         }
       else

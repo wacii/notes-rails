@@ -1,5 +1,5 @@
 const defaultState = {
-  username: "",
+  data: null,
   loading: false,
   error: null,
 };
@@ -13,7 +13,7 @@ function authReducer(state = defaultState, action) {
       return extend(defaultState, { loading: true });
     case "SIGN_UP_SUCCESS":
     case "SIGN_IN_SUCCESS":
-      return extend(defaultState, { username: action.data });
+      return extend(defaultState, { data: action.data });
     case "SIGN_UP_FAILURE":
     case "SIGN_IN_FAILURE":
       return extend(defaultState, { error: action.message });

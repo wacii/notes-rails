@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import AppComponent from "../components/app";
 
-function mapStateToProps({ auth: { username }}) {
-  return { signedIn: username !== "" };
+function mapStateToProps({ auth: { data }}) {
+  return { signedIn: data };
 }
 
 export default connect(

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function ProfileSidebar({ username }) {
+function ProfileSidebar({ username, followers, followed }) {
   return (
     <div className="card">
       <div className="card-top">
@@ -15,13 +15,13 @@ function ProfileSidebar({ username }) {
         <Link to="#" className="tab following">
           Following
           <br />
-          <small>4</small>
+          <small>{followed}</small>
         </Link>
 
         <Link to="#" className="tab user-card">
           Followers
           <br />
-          <small>93</small>
+          <small>{followers}</small>
         </Link>
       </div>
     </div>
