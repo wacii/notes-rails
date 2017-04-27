@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// TODO: not synced with new follows
+
 function ProfileSidebar({ username, followers, followed }) {
   return (
     <div className="card">

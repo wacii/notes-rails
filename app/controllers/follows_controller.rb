@@ -12,6 +12,7 @@ class FollowsController < ApplicationController
   def create
     return head :unauthorized unless user_signed_in?
     follow = Follow.new(follow_params)
+    follow.follower = current_user
     if follow.save
       render json: follow, status: :created
     else

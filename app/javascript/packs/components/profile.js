@@ -6,9 +6,20 @@ import Followed from "../containers/followed";
 import Followers from "../containers/followers";
 
 class Profile extends Component {
+  constructor(props) {
+    super(props);
+    this.follow = this.follow.bind(this);
+  }
+
   componentDidMount() {
     const { getProfile, match: { params } } = this.props;
     getProfile(params.id);
+  }
+
+  follow(event) {
+    const { createFollow, match: { params: { id } } } = this.props;
+    createFollow(id);
+    event.preventDefault();
   }
 
   render() {
@@ -28,7 +39,7 @@ class Profile extends Component {
 
             @{user.username}
 
-            <button className="float-right button-primary">
+            <button className="float-right button-primary" onClick={this.follow}>
               Follow
             </button>
           </h2>

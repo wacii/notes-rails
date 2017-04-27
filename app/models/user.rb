@@ -8,7 +8,6 @@ class User < ApplicationRecord
     :validatable
   )
 
-  # TODO: followers represent the follows not the underlying users
   has_many :notes
   has_many :followed_follows, class_name: "Follow", foreign_key: "followed_id"
   has_many :follower_follows, class_name: "Follow", foreign_key: "follower_id"
