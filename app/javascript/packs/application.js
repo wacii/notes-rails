@@ -14,15 +14,15 @@ axios.defaults.headers.common["X-CSRF-Token"] = token;
 
 document.addEventListener("DOMContentLoaded", () => {
   const preload = document.getElementById("preload");
-  const auth = JSON.parse(preload.dataset.auth);
   const latestNotes = JSON.parse(preload.dataset.latest);
 
   let initialState;
-  if (!auth) {
+  if (!preload.dataset.auth) {
     initialState = {
       latestNotes: { data: latestNotes },
     };
   } else {
+    const auth = JSON.parse(preload.dataset.auth);
     const notes = JSON.parse(preload.dataset.notes);
     notes.forEach(note => note.review_after = new Date(note.review_after));
     initialState = {
