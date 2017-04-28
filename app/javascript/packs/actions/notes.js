@@ -1,11 +1,11 @@
 import axios, { CancelToken } from "axios";
 
-function fetch() {
+function fetch(id) {
   return dispatch => {
-    dispatch({ type: "FETCH_NOTES_REQUEST" });
+    dispatch({ type: "FETCH_NOTES_REQUEST", id });
 
     const promise = axios({
-      url: "/notes",
+      url: `/users/${id}/notes`,
       method: "get",
     });
 
@@ -14,6 +14,7 @@ function fetch() {
 
       dispatch({
         type: "FETCH_NOTES_SUCCESS",
+        id,
         data,
       });
     });
@@ -21,6 +22,7 @@ function fetch() {
     promise.catch(({ data }) => {
       dispatch({
         type: "FETCH_NOTES_FAILURE",
+        id,
         data,
       });
     });

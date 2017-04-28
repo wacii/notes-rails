@@ -7,7 +7,10 @@ Rails.application.routes.draw do
   get "/sign-up", to: "pages#index"
   get "/profile/*other", to: "pages#index"
 
-  resources :notes, only: [:index, :show, :create, :update, :destroy]
+  resources :users, only: nil, shallow: true do
+    resources :notes, only: [:index, :show, :update, :destroy]
+  end
+  resources :notes, only: :create
   resources :follows, only: [:create, :destroy] do
     collection do
       get :followers

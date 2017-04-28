@@ -25,7 +25,7 @@ function signIn(email, password) {
 
     promise.then(({ data }) => {
       dispatch({ type: "SIGN_IN_SUCCESS", data });
-      dispatch(fetchNotes());
+      dispatch(fetchNotes(data.id));
     });
 
     promise.catch(({ status }) => {

@@ -1,7 +1,13 @@
 class NotesController < ApplicationController
   def index
     return head :unauthorized unless user_signed_in?
-    render json: current_user.notes
+    notes =
+      if current_user.id == params[:user_id]
+        current_user.notes
+      else
+        User.find(params[:user_id]).notes.where(public: false)
+      end
+    render json: notes
   end
 
   def show
