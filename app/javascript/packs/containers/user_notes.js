@@ -4,7 +4,11 @@ import { destroy as destroyNote } from "../actions/notes";
 import NoteListComponent from "../components/note_list";
 import currentUserNotes from "./current_user_notes";
 
-function mapStateToProps({ notes: { data: notes, error, loading }}) {
+function mapStateToProps(state) {
+  const { notes: { error, loading } } = state;
+  const { data: { currentUserId, userNotes } } = state;
+  const notes = userNotes[currentUserId];
+
   return { notes, error, loading };
 }
 

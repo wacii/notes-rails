@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
-import { applyMiddleware, createStore } from "redux";
+import { applyMiddleware, compose, createStore } from "redux";
 import thunk from "redux-thunk";
 import App from "./containers/app";
 import rootReducer from "./reducers";
@@ -26,16 +26,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const notes = JSON.parse(preload.dataset.notes);
     notes.forEach(note => note.review_after = new Date(note.review_after));
     initialState = {
-      latestNotes: { data: latestNotes },
-      auth: { data: auth },
-      notes: { data: notes },
+      data: {
+        currentUserId: auth.id,
+        latestNotes,
+        users: { [auth.id]: auth }
+      },
     };
   }
 
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const store = createStore(
     rootReducer,
     initialState,
-    applyMiddleware(thunk)
+    composeEnhancers(applyMiddleware(thunk)),
   );
 
   render(

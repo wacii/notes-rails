@@ -21,7 +21,7 @@ function get(id) {
 
 function followed(id) {
   return dispatch => {
-    dispatch({ type: "GET_FOLLOWED_REQUEST" });
+    dispatch({ type: "GET_FOLLOWED_REQUEST", id });
 
     const promise = axios({
       url: `/users/${id}/followed`,
@@ -29,18 +29,18 @@ function followed(id) {
     });
 
     promise.then(({ data }) => {
-      dispatch({ type: "GET_FOLLOWED_SUCCESS", data });
+      dispatch({ type: "GET_FOLLOWED_SUCCESS", data, id });
     });
 
     promise.catch(({ data }) => {
-      dispatch({ type: "GET_FOLLOWED_FAILURE", data });
+      dispatch({ type: "GET_FOLLOWED_FAILURE", data, id });
     });
   }
 }
 
 function followers(id) {
   return dispatch => {
-    dispatch({ type: "GET_FOLLOWERS_REQUEST" });
+    dispatch({ type: "GET_FOLLOWERS_REQUEST", id });
 
     const promise = axios({
       url: `/users/${id}/followers`,
@@ -48,11 +48,11 @@ function followers(id) {
     });
 
     promise.then(({ data }) => {
-      dispatch({ type: "GET_FOLLOWERS_SUCCESS", data });
+      dispatch({ type: "GET_FOLLOWERS_SUCCESS", data, id });
     });
 
     promise.catch(({ data }) => {
-      dispatch({ type: "GET_FOLLOWERS_FAILURE", data });
+      dispatch({ type: "GET_FOLLOWERS_FAILURE", data, id });
     });
   }
 }

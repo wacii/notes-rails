@@ -4,6 +4,8 @@ const defaultState = {
   error: null,
 };
 
+// FIXME: rename to GET_USER etc.
+
 function profile(state = defaultState, action) {
   switch(action.type) {
     case "GET_PROFILE_REQUEST":

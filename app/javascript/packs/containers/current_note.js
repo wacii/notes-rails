@@ -4,7 +4,11 @@ import { destroy as destroyNote, keep as keepNote} from "../actions/notes";
 import CurrentNoteComponent from "../components/current_note";
 import currentUserNotes from "./current_user_notes";
 
-function mapStateToProps({ notes: { data: notes, loading, error } }) {
+function mapStateToProps(state) {
+  const { notes: { error, loading } } = state;
+  const { data: { currentUserId, userNotes } } = state;
+  const notes = userNotes[currentUserId] || [];
+
   const today = new Date;
   const currentNote = notes
     .filter(note => note.review_after < today)

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetch as fetchNotes } from "../actions/notes";
 
-function mapStateToProps({ auth: { data: { id: userId }} }) {
+function mapStateToProps({ data: { currentUserId: userId } }) {
   return { userId };
 }
 

@@ -1,5 +1,7 @@
 import axios, { CancelToken } from "axios";
 
+// TODO: id => userId?
+
 function fetch(id) {
   return dispatch => {
     dispatch({ type: "FETCH_NOTES_REQUEST", id });

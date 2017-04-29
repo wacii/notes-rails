@@ -1,7 +1,9 @@
 import { connect } from "react-redux";
 import BrowseSidebarComponent from "../components/browse_sidebar";
 
-function mapStateToProps({ latestNotes: { data: notes } }) {
+// FIXME: fetch latest notes actively
+
+function mapStateToProps({ data: { latestNotes: notes } }) {
   return { notes };
 }
 

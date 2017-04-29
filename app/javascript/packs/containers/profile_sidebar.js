@@ -1,13 +1,14 @@
 import { connect } from "react-redux";
 import ProfileSidebarComponent from "../components/profile_sidebar";
 
-function mapStateToProps({ auth: { data }}) {
+function mapStateToProps({ data: { currentUserId, users }}) {
+  const user = users[currentUserId];
   const {
     id,
     username,
     followers_count: followers,
     followed_count: followed
-  } = data;
+  } = user;
   return { id, username, followers, followed };
 }
 

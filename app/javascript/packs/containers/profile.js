@@ -4,6 +4,8 @@ import { get as getProfile } from "../actions/users";
 import { create as createFollow } from "../actions/follows";
 import ProfileComponent from "../components/profile";
 
+// FIXME: how to pull data off state? how to get current user id?
+
 function mapStateToProps({ profile: { data: user, loading, error } }) {
   return { user, loading, error };
 }
