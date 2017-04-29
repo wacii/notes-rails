@@ -5,6 +5,8 @@ import NotesList from "../containers/note_list";
 import Followed from "../containers/followed";
 import Followers from "../containers/followers";
 
+// FIXME: fetch notes on load
+
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -46,19 +48,19 @@ class Profile extends Component {
         </div>
 
         <div className="flex">
-          <ActiveLink to={`/profile/${user.id}/notes`} className="tab">
+          <ActiveLink to={`/profiles/${user.id}/notes`} className="tab">
             Notes
             <br />
             <small>403</small>
           </ActiveLink>
 
-          <ActiveLink to={`/profile/${user.id}/followed`} className="tab">
+          <ActiveLink to={`/profiles/${user.id}/followed`} className="tab">
             Followed
             <br />
             <small>{user.followed_count}</small>
           </ActiveLink>
 
-          <ActiveLink to={`/profile/${user.id}/followers`}  className="tab">
+          <ActiveLink to={`/profiles/${user.id}/followers`}  className="tab">
             Followers
             <br />
             <small>{user.followers_count}</small>
@@ -66,9 +68,9 @@ class Profile extends Component {
         </div>
 
         <Switch>
-          <Route path="/profile/:id/notes" component={NotesList} />
-          <Route path="/profile/:id/followed" component={Followed} />
-          <Route path="/profile/:id/followers" component={Followers} />
+          <Route path="/profiles/:id/notes" component={NotesList} />
+          <Route path="/profiles/:id/followed" component={Followed} />
+          <Route path="/profiles/:id/followers" component={Followers} />
         </Switch>
       </div>
     );

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { followers as fetch } from "../actions/profile";
+import { followers as fetch } from "../actions/users";
 import UserList from "../components/user_list";
 
 function mapStateToProps({ followers: { data: users, loading, error }}) {

@@ -5,22 +5,15 @@ Rails.application.routes.draw do
   get "/all", to: "pages#index"
   get "/sign-in", to: "pages#index"
   get "/sign-up", to: "pages#index"
-  get "/profile/*other", to: "pages#index"
+  get "/profiles/*other", to: "pages#index"
 
-  resources :users, only: nil, shallow: true do
+  resources :users, only: :show, shallow: true do
     resources :notes, only: [:index, :show, :update, :destroy]
+    member do
+      get :followers, to: "users#followers"
+      get :followed, to: "users#followed"
+    end
   end
   resources :notes, only: :create
-  resources :follows, only: [:create, :destroy] do
-    collection do
-      get :followers
-      get :followed
-    end
-  end
-  resources :profiles, only: [:show] do
-    member do
-      get :followers
-      get :followed
-    end
-  end
+  resources :follows, only: [:create, :destroy]
 end

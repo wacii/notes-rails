@@ -5,7 +5,7 @@ function get(id) {
     dispatch({ type: "GET_PROFILE_REQUEST" });
 
     const promise = axios({
-      url: `/profiles/${id}`,
+      url: `/users/${id}`,
       method: "get"
     });
 
@@ -24,7 +24,7 @@ function followed(id) {
     dispatch({ type: "GET_FOLLOWED_REQUEST" });
 
     const promise = axios({
-      url: `/profiles/${id}/followed`,
+      url: `/users/${id}/followed`,
       method: "get"
     });
 
@@ -43,7 +43,7 @@ function followers(id) {
     dispatch({ type: "GET_FOLLOWERS_REQUEST" });
 
     const promise = axios({
-      url: `/profiles/${id}/followers`,
+      url: `/users/${id}/followers`,
       method: "get"
     });
 

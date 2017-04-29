@@ -1,4 +1,4 @@
-class ProfilesController < ApplicationController
+class UsersController < ApplicationController
   def show
     head :unauthorized unless user_signed_in?
     user = User.find(params[:id])

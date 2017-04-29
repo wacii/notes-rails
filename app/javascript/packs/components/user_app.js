@@ -49,7 +49,7 @@ function UserApp() {
               </div>
             </div>
 
-            <Route path="/profile/:id" component={Profile} />
+            <Route path="/profiles/:id" component={Profile} />
           </div>
         </div>
       </div>

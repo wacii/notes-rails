@@ -22,7 +22,7 @@ class UserList extends Component {
       <ul>
         {users.map(user => (
           <li key={user.id}>
-            <Link to={`/profile/${user.id}/notes`}>
+            <Link to={`/profiles/${user.id}/notes`}>
               @{user.username}
             </Link>
           </li>

@@ -17,7 +17,7 @@ function BrowseSidebar({ notes }) {
         {notes.map(note => (
           <div key={note.id} className="note">
             <p>{note.text}</p>
-            <Link to={`/profile/${note.author_id}/notes`}>@{note.author}</Link>
+            <Link to={`/profiles/${note.author_id}/notes`}>@{note.author}</Link>
           </div>
         ))}
       </div>

@@ -1,14 +1,4 @@
 class FollowsController < ApplicationController
-  def followers
-    return head :unauthorized unless user_signed_in?
-    render json: current_user.followers
-  end
-
-  def followed
-    return head :unauthorized unless user_signed_in?
-    render json: current_user.followed
-  end
-
   def create
     return head :unauthorized unless user_signed_in?
     follow = Follow.new(follow_params)

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { get as getProfile } from "../actions/profile";
+import { get as getProfile } from "../actions/users";
 import { create as createFollow } from "../actions/follows";
 import ProfileComponent from "../components/profile";
 
