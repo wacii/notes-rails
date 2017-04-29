@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from "react";
 
-function CurrentNote({ currentNote, destroyNote, keepNote }) {
+function CurrentNote({ currentNote, loading, error, destroyNote, keepNote }) {
   function keepCurrentNote() {
     keepNote(currentNote.id, currentNote.interval);
   }
@@ -8,6 +8,11 @@ function CurrentNote({ currentNote, destroyNote, keepNote }) {
   function destroyCurrentNote() {
     destroyNote(currentNote.id);
   }
+
+  if (loading)
+    return (
+      <p>Loading...</p>
+    );
 
   if (currentNote == null)
     return (

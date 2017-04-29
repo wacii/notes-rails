@@ -9,7 +9,7 @@ import {
 import SignOut from "../containers/sign_out";
 import NewNote from "../containers/new_note";
 import CurrentNote from "../containers/current_note";
-import NoteList from "../containers/note_list";
+import UserNotes from "../containers/user_notes";
 import Header from "./header";
 import ProfileSidebar from "../containers/profile_sidebar";
 import BrowseSidebar from "../containers/browse_sidebar";
@@ -42,7 +42,7 @@ function UserApp() {
               <div className="card-content">
                 <Switch>
                   <Route exact path="/" component={CurrentNote} />
-                  <Route path="/all" component={NoteList} />
+                  <Route path="/all" component={UserNotes} />
                   <Redirect from="/sign-in" to="/" />
                   <Redirect from="/sign-up" to="/" />
                 </Switch>

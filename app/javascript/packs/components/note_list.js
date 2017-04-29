@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 // TODO: setup due in x days
 
-function NoteItem({ note, destroy }) {
+function NoteItem({ note }) {
   return (
     <tr>
       <td>{note.text}</td>
@@ -15,38 +15,37 @@ function NoteItem({ note, destroy }) {
   );
 }
 
-class NoteList extends Component {
-  render() {
-    const { notes, destroyNote } = this.props;
-
-    const noteItems = notes.map(note => (
-      <NoteItem
-        key={note.id}
-        note={note}
-        destroy={() => destroyNote(note.id)} />
-    ));
-
+function NoteList({ notes, fetching, error }) {
+  if (fetching)
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Note</th>
-            <th>From</th>
-            <th>Due</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {noteItems}
-        </tbody>
-      </table>
+      <p>Loading...</p>
     );
-  }
+
+  const noteItems = notes.map(note => (
+    <NoteItem
+      key={note.id}
+      note={note} />
+  ));
+
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>Note</th>
+          <th>From</th>
+          <th>Due</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {noteItems}
+      </tbody>
+    </table>
+  );
 }
 
 NoteList.propTypes = {
   notes: PropTypes.array.isRequired,
-  destroyNote: PropTypes.func.isRequired,
 };
 
 export default NoteList;
