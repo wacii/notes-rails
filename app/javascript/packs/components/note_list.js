@@ -15,8 +15,8 @@ function NoteItem({ note }) {
   );
 }
 
-function NoteList({ notes, fetching, error }) {
-  if (fetching)
+function NoteList({ notes, loading, error }) {
+  if (loading)
     return (
       <p>Loading...</p>
     );

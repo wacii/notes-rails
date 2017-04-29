@@ -4,8 +4,8 @@ import { destroy as destroyNote } from "../actions/notes";
 import NoteListComponent from "../components/note_list";
 import currentUserNotes from "./current_user_notes";
 
-function mapStateToProps({ notes: { data: notes, error, fetching }}) {
-  return { notes, error, fetching };
+function mapStateToProps({ notes: { data: notes, error, loading }}) {
+  return { notes, error, loading };
 }
 
 function mapDispatchToProps(dispatch) {
