@@ -13,7 +13,7 @@ class UserList extends Component {
     const { users, loading, error } = this.props;
 
     if (loading)
-      return <p>Loading...</p>;
+      return null;
 
     if (users.length === 0)
       return (

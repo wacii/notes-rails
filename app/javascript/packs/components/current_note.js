@@ -11,9 +11,7 @@ function CurrentNote({ currentNote, loading, error, destroyNote, keepNote }) {
   }
 
   if (loading)
-    return (
-      <p>Loading...</p>
-    );
+    return null;
 
   if (currentNote == null)
     return (

@@ -28,7 +28,7 @@ class Profile extends Component {
     const { match: { params: { id } } } = this.props;
 
     if (loading) {
-      return <p>Loading...</p>;
+      return null;
     }
 
     return (

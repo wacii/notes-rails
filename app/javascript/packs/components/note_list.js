@@ -25,9 +25,7 @@ class NoteList extends Component {
     const { notes, loading, error } = this.props;
 
     if (loading)
-      return (
-        <p>Loading...</p>
-      );
+      return null;
 
     return (
       <ul className="list-notes">
