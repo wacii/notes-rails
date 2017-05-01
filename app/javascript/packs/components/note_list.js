@@ -1,7 +1,18 @@
 import React, { Component, PropTypes } from "react";
 import { Link } from "react-router-dom";
 
-// TODO: setup due in x days
+const msInDay = 1000 * 60 * 60 * 24;
+
+function dateToDays(dateObj) {
+  const now = Date.now();
+  const date = dateObj.getTime();
+
+  if (date < now)
+    return "Now"
+
+  const days = Math.round((date - now) / (msInDay));
+  return (days === 1 ? "1 Day" : `${days} Days`);
+}
 
 function NoteItem({ note }) {
   return (
@@ -10,7 +21,7 @@ function NoteItem({ note }) {
       <td>
         <Link to="#">You</Link>
       </td>
-      <td>6 days</td>
+      <td>{dateToDays(note.review_after)}</td>
     </tr>
   );
 }

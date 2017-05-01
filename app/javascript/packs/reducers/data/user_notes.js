@@ -10,11 +10,13 @@ function userNotes(state = defaultState, action) {
 
     case "CREATE_NOTE_SUCCESS":
       note = action.data;
+      note.review_after = new Date(note.review_after)
       userId = note.user_id;
       notes = state[userId];
       return Object.assign({}, state, { [userId]: notes.concat([note]) });
     case "UPDATE_NOTE_SUCCESS":
       note = action.data;
+      note.review_after = new Date(note.review_after)
       userId = note.user_id;
       notes = state[userId].map(current => (
         note.id === current.id ? note : current
@@ -22,6 +24,7 @@ function userNotes(state = defaultState, action) {
       return Object.assign({}, state, { [userId]: notes });
     case "DESTROY_NOTE_SUCCESS":
       note = action.data;
+      note.review_after = new Date(note.review_after)
       userId = note.user_id;
       notes = state[userId].filter(current => (
         note.id !== current.id
