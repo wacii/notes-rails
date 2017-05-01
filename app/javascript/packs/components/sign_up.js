@@ -6,39 +6,45 @@ import { email, required, min, max, confirm } from "../utils/validations";
 
 function SignUp({ handleSubmit, submitting, password }) {
   return (
-    <form onSubmit={handleSubmit}>
-      <Field type="text"
-        name="username"
-        component={Input}
-        validate={required}
-        label="Username" />
-
-      <Field type="email"
-        name="email"
-        component={Input}
-        validate={email}
-        label="Email" />
-
-      <Field type="password"
-        name="password"
-        component={Input}
-        validate={[required, min(8), max(25)]}
-        label="Password" />
-
-      <Field type="password"
-        name="password_confirmation"
-        component={Input}
-        validate={confirm(password)}
-        label="Password confirmation" />
-
-      <button type="submit" disabled={submitting}>
+    <section>
+      <div className="landing-title">
         Sign up
-      </button>
+      </div>
 
-      <Link to="/sign_in">
-        Sign in
-      </Link>
-    </form>
+      <form onSubmit={handleSubmit}>
+        <Field type="text"
+          name="username"
+          component={Input}
+          validate={required}
+          label="Username" />
+
+        <Field type="email"
+          name="email"
+          component={Input}
+          validate={email}
+          label="Email" />
+
+        <Field type="password"
+          name="password"
+          component={Input}
+          validate={[required, min(8), max(25)]}
+          label="Password" />
+
+        <Field type="password"
+          name="password_confirmation"
+          component={Input}
+          validate={confirm(password)}
+          label="Password confirmation" />
+
+        <button type="submit" disabled={submitting} className="button-primary">
+          Sign up
+        </button>
+
+        <Link to="/sign_in" className="button-secondary">
+          Sign in
+        </Link>
+      </form>
+    </section>
   );
 }
 

@@ -2,11 +2,11 @@ import React, { PropTypes } from "react";
 
 function Input({ input, label, type, meta: { touched, error } }) {
   return (
-    <div>
+    <fieldset>
       <label>{label}</label>
-      <input type={type} {...input} />
+      <input type={type} {...input} placeholder={label} />
       {touched && error && <p>{error}</p>}
-    </div>
+    </fieldset>
   )
 }
 

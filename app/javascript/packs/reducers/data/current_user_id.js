@@ -1,7 +1,7 @@
 const defaultState = null;
 
 function currentUserId(state = defaultState, action) {
-  switch (action.case) {
+  switch (action.type) {
     case "SIGN_IN_SUCCESS":
     case "SIGN_UP_SUCCESS":
       return action.data.id;

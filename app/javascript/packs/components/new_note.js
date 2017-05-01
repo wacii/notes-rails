@@ -36,17 +36,20 @@ class NewNote extends Component {
     const { text } = this.state;
 
     return (
-      <div>
-        <div className="flex">
-          <input type="text" value={text} onChange={this.handleChange} />
-          <div>
-            <button className="button-primary" onClick={this.post}>
-              Post
-            </button>
-            <button className="button-secondary" onClick={this.share}>
-              Share
-            </button>
-          </div>
+      <div className="note-add">
+        <div className="input">
+          <input type="text"
+            value={text}
+            onChange={this.handleChange}
+            placeholder="Add note..." />
+        </div>
+        <div className="buttons">
+          <button className="button-primary" onClick={this.post}>
+            Add
+          </button>
+          <button className="button-secondary" onClick={this.share}>
+            Share
+          </button>
         </div>
         {error && <p>{errorMessage}</p>}
       </div>

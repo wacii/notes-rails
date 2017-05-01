@@ -3,9 +3,12 @@ class NotesController < ApplicationController
     return head :unauthorized unless user_signed_in?
     notes =
       if current_user.id == params[:user_id]
-        current_user.notes
+        current_user.notes.joins(:user)
+          .select("notes.*, users.username AS author")
       else
-        User.find(params[:user_id]).notes.where(public: false)
+        User.find(params[:user_id]).notes.joins(:user)
+          .where(public: false)
+          .select("notes.*, users.username AS author")
       end
     render json: notes
   end

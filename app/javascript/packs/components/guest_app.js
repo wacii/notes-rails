@@ -6,11 +6,13 @@ import SignUp from "../containers/sign_up";
 function GuestApp() {
   return (
     <Router>
-      <Switch>
-        <Route path="/sign-in" component={SignIn} />
-        <Route path="/sign-up" component={SignUp} />
-        <Redirect to="/sign-in" />
-      </Switch>
+      <div className="container landing">
+        <Switch>
+          <Route path="/sign-in" component={SignIn} />
+          <Route path="/sign-up" component={SignUp} />
+          <Redirect to="/sign-in" />
+        </Switch>
+      </div>
     </Router>
   );
 }

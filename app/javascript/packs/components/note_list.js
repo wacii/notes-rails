@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from "react";
 import { Link } from "react-router-dom";
 
+// TODO: move dateToDays to util
+
 const msInDay = 1000 * 60 * 60 * 24;
 
 function dateToDays(dateObj) {
@@ -11,19 +13,7 @@ function dateToDays(dateObj) {
     return "Now"
 
   const days = Math.round((date - now) / (msInDay));
-  return (days === 1 ? "1 Day" : `${days} Days`);
-}
-
-function NoteItem({ note }) {
-  return (
-    <tr>
-      <td>{note.text}</td>
-      <td>
-        <Link to="#">You</Link>
-      </td>
-      <td>{dateToDays(note.review_after)}</td>
-    </tr>
-  );
+  return (days === 1 ? "1 day ago" : `${days} days ago`);
 }
 
 class NoteList extends Component {
@@ -39,26 +29,15 @@ class NoteList extends Component {
         <p>Loading...</p>
       );
 
-    const noteItems = notes.map(note => (
-      <NoteItem
-        key={note.id}
-        note={note} />
-    ));
-
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Note</th>
-            <th>From</th>
-            <th>Due</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {noteItems}
-        </tbody>
-      </table>
+      <ul className="list-notes">
+        {notes.map(note => (
+          <li key={note.id}>
+            <p>{note.text}</p>
+            <small>{dateToDays(note.review_after)}</small>
+          </li>
+        ))}
+      </ul>
     );
   }
 }

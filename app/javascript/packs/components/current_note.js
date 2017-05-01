@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from "react";
+import { Link } from "react-router-dom";
 
 function CurrentNote({ currentNote, loading, error, destroyNote, keepNote }) {
   function keepCurrentNote() {
@@ -23,21 +24,24 @@ function CurrentNote({ currentNote, loading, error, destroyNote, keepNote }) {
 
   return (
     <div>
-      <blockquote className="note-card">
+      <div className="note">
+        <Link to={`/profiles/${currentNote.user_id}/notes`} className="user">
+          @{currentNote.author}
+        </Link>
         <p>{currentNote.text}</p>
-      </blockquote>
+      </div>
 
-      <button className="button-primary delay" onClick={keepCurrentNote}>
-        Keep
-      </button>
+      <div className="button-group">
+        <button className="button-primary" onClick={keepCurrentNote}>
+          Keep
+        </button>
 
-      <button className="button-secondary delay">Reset</button>
-
-      <button
-        className="button-secondary float-right remove"
-        onClick={destroyCurrentNote}>
-        Remove
-      </button>
+        <button
+          className="button-secondary float-right"
+          onClick={destroyCurrentNote}>
+          Remove
+        </button>
+      </div>
     </div>
   );
 }

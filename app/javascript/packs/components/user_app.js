@@ -1,56 +1,30 @@
 import React from "react";
 import {
   BrowserRouter as Router,
-  Link,
   Switch,
   Route,
   Redirect
 } from "react-router-dom";
-import SignOut from "../containers/sign_out";
-import NewNote from "../containers/new_note";
-import CurrentNote from "../containers/current_note";
-import UserNotes from "../containers/user_notes";
-import Header from "./header";
-import ProfileSidebar from "../containers/profile_sidebar";
-import BrowseSidebar from "../containers/browse_sidebar";
-import ActiveLink from "./active_link";
+import Header from "../containers/header";
+import Home from "./home";
+import Browse from "../containers/browse";
 import Profile from "../containers/profile";
 
 function UserApp() {
   return (
     <Router>
-      <div className="container">
+      <div>
         <Header />
 
-        <div className="flex">
-          <div className="nav hidden-small">
-            <ProfileSidebar />
-            <BrowseSidebar />
-          </div>
-
-          <div className="content">
-            <div className="card">
-              <div className="card-top">
-                <NewNote />
-              </div>
-
-              <div className="flex">
-                <ActiveLink to="/" className="tab">Notes</ActiveLink>
-                <ActiveLink to="/all" className="tab">Overview</ActiveLink>
-              </div>
-
-              <div className="card-content">
-                <Switch>
-                  <Route exact path="/" component={CurrentNote} />
-                  <Route path="/all" component={UserNotes} />
-                  <Redirect from="/sign-in" to="/" />
-                  <Redirect from="/sign-up" to="/" />
-                </Switch>
-              </div>
-            </div>
-
+        <div className="container">
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/browse" component={Browse} />
             <Route path="/profiles/:id" component={Profile} />
-          </div>
+
+            <Redirect from="/sign-in" to="/" />
+            <Redirect from="/sign-up" to="/" />
+          </Switch>
         </div>
       </div>
     </Router>

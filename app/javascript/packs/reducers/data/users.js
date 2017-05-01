@@ -3,7 +3,7 @@ const defaultState = {};
 let user;
 
 function users(state = defaultState, action) {
-  switch (action.case) {
+  switch (action.type) {
     case "SIGN_IN_SUCCESS":
     case "SIGN_UP_SUCCESS":
       user = action.data;

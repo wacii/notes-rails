@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import BrowseSidebarComponent from "../components/browse_sidebar";
+import BrowseComponent from "../components/browse";
 import fetchOnMount from "./fetch_on_mount";
 import { fetchLatest as fetch } from "../actions/notes";
 
@@ -17,4 +17,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(fetchOnMount(BrowseSidebarComponent));
+)(fetchOnMount(BrowseComponent));

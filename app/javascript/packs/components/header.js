@@ -1,32 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ActiveLink from "./active_link";
+import Dropdown from "./dropdown";
 import SignOut from "../containers/sign_out";
 
-function Header() {
+// FIXME: setup dropdown
+
+function Header({ userId }) {
   return (
-    <header className="flex">
-      <div className="brand">
-        <Link to="/">Thing</Link>
-      </div>
+    <header>
+      <div className="container">
+        <div className="header-nav">
+          <Link to="/" className="header-brand hide-mobile">[~]</Link>
 
-      <div className="icons">
-        <ul>
-          <li>
-            <Link to="#" className="ion-person hidden-large" />
-          </li>
+          <ActiveLink to="/" className="header-item" />
+          <ActiveLink to="/browse" className="header-item" />
+          <ActiveLink to={`/profiles/${userId}/notes`} className="header-item" />
 
-          <li>
-            <Link to="#" className="ion-search hidden-large" />
-          </li>
+          <div className="header-nav-space hide-mobile" />
 
-          <li>
-            <Link to="#" className="ion-gear-b" />
-          </li>
-        </ul>
-      </div>
-
-      <div className="icons">
-        <SignOut />
+          <Dropdown className="header-cog">
+            <Link to="/settings">Settings</Link>
+            <SignOut />
+          </Dropdown>
+        </div>
       </div>
     </header>
   );

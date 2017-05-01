@@ -4,30 +4,36 @@ import { reduxForm, Field } from "redux-form";
 import Input from "./input";
 import { email, required, min, max } from "../utils/validations";
 
-function SignIn({ handleSubmit, submitting }) {
+function SignIn({ handleSubmit, submitting, router }) {
   return (
-    <form onSubmit={handleSubmit}>
-      <Field type="email"
-        name="email"
-        component={Input}
-        validate={email}
-        label="Email" />
+    <section>
+      <div className="landing-title">
+        Sign in
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        <Field type="email"
+          name="email"
+          component={Input}
+          validate={email}
+          label="Email" />
 
 
-      <Field type="password"
-        name="password"
-        component={Input}
-        validate={[required, min(8), max(25)]}
-        label="Password" />
+        <Field type="password"
+          name="password"
+          component={Input}
+          validate={[required, min(8), max(25)]}
+          label="Password" />
 
-      <button type="submit" disabled={submitting}>
-        Sign In
-      </button>
+        <button type="submit" className="button-primary" disabled={submitting}>
+          Sign In
+        </button>
 
-      <Link to="/sign-up">
-        Sign up
-      </Link>
-    </form>
+        <Link to="/sign-up" className="button-secondary">
+          Sign up
+        </Link>
+      </form>
+    </section>
   )
 }
 
