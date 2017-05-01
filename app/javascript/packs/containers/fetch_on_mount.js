@@ -7,7 +7,7 @@ function fetchOnMount(WrappedComponent) {
     }
 
     render() {
-      const otherProps = this.props;
+      const otherProps = Object.assign({}, this.props);
       delete otherProps.fetch;
       return <WrappedComponent {...otherProps} />;
     }

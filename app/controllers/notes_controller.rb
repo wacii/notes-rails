@@ -10,6 +10,16 @@ class NotesController < ApplicationController
     render json: notes
   end
 
+  def latest
+    return head :unauthorized unless user_signed_in?
+    latest_notes = Note
+      .where(public: true).order(:created_at).limit(3)
+      .joins(:user).select(
+        "notes.*, users.username AS author, users.id AS author_id"
+      )
+    render json: latest_notes
+  end
+
   def show
     note = Note.find(params[:id])
     return head :forbidden unless note.user == current_user

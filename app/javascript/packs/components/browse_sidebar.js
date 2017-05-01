@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function BrowseSidebar({ notes }) {
+function BrowseSidebar({ notes, loading, error }) {
   return (
     <div className="card">
       <div className="card-top">

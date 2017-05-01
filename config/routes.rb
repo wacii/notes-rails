@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get "/sign-up", to: "pages#index"
   get "/profiles/*other", to: "pages#index"
 
+  get "/notes/latest", to: "notes#latest"
   resources :users, only: :show, shallow: true do
     resources :notes, only: [:index, :show, :update, :destroy]
     member do

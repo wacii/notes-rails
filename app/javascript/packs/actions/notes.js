@@ -31,6 +31,33 @@ function fetch(id) {
   }
 }
 
+function fetchLatest() {
+  return dispatch => {
+    dispatch({ type: "FETCH_LATEST_NOTES_REQUEST" });
+
+    const promise = axios({
+      url: `/notes/latest`,
+      method: "get",
+    });
+
+    promise.then(({ data }) => {
+      data.forEach(note => note.review_after = new Date(note.review_after));
+
+      dispatch({
+        type: "FETCH_LATEST_NOTES_SUCCESS",
+        data,
+      });
+    });
+
+    promise.catch(({ data }) => {
+      dispatch({
+        type: "FETCH_LATEST_NOTES_FAILURE",
+        data,
+      });
+    });
+  }
+}
+
 function create(attributes) {
   return dispatch => {
     dispatch({ type: "CREATE_NOTE_REQUEST" });
@@ -138,6 +165,7 @@ function keep(id, currentInterval) {
 
 export {
   fetch,
+  fetchLatest,
   create,
   destroy,
   update,
