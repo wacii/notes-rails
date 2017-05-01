@@ -5,8 +5,6 @@ import NotesList from "../containers/note_list";
 import Followed from "../containers/followed";
 import Followers from "../containers/followers";
 
-// FIXME: fetch notes on load
-
 class Profile extends Component {
   constructor(props) {
     super(props);

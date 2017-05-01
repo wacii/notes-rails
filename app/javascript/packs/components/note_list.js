@@ -15,36 +15,45 @@ function NoteItem({ note }) {
   );
 }
 
-function NoteList({ notes, loading, error }) {
-  if (loading)
+class NoteList extends Component {
+  componentDidMount() {
+    this.props.fetch();
+  }
+
+  render() {
+    const { notes, loading, error } = this.props;
+
+    if (loading)
+      return (
+        <p>Loading...</p>
+      );
+
+    const noteItems = notes.map(note => (
+      <NoteItem
+        key={note.id}
+        note={note} />
+    ));
+
     return (
-      <p>Loading...</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Note</th>
+            <th>From</th>
+            <th>Due</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {noteItems}
+        </tbody>
+      </table>
     );
-
-  const noteItems = notes.map(note => (
-    <NoteItem
-      key={note.id}
-      note={note} />
-  ));
-
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th>Note</th>
-          <th>From</th>
-          <th>Due</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {noteItems}
-      </tbody>
-    </table>
-  );
+  }
 }
 
 NoteList.propTypes = {
+  fetch: PropTypes.func.isRequired,
   notes: PropTypes.array.isRequired,
 };
 
