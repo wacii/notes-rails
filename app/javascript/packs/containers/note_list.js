@@ -1,9 +1,10 @@
 import { connect } from "react-redux";
 import NoteListComponent from "../components/note_list";
 
-// FIXME: how to pull data off state? how to get current user id?
-
-function mapStateToProps({ notes: { data: notes } }) {
+function mapStateToProps(state, props) {
+  const { data: { userNotes } } = state;
+  const { match: { params: { id } } } = props;
+  const notes = userNotes[id] || [];
   return { notes };
 }
 

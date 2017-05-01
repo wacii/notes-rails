@@ -7,7 +7,7 @@ import currentUserNotes from "./current_user_notes";
 function mapStateToProps(state) {
   const { notes: { error, loading } } = state;
   const { data: { currentUserId, userNotes } } = state;
-  const notes = userNotes[currentUserId];
+  const notes = userNotes[currentUserId] || [];
 
   return { notes, error, loading };
 }
