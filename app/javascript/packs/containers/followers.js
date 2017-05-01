@@ -3,9 +3,10 @@ import { bindActionCreators } from "redux";
 import { followers as fetch } from "../actions/users";
 import UserList from "../components/user_list";
 
-// FIXME: how to pull data off state? how to get current user id?
-
-function mapStateToProps({ followers: { data: users, loading, error }}) {
+function mapStateToProps(state) {
+  const { data: { currentUserId, userFollowers } } = state;
+  const { followers: { loading, error } } = state;
+  const users = userFollowers[currentUserId];
   return { users, loading, error };
 }
 
