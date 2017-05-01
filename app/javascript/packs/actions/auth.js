@@ -1,5 +1,4 @@
 import axios, { CancelToken } from "axios";
-import { fetch as fetchNotes } from "./notes";
 
 const cancellationSource = CancelToken.source();
 
@@ -25,7 +24,6 @@ function signIn(email, password) {
 
     promise.then(({ data }) => {
       dispatch({ type: "SIGN_IN_SUCCESS", data });
-      dispatch(fetchNotes(data.id));
     });
 
     promise.catch(({ status }) => {
@@ -91,7 +89,6 @@ function signUp(username, email, password, passwordConfirmation) {
 
     promise.then(({ data }) => {
       dispatch({ type: "SIGN_UP_SUCCESS", data });
-      dispatch(fetchNotes());
     });
 
     promise.catch(({ status }) => {
