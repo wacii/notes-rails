@@ -4,15 +4,13 @@ const defaultState = {
   error: null,
 };
 
-// FIXME: rename to GET_USER etc.
-
-function profile(state = defaultState, action) {
+function users(state = defaultState, action) {
   switch(action.type) {
-    case "GET_PROFILE_REQUEST":
+    case "GET_USER_REQUEST":
       return Object.assign({}, defaultState);
-    case "GET_PROFILE_SUCCESS":
+    case "GET_USER_SUCCESS":
       return { data: action.data, loading: false, error: null };
-    case "GET_PROFILE_FAILURE":
+    case "GET_USER_FAILURE":
       return { data: null, loading: false, error: action.data };
     default:
       return state;
@@ -46,7 +44,7 @@ function followers(state = defaultState, action) {
 }
 
 export {
-  profile,
+  users,
   followed,
   followers,
 };

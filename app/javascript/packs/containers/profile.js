@@ -6,7 +6,7 @@ import ProfileComponent from "../components/profile";
 
 function mapStateToProps(state) {
   const { data: { currentUserId, users } } = state;
-  const { profile: { loading, error } } = state;
+  const { users: { loading, error } } = state;
   const user = users[currentUserId];
   return { user, loading, error };
 }

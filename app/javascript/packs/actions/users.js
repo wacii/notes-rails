@@ -2,7 +2,7 @@ import axios from "axios";
 
 function get(id) {
   return dispatch => {
-    dispatch({ type: "GET_PROFILE_REQUEST" });
+    dispatch({ type: "GET_USER_REQUEST" });
 
     const promise = axios({
       url: `/users/${id}`,
@@ -10,11 +10,11 @@ function get(id) {
     });
 
     promise.then(({ data }) => {
-      dispatch({ type: "GET_PROFILE_SUCCESS", data });
+      dispatch({ type: "GET_USER_SUCCESS", data });
     });
 
     promise.catch(({ data }) => {
-      dispatch({ type: "GET_PROFILE_FAILURE", data });
+      dispatch({ type: "GET_USER_FAILURE", data });
     });
   }
 }
