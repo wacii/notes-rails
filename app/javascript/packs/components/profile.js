@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Link, Route, Switch } from "react-router-dom";
-import ActiveLink from "./active_link";
+import { Link, NavLink, Redirect, Route, Switch } from "react-router-dom";
 import NotesList from "../containers/note_list";
 import Followed from "../containers/followed";
 import Followers from "../containers/followers";
@@ -26,6 +25,7 @@ class Profile extends Component {
 
   render() {
     const { user, loading, error } = this.props;
+    const { match: { params: { id } } } = this.props;
 
     if (loading) {
       return <p>Loading...</p>;
@@ -42,26 +42,27 @@ class Profile extends Component {
         </div>
 
         <div className="tabs">
-          <ActiveLink to={`/profiles/${user.id}/notes`} className="tab">
+          <NavLink to={`/profiles/${user.id}/notes`} className="tab">
             <p>Notes</p>
             <small>403</small>
-          </ActiveLink>
+          </NavLink>
 
-          <ActiveLink to={`/profiles/${user.id}/followed`} className="tab">
+          <NavLink to={`/profiles/${user.id}/followed`} className="tab">
             <p>Followed</p>
             <small>{user.followed_count}</small>
-          </ActiveLink>
+          </NavLink>
 
-          <ActiveLink to={`/profiles/${user.id}/followers`}  className="tab">
+          <NavLink to={`/profiles/${user.id}/followers`}  className="tab">
             <p>Followers</p>
             <small>{user.followers_count}</small>
-          </ActiveLink>
+          </NavLink>
         </div>
 
         <Switch>
           <Route path="/profiles/:id/notes" component={NotesList} />
           <Route path="/profiles/:id/followed" component={Followed} />
           <Route path="/profiles/:id/followers" component={Followers} />
+          <Redirect to={`/profiles/${id}/notes`} />
         </Switch>
       </section>
     );
