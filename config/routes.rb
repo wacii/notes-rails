@@ -2,9 +2,10 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "sessions" }
   root to: "pages#index"
 
-  get "/all", to: "pages#index"
   get "/sign-in", to: "pages#index"
   get "/sign-up", to: "pages#index"
+  
+  get "/browse", to: "pages#index"
   get "/profiles/*other", to: "pages#index"
 
   get "/notes/latest", to: "notes#latest"
