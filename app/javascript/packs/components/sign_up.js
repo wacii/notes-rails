@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { reduxForm, Field } from "redux-form";
+import ButtonLink from "./button_link";
 import Input from "./input";
 import { email, required, min, max, confirm } from "../utils/validations";
 
@@ -40,9 +40,9 @@ function SignUp({ handleSubmit, submitting, password }) {
           Sign up
         </button>
 
-        <Link to="/sign_in" className="button-secondary">
+        <ButtonLink to="/sign_in" className="button-secondary">
           Sign in
-        </Link>
+        </ButtonLink>
       </form>
     </section>
   );
