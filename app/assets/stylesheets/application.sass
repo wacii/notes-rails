@@ -1,0 +1,441 @@
+// spacing
+$margin: 2rem
+$margin-large: 4rem
+
+// radius
+$border-radius: 0.25rem
+
+// drop shadow
+$shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
+
+// font
+$font-primary: 'Roboto', sans-serif
+$font-secondary: 'Roboto Mono', monospace
+
+// colors
+
+$purple: #edd8ed
+$green: #dee6bd
+$blue: #cfe7df
+$gray: gray
+$gray-light: #eee
+
+$brown-light: #f5f0eb
+$brown: #e9e2d9
+
+$text: #333
+$text-purple: #604b60
+$text-green: #505442
+$text-blue: #455c5b
+
+// resets
+
+*
+  margin: 0
+  padding: 0
+  box-sizing : border-box
+
+body
+  font-family: $font-primary
+  font-size: 1rem
+  font-weight: 300
+  line-height: 1.5
+  color: $text
+  background-color: $brown-light
+  @media (max-width: 767px)
+    background-color: white
+
+// typography
+
+a
+  text-decoration: none
+  color: $text
+
+.user
+  background-color: $green
+  color: $text-green
+
+.you
+  background-color: $purple
+  color: $text-purple
+
+.user,
+.you
+  padding-left: 2px
+  padding-right: 2px
+  font-family: $font-secondary
+
+// layout
+
+.container
+  max-width: 800px
+  margin: 0 auto
+  padding-left: 2rem
+  padding-right: 2rem
+
+  @media (max-width: 767px)
+    padding-left: 0
+    padding-right: 0
+
+// navbar
+
+header
+  margin-bottom: $margin
+  background-color: $gray
+  font-family: $font-secondary
+  font-weight: 500
+  box-shadow: $shadow
+  font-size: 0.875rem
+  a
+    color: white
+
+.header-nav
+  display: flex
+.header-item
+  text-align: center
+  &:nth-child(2)
+    &:before
+      content: "NOTES"
+  &:nth-child(3)
+    &:before
+      content: "BROWSE"
+  &:nth-child(4)
+    &:before
+      content: "PROFILE"
+  &:hover
+    border-bottom: 2px solid $green
+.active
+  border-bottom: 2px solid $green
+.header-item,
+.header-brand
+  flex: 0 0 5rem
+.header-brand
+  text-align: left
+.header-nav-space
+  flex: 1
+.header-cog
+  flex: 0 0 50px
+  font-size: 1.25rem
+  padding-top: .75rem
+  &:before
+    font-family: FontAwesome
+    content: "\f013"
+.header-item,
+.header-brand
+  padding-top: 1.25rem
+  padding-bottom: 1rem
+
+// dropdown
+
+.header-cog
+  position: relative
+  display: inline-block
+  text-align: right
+  color: white
+  &:hover
+    cursor: pointer
+
+.dropdown-content
+  display: none
+  position: absolute
+  text-align: left
+  font-size: 0.875rem
+  background-color: white
+  min-width: 10rem
+  right: 0
+  top: 3rem
+  border-radius: $border-radius
+  box-shadow: $shadow
+  @media (max-width: 767px)
+    top: 4rem
+  a
+    color: $text
+    padding: 12px 16px
+    text-decoration: none
+    display: block
+    &:hover
+      background-color: $brown-light
+      &:first-child
+        border-top-left-radius: $border-radius
+        border-top-right-radius: $border-radius
+      &:nth-child(2)
+        border-bottom-left-radius: $border-radius
+        border-bottom-right-radius: $border-radius
+
+.show
+  display: block
+
+// mobile header
+
+@media (max-width: 767px)
+  body
+    margin-top: 64px
+  header
+    margin-bottom: 0
+    position: fixed
+    height: 64px
+    width: 100%
+    top: 0
+  .header-nav
+    font-size: 1.25rem
+    a,
+    .header-cog
+      color: #bfbfbf
+    .dropdown-content a
+      color: $text
+    .active
+      color: white
+    .header-cog
+      text-align: center
+    .header-item,
+    .header-cog
+      flex: 1
+      padding-top: 1rem
+      padding-bottom: 1rem
+    .header-item
+      &:nth-child(2)
+        &:before
+          font-family: FontAwesome
+          content: "\f015"
+      &:nth-child(3)
+        &:before
+          font-family: FontAwesome
+          content: "\f002"
+      &:nth-child(4)
+        &:before
+          font-family: FontAwesome
+          content: "\f2bd"
+
+// white content area
+
+section
+  background-color: white
+  padding: 2rem
+  box-shadow: $shadow
+  border-radius: $border-radius
+  @media (max-width: 767px)
+    padding: 1rem
+    border-radius: 0
+    box-shadow: none
+
+  a
+    box-shadow: $shadow
+    font-family: $font-secondary
+    font-weight: 400
+
+// user page title
+
+.username
+  font-family: $font-secondary
+  font-size: 2rem
+  line-height: 2rem
+  margin-bottom: $margin
+  @media (max-width: 767px)
+    font-size: 1rem
+
+// tabs
+
+.tabs
+  margin-bottom: $margin
+  border-bottom: 1px solid $gray-light
+  .tab
+    display: inline-block
+    margin-right: .5rem
+    padding: .5rem 1.5rem
+    text-align: center
+    border-bottom: 1px solid transparent
+    font-weight: 400
+    box-shadow: none
+    font-family: $font-primary
+    small
+      font-weight: 300
+    &:hover
+      border-bottom: 2px solid $gray
+      cursor: pointer
+  .active
+    border-bottom: 2px solid $gray
+    &:hover
+      border-bottom: 2px solid $gray
+
+@media (max-width: 767px)
+  .tabs
+    display: flex
+  .tab
+    flex: 1
+    padding: 0
+    overflow: hidden
+    font-size: 0.675rem
+
+// notes lists
+
+.list-notes li
+  padding-top: $margin / 2
+  padding-bottom: $margin / 2
+  border-bottom: 1px solid $gray-light
+  list-style: none
+  a
+    display: inline-block
+    margin-bottom: .5rem
+  &:last-child
+    border-bottom: none
+  ul
+    li
+      display: inline
+      margin-left: 0
+      margin-right: 1rem
+      border-bottom: none
+
+// inputs
+
+input
+  font-family: $font-secondary
+  font-size: 1rem
+  width: 100%
+  padding: 7px 1rem
+  border-radius: $border-radius
+  border: 1px solid #f9f9f9
+  box-shadow: $shadow
+  -webkit-appearance: none
+
+fieldset
+  border: none
+  margin-bottom: $margin
+  label
+    display: block
+    margin-bottom: .5rem
+
+// add note
+
+.note-add
+  display: flex
+  margin-bottom: $margin-large
+  @media (max-width: 767px)
+    margin-bottom: $margin
+  .input
+    flex: 1
+  .buttons
+    display: inline
+    flex: 0 0 10rem
+    text-align: right
+    .button:nth-child(2)
+      margin-right: 0
+
+// note
+
+.note
+  margin-bottom: $margin-large
+  @media (max-width: 767px)
+    margin-bottom: $margin
+  a
+    display: inline-block
+    margin-bottom: $margin / 2
+
+// table
+
+table
+  padding: 0
+  border-spacing: 0
+  width: 100%
+  text-align: left
+  td,
+  th
+    border-bottom: 1px solid $brown
+    padding-top: .5rem
+    padding-bottom: .5rem
+  td
+    padding-top: 2rem
+    padding-bottom: 2rem
+
+// buttons
+
+button,
+.button
+  display: inline-block
+  overflow: hidden
+  padding: .5rem 1rem
+  font-size: 0.875rem
+  cursor: pointer
+  user-select: none
+  transition: all 60ms ease-in-out
+  text-align: center
+  white-space: nowrap
+  text-decoration: none !important
+  appearance: none
+  justify-content: center
+  align-items: center
+  margin-right: .5rem
+  outline: none
+  font-family: $font-secondary
+  box-shadow: $shadow
+  border-radius: $border-radius
+  &:hover
+    transition: all 60ms ease
+    opacity: 0.9
+  &:active
+    transition: all 60ms ease
+    transform: scale(0.97)
+
+.button-primary
+  background-color: $blue
+  border: 1px solid $blue
+  color: $text-blue
+
+.button-secondary
+  background-color: $gray-light
+  border: 1px solid $gray-light
+  color: $gray
+
+// landing
+
+.landing
+  margin-top: $margin-large
+
+.landing-title
+  font-size: 1.75rem
+  margin-bottom: $margin
+
+.landing-subtitle
+  font-size: 1.5rem
+  margin-bottom: $margin
+
+.landing-buttons
+  margin-bottom: $margin-large
+
+.landing-title,
+.landing-subtitle,
+.detail .title
+  font-family: $font-secondary
+
+.landing-details
+  display: flex
+  @media (max-width: 767px)
+    display: block
+
+.landing-detail
+  flex: 1
+  margin-bottom: $margin-large
+  &:first-child
+    margin-right: $margin
+  .title
+    letter-spacing: 2px
+    font-weight: 500
+    margin-bottom: .5rem
+
+// utilities
+
+.float-right
+  float: right !important
+
+.cf
+  margin-bottom: $margin
+  &:before
+    content: " "
+    display: table
+  &:after
+    content: " "
+    display: table
+    clear: both
+
+.hide-mobile
+  @media (max-width: 767px)
+    display: none !important
