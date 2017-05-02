@@ -8,7 +8,7 @@ function users(state = defaultState, action) {
     case "SIGN_UP_SUCCESS":
       user = action.data;
       return Object.assign({}, state, { [user.id]: user });
-    case "GET_PROFILE_SUCCESS":
+    case "GET_USER_SUCCESS":
       user = action.data;
       return Object.assign({}, state, { [user.id]: user });
     default:
