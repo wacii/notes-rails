@@ -19,7 +19,7 @@ class User < ApplicationRecord
   def all_notes
     notes = Note
       .joins(:user)
-      .joins("LEFT OUTER JOIN follows ON follows.follower_id = users.id")
+      .joins("LEFT OUTER JOIN follows ON follows.followed_id = users.id")
       .references(:follows)
 
     notes.where(user_id: id).or(
