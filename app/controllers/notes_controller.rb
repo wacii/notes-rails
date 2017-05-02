@@ -2,7 +2,7 @@ class NotesController < ApplicationController
   def index
     return head :unauthorized unless user_signed_in?
     notes =
-      if current_user.id == params[:user_id]
+      if current_user.id == params[:user_id].to_i
         current_user.notes.joins(:user)
           .select("notes.*, users.username AS author")
       else
