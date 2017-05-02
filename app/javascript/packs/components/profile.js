@@ -4,8 +4,6 @@ import NotesList from "../containers/note_list";
 import Followed from "../containers/followed";
 import Followers from "../containers/followers";
 
-// FIXME: hook up notes count
-
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -44,7 +42,7 @@ class Profile extends Component {
         <div className="tabs">
           <NavLink to={`/profiles/${user.id}/notes`} className="tab">
             <p>Notes</p>
-            <small>403</small>
+            <small>{user.notes_count}</small>
           </NavLink>
 
           <NavLink to={`/profiles/${user.id}/followed`} className="tab">

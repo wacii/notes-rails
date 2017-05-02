@@ -1,5 +1,5 @@
 class Note < ApplicationRecord
-  belongs_to :user, required: true
+  belongs_to :user, required: true, counter_cache: true
 
   validates :text, presence: true
 

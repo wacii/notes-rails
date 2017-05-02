@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-// FIXME: hook up notes count
+// TODO: proper plurality rules for counts
 
 class UserList extends Component {
   componentDidMount() {
@@ -30,7 +30,7 @@ class UserList extends Component {
             <br />
             <small>
               <ul>
-                <li>403 notes</li>
+                <li>{user.notes_count} notes</li>
                 <li>{user.followed_count} followed</li>
                 <li>{user.followers_count} followers</li>
               </ul>
