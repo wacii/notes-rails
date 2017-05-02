@@ -7,7 +7,7 @@ class NotesController < ApplicationController
           .select("notes.*, users.username AS author")
       else
         User.find(params[:user_id]).notes.joins(:user)
-          .where(public: false)
+          .where(public: true)
           .select("notes.*, users.username AS author")
       end
     render json: notes
