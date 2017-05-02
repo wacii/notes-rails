@@ -21,7 +21,7 @@ class UserList extends Component {
       );
 
     return (
-      <ul class="list-notes">
+      <ul className="list-notes">
         {users.map(user => (
           <li key={user.id}>
             <Link to={`/profiles/${user.id}/notes`} className="user">
