@@ -1,6 +1,7 @@
 class NotesController < ApplicationController
+  before_action :ensure_user_signed_in!
+
   def index
-    return head :unauthorized unless user_signed_in?
     notes =
       if current_user.id == params[:user_id].to_i
         current_user.notes.joins(:user)
@@ -14,7 +15,6 @@ class NotesController < ApplicationController
   end
 
   def latest
-    return head :unauthorized unless user_signed_in?
     latest_notes = Note
       .where(public: true).order(:created_at).limit(3)
       .joins(:user).select(
@@ -30,7 +30,6 @@ class NotesController < ApplicationController
   end
 
   def create
-    return head :unauthorized unless user_signed_in?
     note = current_user.notes.build(note_params)
     if note.save
       render json: note, status: :created

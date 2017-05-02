@@ -1,6 +1,7 @@
 class FollowsController < ApplicationController
+  before_action ensure_user_signed_in!
+
   def create
-    return head :unauthorized unless user_signed_in?
     follow = Follow.new(follow_params)
     follow.follower = current_user
     if follow.save
