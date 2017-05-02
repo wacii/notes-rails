@@ -3,10 +3,11 @@ import { bindActionCreators } from "redux";
 import { followers as fetch } from "../actions/users";
 import UserList from "../components/user_list";
 
-function mapStateToProps(state) {
-  const { data: { currentUserId, userFollowers } } = state;
+function mapStateToProps(state, props) {
+  const { match: { params: { id } } } = props;
+  const { data: { userFollowers } } = state;
   const { followers: { loading, error } } = state;
-  const users = userFollowers[currentUserId];
+  const users = userFollowers[id];
   return { users, loading, error };
 }
 

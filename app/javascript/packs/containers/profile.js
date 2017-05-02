@@ -4,10 +4,11 @@ import { get as getProfile } from "../actions/users";
 import { create as createFollow } from "../actions/follows";
 import ProfileComponent from "../components/profile";
 
-function mapStateToProps(state) {
-  const { data: { currentUserId, users } } = state;
+function mapStateToProps(state, props) {
+  const { match: { params: { id } } } = props;
+  const { data: { users } } = state;
   const { users: { loading, error } } = state;
-  const user = users[currentUserId];
+  const user = users[id];
   return { user, loading, error };
 }
 
