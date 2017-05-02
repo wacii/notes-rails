@@ -1,8 +1,10 @@
 import React from "react";
 import { reduxForm, Field } from "redux-form";
-import ButtonLink from "./button_link";
+import { Link } from "react-router-dom";
 import Input from "./input";
 import { email, required, min, max } from "../utils/validations";
+
+// TODO: use button to submit, not link
 
 function SignIn({ handleSubmit, submitting, router }) {
   return (
@@ -25,13 +27,15 @@ function SignIn({ handleSubmit, submitting, router }) {
           validate={[required, min(8), max(25)]}
           label="Password" />
 
-        <button type="submit" className="button-primary" disabled={submitting}>
-          Sign In
-        </button>
+        <fieldset>
+          <a onClick={handleSubmit} className="button button-primary" disabled={submitting}>
+            Sign In
+          </a>
 
-        <ButtonLink to="/sign-up" className="button-secondary">
-          Sign up
-        </ButtonLink>
+          <Link to="/sign-up" className="button button-secondary">
+            Sign up
+          </Link>
+        </fieldset>
       </form>
     </section>
   )
