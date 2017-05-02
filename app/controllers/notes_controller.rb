@@ -4,22 +4,16 @@ class NotesController < ApplicationController
   def index
     notes =
       if current_user.id == params[:user_id].to_i
-        current_user.notes.joins(:user)
-          .select("notes.*, users.username AS author")
+        current_user.notes.with_author
       else
-        User.find(params[:user_id]).notes.joins(:user)
-          .where(public: true)
-          .select("notes.*, users.username AS author")
+        User.find(params[:user_id]).notes.where(public: true).with_author
       end
     render json: notes
   end
 
   def latest
     latest_notes = Note
-      .where(public: true).order(:created_at).limit(3)
-      .joins(:user).select(
-        "notes.*, users.username AS author, users.id AS author_id"
-      )
+      .where(public: true).order(:created_at).limit(3).with_author
     render json: latest_notes
   end
 
