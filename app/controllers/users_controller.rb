@@ -3,16 +3,16 @@ class UsersController < ApplicationController
 
   def show
     user = User.can_follow(current_user).find(params[:id])
-    render json: user.as_json
+    render json: user.public_attributes
   end
 
   def followers
     user = User.find(params[:id])
-    render json: user.followers.select(:id, :username)
+    render json: user.followers
   end
 
   def followed
     user = User.find(params[:id])
-    render json: user.followed.select(:id, :username)
+    render json: user.followed
   end
 end
