@@ -1,5 +1,5 @@
 class FollowsController < ApplicationController
-  before_action ensure_user_signed_in!
+  before_action :ensure_user_signed_in!
 
   def create
     follow = Follow.new(follow_params)
