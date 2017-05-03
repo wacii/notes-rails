@@ -9,7 +9,7 @@ import Header from "../containers/header";
 import Home from "./home";
 import Browse from "../containers/browse";
 import Profile from "../containers/profile";
-import Settings from "../containers/settings";
+import Settings from "./settings";
 
 function UserApp() {
   return (

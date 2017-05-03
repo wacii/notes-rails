@@ -1,45 +1,22 @@
 import React from "react";
-import { reduxForm, Field } from "redux-form";
-import Input from "./input";
-import { email, required, confirm } from "../utils/validations";
+import { NavLink, Switch, Route } from "react-router-dom";
+import Account from "../containers/account";
+import Password from "../containers/password";
 
-function Settings({ handleSubmit, password }) {
+function Settings() {
   return (
     <section>
-      <form onSubmit={handleSubmit}>
-        <Field type="text"
-          name="username"
-          component={Input}
-          validate={required}
-          label="Username" />
+      <div className="tabs">
+        <NavLink exact to="/settings" className="tab">Account</NavLink>
+        <NavLink to="/settings/password" className="tab">Password</NavLink>
+      </div>
 
-        <Field type="email"
-          name="email"
-          component={Input}
-          validate={email}
-          label="Email" />
-
-        <Field type="password"
-          name="password"
-          component={Input}
-          validate={required}
-          label="Password" />
-
-        <Field type="password"
-          name="password_confirmation"
-          component={Input}
-          validate={[required, confirm(password)]}
-          label="Confirm Password" />
-      </form>
+      <Switch>
+        <Route path="/settings/password" component={Password} />
+        <Route path="/settings" component={Account} />
+      </Switch>
     </section>
   );
 }
 
-function onSubmit(values, _dispatch, props) {
-  // TODO
-}
-
-export default reduxForm({
-  form: "settings",
-  onSubmit,
-})(Settings);
+export default Settings;

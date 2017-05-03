@@ -4,9 +4,11 @@ Rails.application.routes.draw do
 
   get "/sign-in", to: "pages#index"
   get "/sign-up", to: "pages#index"
-  
+
   get "/browse", to: "pages#index"
   get "/profiles/*other", to: "pages#index"
+  get "/settings", to: "pages#index"
+  get "/settings/password", to: "pages#index"
 
   get "/notes/latest", to: "notes#latest"
   resources :users, only: :show, shallow: true do

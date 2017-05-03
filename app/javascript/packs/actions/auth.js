@@ -1,4 +1,5 @@
 import axios, { CancelToken } from "axios";
+import { reset } from 'redux-form'
 
 const cancellationSource = CancelToken.source();
 
@@ -101,6 +102,38 @@ function signUp(username, email, password, passwordConfirmation) {
   }
 }
 
+// FIXME: separate update username/email from update password
+function update(attributes) {
+  return (dispatch, getState) => {
+    const { data: { currentUserId } } = getState();
+
+    dispatch({
+      type: "UPDATE_REGISTRATION_REQUEST",
+      currentUserId,
+      data: attributes
+    });
+
+    const data = {
+      user: attributes,
+    };
+
+    const promise = axios({
+      url: "/users",
+      method: "patch",
+      data,
+    });
+
+    promise.then(_response => {
+      dispatch({ type: "UPDATE_REGISTRATION_SUCCESS" });
+      dispatch(reset("settingsPassword"));
+    });
+
+    promise.catch(_response => {
+      dispatch({ type: "UPDATE_REGISTRATION_FAILURE" });
+    });
+  };
+}
+
 function updateCSRFToken({ headers }) {
   const token = headers["x-csrf-token"];
   axios.defaults.headers.common["X-CSRF-Token"] = token;
@@ -110,4 +143,5 @@ export {
   signIn,
   signOut,
   signUp,
+  update,
 };

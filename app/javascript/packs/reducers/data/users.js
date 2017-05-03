@@ -11,6 +11,10 @@ function users(state = defaultState, action) {
     case "GET_USER_SUCCESS":
       user = action.data;
       return Object.assign({}, state, { [user.id]: user });
+    case "UPDATE_REGISTRATION_REQUEST":
+      const { username, email } = action.data;
+      user = (username ? { username, email } : {});
+      return Object.assign({}, state, { [action.currentUserId]: user });
     default:
       return state;
   }
