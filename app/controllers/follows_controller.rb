@@ -7,7 +7,7 @@ class FollowsController < ApplicationController
     if follow.save
       render json: follow, status: :created
     else
-      render json: follow.error, status: :unprocessable_entity
+      render json: follow.errors, status: :unprocessable_entity
     end
   end
 
@@ -15,7 +15,7 @@ class FollowsController < ApplicationController
     follow = Follow.find(params[:id])
     return head :forbidden unless follow.follower == current_user
     follow.destroy!
-    render head :ok
+    head :ok
   end
 
   private

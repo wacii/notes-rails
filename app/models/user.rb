@@ -22,16 +22,6 @@ class User < ApplicationRecord
       .select("users.*, follower_id IS NULL AS can_follow")
   end
 
-  def self.public_attributes
-    select(
-      :id,
-      :username,
-      :notes_count,
-      :followers_count,
-      :followed_count
-    )
-  end
-
   def public_attributes
     attributes.slice(
       "id",
@@ -39,7 +29,8 @@ class User < ApplicationRecord
       "email",
       "notes_count",
       "followers_count",
-      "followed_count"
+      "followed_count",
+      "can_follow"
     )
   end
 
