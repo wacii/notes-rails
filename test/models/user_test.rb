@@ -30,7 +30,6 @@ class UserTest < ActiveSupport::TestCase
     followable = create(:user)
 
     users = User.can_follow(user)
-    assert_not(users.find(user.id).can_follow)
     assert_not(users.find(followed.id).can_follow)
     assert(users.find(followable.id).can_follow)
   end

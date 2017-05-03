@@ -17,10 +17,9 @@ class User < ApplicationRecord
   validates :username, presence: true
 
   def self.can_follow(user)
-    can_follow = "users.id <> #{user.id} AND follower_id IS NULL"
     joins("LEFT OUTER JOIN follows ON follows.followed_id = users.id")
       .where(follows: { follower_id: [nil, user.id] })
-      .select("users.*, #{can_follow} AS can_follow")
+      .select("users.*, follower_id IS NULL AS can_follow")
   end
 
   def self.public_attributes
