@@ -26,4 +26,11 @@ class User < ApplicationRecord
       notes.where(follows: { follower_id: id }, public: true)
     )
   end
+
+  def self.can_follow(user)
+    can_follow = "users.id <> #{user.id} AND follower_id IS NULL"
+    joins("LEFT OUTER JOIN follows ON follows.followed_id = users.id")
+      .where(follows: { follower_id: [nil, user.id] })
+      .select("users.*, #{can_follow} AS can_follow")
+  end
 end

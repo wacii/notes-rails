@@ -2,8 +2,8 @@ class UsersController < ApplicationController
   before_action :ensure_user_signed_in!
 
   def show
-    user = User.find(params[:id])
-    render json: user.as_json.merge("can-follow" => true)
+    user = User.can_follow(current_user).find(params[:id])
+    render json: user.as_json
   end
 
   def followers
