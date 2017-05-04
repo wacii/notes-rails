@@ -12,8 +12,15 @@ function dateToDays(dateObj) {
   if (date < now)
     return "Now"
 
-  const days = Math.round((date - now) / (msInDay));
-  return (days === 1 ? "1 day ago" : `${days} days ago`);
+  const days = Math.round((date - now) / msInDay);
+  switch (days) {
+    case 0:
+      return "Less than a day";
+    case 1:
+      return "1 day ago";
+    default:
+      return `${days} days ago`;
+  }
 }
 
 class NoteList extends Component {
