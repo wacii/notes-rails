@@ -5,35 +5,19 @@ const cancellationSource = CancelToken.source();
 
 function signIn(email, password) {
   return dispatch => {
-    cancellationSource.cancel();
-    cancellationSource = CancelToken.source()
-
-    dispatch({ type: "SIGN_IN_REQUEST" });
-
     const data = {
       user: { email, password},
     };
 
-    const promise = axios({
+    return axios({
       url: "/users/sign_in",
       method: "post",
       data,
-      cancelToken: cancellationSource.token,
-    });
-
-    promise.then(updateCSRFToken);
-
-    promise.then(({ data }) => {
-      dispatch({ type: "SIGN_IN_SUCCESS", data });
-    });
-
-    promise.catch(({ status }) => {
-      const message = (status < 500
-        ? "Email and password not found"
-        : "There was an error. Please reload the page."
-      );
-      dispatch({ type: "SIGN_IN_FAILURE", error: message });
-    });
+    }).then(updateCSRFToken)
+      .then(({ data }) => {
+        dispatch({ type: "UPDATE_USERS", data });
+        dispatch({ type: "SET_CURRENT_USER", data });
+      });
   }
 }
 
@@ -134,9 +118,11 @@ function update(attributes) {
   };
 }
 
-function updateCSRFToken({ headers }) {
+function updateCSRFToken(response) {
+  const { headers } = response;
   const token = headers["x-csrf-token"];
   axios.defaults.headers.common["X-CSRF-Token"] = token;
+  return response;
 }
 
 export {

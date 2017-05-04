@@ -1,17 +1,13 @@
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { reduxForm } from "redux-form";
 import { signIn } from "../actions/auth";
 import SignInComponent from "../components/sign_in";
 
-function mapStateToProps({ auth }) {
-  return auth;
+function onSubmit(values, dispatch) {
+  const { email, password } = values;
+  return dispatch(signIn(email, password));
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ signIn }, dispatch);
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SignInComponent);
+export default reduxForm({
+  form: "signIn",
+  onSubmit,
+})(SignInComponent);
