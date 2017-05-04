@@ -49,11 +49,6 @@ function signOut() {
 
 function signUp(username, email, password, passwordConfirmation) {
   return dispatch => {
-    cancellationSource.cancel();
-    cancellationSource = CancelToken.source()
-
-    dispatch({ type: "SIGN_UP_REQUEST" });
-
     const data = {
       user: {
         username,
@@ -63,26 +58,16 @@ function signUp(username, email, password, passwordConfirmation) {
       },
     };
 
-    const promise = axios({
+    return axios({
       url: "/users",
       method: "post",
       data,
       cancelToken: cancellationSource.token,
-    });
-
-    promise.then(updateCSRFToken);
-
-    promise.then(({ data }) => {
-      dispatch({ type: "SIGN_UP_SUCCESS", data });
-    });
-
-    promise.catch(({ status }) => {
-      const message = (status < 500
-        ? "Email already in use"
-        : "An error occurred. Please reload the page."
-      );
-      dispatch({ type: "SIGN_UP_FAILURE", error: message });
-    });
+    }).then(updateCSRFToken)
+      .then(({ data }) => {
+        dispatch({ type: "UPDATE_USERS", data });
+        dispatch({ type: "SET_CURRENT_USER", data });
+      });
   }
 }
 

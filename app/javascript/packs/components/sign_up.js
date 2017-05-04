@@ -1,12 +1,12 @@
 import React from "react";
-import { reduxForm, Field } from "redux-form";
+import { Field } from "redux-form";
 import { Link } from "react-router-dom";
 import Input from "./input";
 import { email, required, min, max, confirm } from "../utils/validations";
 
 // TODO: use button to submit, not Link
 
-function SignUp({ handleSubmit, submitting, password }) {
+function SignUp({ handleSubmit, submitting, error, password }) {
   return (
     <section>
       <div className="landing-title">
@@ -39,7 +39,9 @@ function SignUp({ handleSubmit, submitting, password }) {
           label="Password confirmation" />
 
         <fieldset>
-          <a onClick={handleSubmit} disabled={submitting} className="button button-primary">
+          <a className="button button-primary"
+            onClick={handleSubmit}
+            disabled={submitting} >
             Sign up
           </a>
 
@@ -52,12 +54,4 @@ function SignUp({ handleSubmit, submitting, password }) {
   );
 }
 
-function onSubmit(values, _dispatch, { signUp }) {
-  const { username, email, password, passwordConfirmation } = values;
-  signUp(username, email, password, passwordConfirmation);
-}
-
-export default reduxForm({
-  form: "signUp",
-  onSubmit,
-})(SignUp);
+export default SignUp;
