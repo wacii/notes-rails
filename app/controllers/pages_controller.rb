@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   def index
     latest_notes = Note
-      .where(public: true).order(:created_at).limit(3).with_author
+      .where(public: true).order(created_at: :desc).limit(3).with_author
 
     @data =
       if user_signed_in?

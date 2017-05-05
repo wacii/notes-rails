@@ -13,7 +13,7 @@ class NotesController < ApplicationController
 
   def latest
     latest_notes = Note
-      .where(public: true).order(:created_at).limit(3).with_author
+      .where(public: true).order(created_at: :desc).limit(3).with_author
     render json: latest_notes
   end
 
