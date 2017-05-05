@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170502003335) do
+ActiveRecord::Schema.define(version: 20170505231539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,14 +26,21 @@ ActiveRecord::Schema.define(version: 20170502003335) do
   end
 
   create_table "notes", force: :cascade do |t|
-    t.integer "interval", default: 1
     t.bigint "user_id"
-    t.datetime "review_after"
     t.text "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "public", default: false
     t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
+  create_table "schedulers", id: false, force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "note_id"
+    t.integer "interval", default: 1
+    t.datetime "review_after"
+    t.index ["note_id"], name: "index_schedulers_on_note_id"
+    t.index ["user_id"], name: "index_schedulers_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -61,4 +68,6 @@ ActiveRecord::Schema.define(version: 20170502003335) do
   add_foreign_key "follows", "users", column: "followed_id"
   add_foreign_key "follows", "users", column: "follower_id"
   add_foreign_key "notes", "users"
+  add_foreign_key "schedulers", "notes"
+  add_foreign_key "schedulers", "users"
 end

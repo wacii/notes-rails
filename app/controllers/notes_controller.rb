@@ -28,8 +28,8 @@ class NotesController < ApplicationController
 
   def update
     note = Note.find(params[:id])
-    return head :forbidden unless note.user == current_user
-    if note.update_attributes(note_params)
+    params = (current_user == note.user ? note_params : follower_note_params)
+    if note.update_attributes(params)
       render json: note
     else
       render json: note.errors, status: :unprocessable_entity
@@ -46,6 +46,16 @@ class NotesController < ApplicationController
   private
 
   def note_params
-    params.require(:note).permit(:text, :interval, :review_after, :public)
+    params
+      .require(:note)
+      .permit(:text, :interval, :review_after, :public)
+      .merge(recorder_id: current_user.id)
+  end
+
+  def follower_note_params
+    params
+      .require(:note)
+      .permit(:interval, :review_after)
+      .merge(recorder_id: current_user.id)
   end
 end
