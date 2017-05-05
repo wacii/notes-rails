@@ -7,7 +7,7 @@ function Browse({ notes, loading, error }) {
       <ul className="list-notes">
         {notes.map(note => (
           <li key={note.id}>
-            <Link to={`/profiles/${note.author_id}/notes`} className="user">
+            <Link to={`/profiles/${note.user_id}/notes`} className="user">
               @{note.author}
             </Link>
             <p>{note.text}</p>
