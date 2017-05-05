@@ -17,12 +17,6 @@ class NotesController < ApplicationController
     render json: latest_notes
   end
 
-  def show
-    note = Note.find(params[:id])
-    return head :forbidden unless note.user == current_user
-    render json: note
-  end
-
   def create
     note = current_user.notes.build(note_params)
     if note.save

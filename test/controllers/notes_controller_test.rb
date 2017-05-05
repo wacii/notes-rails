@@ -42,18 +42,6 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     assert_equal(notes_json.length, 3)
   end
 
-  test "show renders own note" do
-    note = create(:note, user: @user)
-    get note_path(note)
-    assert_response(:ok)
-    note_json = JSON.parse(@response.body)
-    assert_equal(note_json["id"], note.id)
-
-    note = create(:note)
-    get note_path(note)
-    assert_response(:forbidden)
-  end
-
   test "creates note" do
     assert_difference("Note.count", 1) do
       post notes_path("note[text]" => "text")

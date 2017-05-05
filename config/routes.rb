@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   get "/notes/latest", to: "notes#latest"
   resources :users, only: :show, shallow: true do
-    resources :notes, only: [:index, :show, :update, :destroy]
+    resources :notes, only: [:index, :update, :destroy]
     member do
       get :followers, to: "users#followers"
       get :followed, to: "users#followed"
