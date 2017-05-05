@@ -15,6 +15,12 @@ class Profile extends Component {
     getProfile(params.id);
   }
 
+  componentWillReceiveProps(prevProps) {
+    const { getProfile, match: { params } } = this.props;
+    if (prevProps.match.params.id !== params.id)
+      getProfile(params.id);
+  }
+
   follow(event) {
     const { createFollow, match: { params: { id } } } = this.props;
     createFollow(id);
