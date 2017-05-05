@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Browse({ notes, loading, error }) {
+  if (!notes)
+    return null;
+    
   return (
     <section>
       <ul className="list-notes">

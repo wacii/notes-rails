@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 
+// FIXME: no good
+
 function fetchOnMount(WrappedComponent) {
   return class extends Component {
-    componentDidMount() {
+    componentWillMount() {
       this.props.fetch();
     }
 

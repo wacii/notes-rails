@@ -10,15 +10,16 @@ class Profile extends Component {
     this.follow = this.follow.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { getProfile, match: { params } } = this.props;
     getProfile(params.id);
   }
 
-  componentWillReceiveProps(prevProps) {
-    const { getProfile, match: { params } } = this.props;
-    if (prevProps.match.params.id !== params.id)
-      getProfile(params.id);
+  componentWillReceiveProps(nextProps) {
+    const { getProfile, match: { params: { id: currId } } } = this.props;
+    const { match: { params: { id: nextId } } } = nextProps;
+    if (nextId !== currId)
+      getProfile(nextId);
   }
 
   follow(event) {
@@ -30,8 +31,7 @@ class Profile extends Component {
   render() {
     const { user, loading, error } = this.props;
     const { match: { params: { id } } } = this.props;
-
-    if (loading) {
+    if (!user) {
       return null;
     }
 

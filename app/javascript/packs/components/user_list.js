@@ -4,15 +4,22 @@ import { Link } from "react-router-dom";
 // TODO: proper plurality rules for counts
 
 class UserList extends Component {
-  componentDidMount() {
-    const { fetch, match: { params }} = this.props;
-    fetch(params.id);
+  componentWillMount() {
+    const { fetch, match: { params: { id } }} = this.props;
+    fetch(id);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { fetch, match: { params: { id: currId } } } = this.props;
+    const { match: { params: { id: nextId } } } = nextProps;
+    if (currId !== nextId)
+      fetch(nextId);
   }
 
   render() {
     const { users, loading, error } = this.props;
 
-    if (loading)
+    if (!users)
       return null;
 
     if (users.length === 0)
