@@ -60,30 +60,16 @@ function fetchLatest() {
 
 function create(attributes) {
   return dispatch => {
-    dispatch({ type: "CREATE_NOTE_REQUEST" });
-
     const data = {
       note: attributes,
     };
 
-    const promise = axios({
+    return axios({
       url: "/notes",
       method: "post",
       data,
-    });
-
-    promise.then(({ data }) => {
-      dispatch({
-        type: "CREATE_NOTE_SUCCESS",
-        data,
-      });
-    });
-
-    promise.catch(({ data }) => {
-      dispatch({
-        type: "CREATE_NOTE_FAILURE",
-        data,
-      });
+    }).then(({ data }) => {
+      dispatch({ type: "CREATE_NOTE", data });
     });
   }
 }

@@ -1,60 +1,27 @@
 import React, { Component } from "react";
+import { Field } from "redux-form";
 
-const errorMessage = "There was an error saving your note."
-
-// TODO: rename 'error' 'server error'?
-// TODO: submit on enter
-// TODO: implement using redux form
-
-class NewNote extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { text: "" };
-    this.handleChange = this.handleChange.bind(this);
-    this.post = this.post.bind(this);
-    this.share = this.share.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({ text: event.target.value });
-  }
-
-  post() {
-    const { text } = this.state;
-    this.props.createNote({ text, public: false });
-    this.setState({ text: "" });
-  }
-
-  share() {
-    const { text } = this.state;
-    this.props.createNote({ text, public: true });
-    this.setState({ text: "" });
-  }
-
-  render() {
-    const { error } = this.props;
-    const { text } = this.state;
-
-    return (
+function NewNote({ handleSubmit, submitting, error, post, share }) {
+  return (
+    <form onSubmit={handleSubmit}>
       <div className="note-add">
         <div className="input">
-          <input type="text"
-            value={text}
-            onChange={this.handleChange}
-            placeholder="Add note..." />
+          <Field type="text"
+            name="text"
+            placeholder="Add note..."
+            component="input" />
         </div>
         <div className="buttons">
-          <button className="button-primary" onClick={this.post}>
+          <button className="button-primary" onClick={post}>
             Add
           </button>
-          <button className="button-secondary" onClick={this.share}>
+          <button className="button-secondary" onClick={share}>
             Share
           </button>
         </div>
-        {error && <p>{errorMessage}</p>}
       </div>
-    )
-  }
+    </form>
+  )
 }
 
 export default NewNote

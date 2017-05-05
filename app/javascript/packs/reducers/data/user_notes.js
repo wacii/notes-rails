@@ -8,7 +8,7 @@ function userNotes(state = defaultState, action) {
       notes = action.data;
       return Object.assign({}, state, { [action.id]: notes });
 
-    case "CREATE_NOTE_SUCCESS":
+    case "CREATE_NOTE":
       note = action.data;
       note.review_after = new Date(note.review_after)
       userId = note.user_id;
