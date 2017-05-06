@@ -22,11 +22,11 @@ function userNotes(state = defaultState, action) {
         note.id === current.id ? note : current
       ));
       return Object.assign({}, state, { [userId]: notes });
-    case "DESTROY_NOTE_SUCCESS":
-      note = action.data;
-      userId = note.user_id;
+    case "DESTROY_NOTE_REQUEST":
+      let noteId = action.id
+      userId = action.userId;
       notes = state[userId].filter(current => (
-        note.id !== current.id
+        current.id !== noteId
       ));
       return Object.assign({}, state, { [userId]: notes });
 

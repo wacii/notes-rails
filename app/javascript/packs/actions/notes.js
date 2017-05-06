@@ -75,10 +75,11 @@ function create(attributes) {
 }
 
 function destroy(id) {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({
       type: "DESTROY_NOTE_REQUEST",
       id,
+      userId: getState().data.currentUserId
     });
 
     const promise = axios({
