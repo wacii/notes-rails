@@ -1,7 +1,7 @@
 class Note < ApplicationRecord
   attribute :recorder_id, :integer
   attribute :interval, :integer, default: 1
-  attribute :review_after, :datetime, default: -> { Date.current }
+  attribute :review_after, :datetime, default: -> { Date.current + 1.day }
 
   belongs_to :user, required: true, counter_cache: true
   has_many :schedulers

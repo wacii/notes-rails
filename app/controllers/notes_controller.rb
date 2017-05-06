@@ -38,8 +38,13 @@ class NotesController < ApplicationController
 
   def destroy
     note = Note.find(params[:id])
-    return head :forbidden unless note.user == current_user
-    note.destroy!
+    Scheduler.find_or_create_by(
+      note_id: note.id,
+      user_id: current_user.id
+    ).update_attributes!(
+      active: false
+    )
+    User.reset_counters(current_user.id, :notes)
     render json: note
   end
 

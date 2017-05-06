@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170505231539) do
+ActiveRecord::Schema.define(version: 20170506032301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,11 +34,12 @@ ActiveRecord::Schema.define(version: 20170505231539) do
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
-  create_table "schedulers", id: false, force: :cascade do |t|
+  create_table "schedulers", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "note_id"
     t.integer "interval", default: 1
     t.datetime "review_after"
+    t.boolean "active", default: true
     t.index ["note_id"], name: "index_schedulers_on_note_id"
     t.index ["user_id"], name: "index_schedulers_on_user_id"
   end
