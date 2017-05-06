@@ -44,7 +44,7 @@ class NotesController < ApplicationController
     ).update_attributes!(
       active: false
     )
-    User.reset_counters(current_user.id, :notes)
+    User.decrement_counter(:notes, current_user.id)
     render json: note
   end
 
