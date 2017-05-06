@@ -17,9 +17,9 @@ function dateToDays(dateObj) {
     case 0:
       return "Less than a day";
     case 1:
-      return "1 day ago";
+      return "1 day";
     default:
-      return `${days} days ago`;
+      return `${days} days`;
   }
 }
 
