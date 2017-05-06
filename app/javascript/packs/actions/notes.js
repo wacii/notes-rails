@@ -86,8 +86,8 @@ function destroy(id) {
       method: "delete",
     });
 
-    promise.then(_response => {
-      dispatch({ type: "DESTROY_NOTE_SUCCESS" });
+    promise.then(({ data }) => {
+      dispatch({ type: "DESTROY_NOTE_SUCCESS", data });
     });
 
     promise.catch(({ data }) => {

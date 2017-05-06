@@ -40,7 +40,7 @@ class NotesController < ApplicationController
     note = Note.find(params[:id])
     return head :forbidden unless note.user == current_user
     note.destroy!
-    head :ok
+    render json: note
   end
 
   private
