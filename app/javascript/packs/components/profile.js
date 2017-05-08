@@ -40,9 +40,11 @@ class Profile extends Component {
         <div className="username">
           <a className="you">@{user.username}</a>
 
-          <button className="button-primary float-right" onClick={this.follow}>
-            Follow
-          </button>
+          {user.can_follow &&
+            <button className="button-primary float-right" onClick={this.follow}>
+              Follow
+            </button>
+          }
         </div>
 
         <div className="tabs">
