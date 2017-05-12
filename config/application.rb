@@ -19,5 +19,13 @@ module NotesRails
     config.to_prepare do
       DeviseController.respond_to :json
     end
+
+    config.lograge.enabled = true
+    config.lograge.custom_options = lambda do |event|
+      exceptions = %w(controller action format id)
+      {
+        params: event.payload[:params].except(*exceptions)
+      }
+    end
   end
 end
