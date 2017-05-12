@@ -21,6 +21,7 @@ group :development, :test do
   gem "capybara", "~> 2.13.0"
   gem "selenium-webdriver"
   gem "factory_girl_rails"
+  gem "dotenv-rails"
 end
 
 group :development do
