@@ -45,68 +45,36 @@ function create(attributes) {
   };
 }
 
-// FIXME: resolve dependency on state and currentUserId
 function destroy(id) {
-  return (dispatch, getState) => {
-    dispatch({
-      type: "DESTROY_NOTE_REQUEST",
-      id,
-      userId: getState().data.currentUserId
-    });
-
-    const promise = axios({
-      url: `/notes/${id}`,
-      method: "delete",
-    });
-
-    promise.then(({ data }) => {
-      dispatch({ type: "DESTROY_NOTE_SUCCESS", data });
-    });
-
-    promise.catch(({ data }) => {
-      dispatch({
-        type: "DESTROY_NOTE_FAILURE",
-        data,
-      });
-    });
-  }
+  return {
+    type: "DESTROY_NOTE_REQUEST",
+    id,
+    meta: {
+      offline: {
+        effect: { method: "delete", url: `/notes/${id}` },
+        commit: { type: "DESTROY_NOTE_SUCCESS", id },
+        rollback: { type: "DESTROY_NOTE_FAILURE", id },
+      },
+    },
+  };
 }
 
-// FIXME: remove dependency on getState
 function update(id, attributes) {
-  return (dispatch, getState) => {
-    const { notes: { data: notes } } = getState();
-    const note = notes.find(note => note.id === id);
+  const data = {
+    note: Object.assign({}, attributes),
+  };
 
-    dispatch({
-      type: "UPDATE_NOTE_REQUEST",
-      data: attributes,
-      id,
-    });
-
-    const data = {
-      note: Object.assign({}, attributes),
-    };
-
-    const promise = axios({
-      url: `/notes/${id}`,
-      method: "patch",
-      data,
-    });
-
-    promise.then(({ data }) => {
-      dispatch({
-        type: "UPDATE_NOTE_SUCCESS",
-        data,
-      });
-    });
-
-    promise.catch(({ data }) => {
-      dispatch({
-        type: "UPDATE_NOTE_FAILURE",
-        data,
-      });
-    });
+  return {
+    type: "UPDATE_NOTE_SUCCESS",
+    id,
+    attributes,
+    meta: {
+      offline: {
+        effect: { method: "patch", url: `/notes/${id}`, data },
+        commit: { type: "UPDATE_NOTE_SUCCESS", id, attributes },
+        commit: { type: "UPDATE_NOTE_FAILURE", id, attributes },
+      }
+    }
   }
 }
 

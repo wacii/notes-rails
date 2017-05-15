@@ -6,8 +6,10 @@ import currentUserNotes from "./current_user_notes";
 
 function mapStateToProps(state) {
   const { notes: { error, loading } } = state;
-  const { data: { currentUserId, userNotes } } = state;
-  const notes = userNotes[currentUserId] || [];
+  let { data: { currentUserId, notes } } = state;
+  const id = parseInt(currentUserId, 10);
+  notes = Object.values(notes || {})
+    .filter(note => note.user_id === id);
 
   const today = new Date;
   notes.forEach(note => note.review_after = new Date(note.review_after))
