@@ -1,29 +1,23 @@
 import axios from "axios";
 
 function create(id) {
-  return dispatch => {
-    dispatch({ type: "CREATE_FOLLOW_REQUEST" });
+  const data = {
+    follow: {
+      followed_id: id,
+    },
+  };
 
-    const data = {
-      follow: {
-        followed_id: id,
+  return {
+    type: "CREATE_FOLLOW_REQUEST",
+    id,
+    meta: {
+      offline: {
+        effect: { method: "post", url: "/follows", data },
+        commit: { type: "CREATE_FOLLOW_SUCCESS", id },
+        rollback: { type: "CREATE_FOLLOW_FAILURE", id },
       },
-    };
-
-    const promise = axios({
-      url: "/follows",
-      method: "post",
-      data,
-    });
-
-    promise.then(_response => {
-      dispatch({ type: "CREATE_FOLLOW_SUCCESS" });
-    });
-
-    promise.catch(({ data }) => {
-      dispatch({ type: "CREATE_FOLLOW_FAILURE", data });
-    });
-  }
+    },
+  };
 }
 
 export {
