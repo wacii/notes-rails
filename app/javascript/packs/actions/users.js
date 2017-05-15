@@ -1,22 +1,17 @@
 import axios from "axios";
 
 function get(id) {
-  return dispatch => {
-    dispatch({ type: "GET_USER_REQUEST" });
-
-    const promise = axios({
-      url: `/users/${id}`,
-      method: "get"
-    });
-
-    promise.then(({ data }) => {
-      dispatch({ type: "GET_USER_SUCCESS", data });
-    });
-
-    promise.catch(({ data }) => {
-      dispatch({ type: "GET_USER_FAILURE", data });
-    });
-  }
+  return {
+    type: "GET_USER_REQUEST",
+    id,
+    meta: {
+      offline: {
+        effect: { method: "get", url: `/users/${id}` },
+        commit: { type: "GET_USER_SUCCESS", id },
+        rollback: { type: "GET_USER_FAILURE", id },
+      },
+    },
+  };
 }
 
 function followed(id) {

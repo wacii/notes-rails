@@ -10,7 +10,7 @@ function reducer(state = defaultState, action) {
       return Object.assign({}, state, { [user.id]: user });
     case "UPDATE_USERS":
     case "GET_USER_SUCCESS":
-      user = action.data;
+      user = action.payload;
       return Object.assign({}, state, { [user.id]: user });
     case "UPDATE_REGISTRATION_REQUEST":
       const { username, email } = action.data;
