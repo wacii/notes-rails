@@ -4,10 +4,13 @@ import { followed as fetch } from "../actions/users";
 import UserList from "../components/user_list";
 
 function mapStateToProps(state, props) {
-  const { match: { params: { id } } } = props;
-  const { data: { userFollowed } } = state;
+  let { match: { params: { id } } } = props;
+  let { data: { userFollowed, users } } = state;
   const { followed: { loading, error } } = state;
-  const users = userFollowed[id];
+  id = parseInt(id, 10);
+  userFollowed = userFollowed[id] || [];
+  users = Object.values(users, {})
+    .filter(user => userFollowed.indexOf(user.id) !== -1);
   return { users, loading, error };
 }
 

@@ -1,8 +1,8 @@
 const defaultState = {};
 
-let user;
+let user, users;
 
-function users(state = defaultState, action) {
+function reducer(state = defaultState, action) {
   switch (action.type) {
     case "SIGN_IN_SUCCESS":
     case "SIGN_UP_SUCCESS":
@@ -16,9 +16,18 @@ function users(state = defaultState, action) {
       const { username, email } = action.data;
       user = (username ? { username, email } : {});
       return Object.assign({}, state, { [action.currentUserId]: user });
+
+    case "GET_FOLLOWED_SUCCESS":
+    case "GET_FOLLOWERS_SUCCESS":
+      users = action.payload.reduce((obj, user) => {
+        obj[user.id] = user;
+        return obj;
+      }, {});
+      return Object.assign({}, state, users);
+
     default:
       return state;
   }
 }
 
-export default users;
+export default reducer;

@@ -22,9 +22,9 @@ function followed(state = defaultState, action) {
     case "GET_FOLLOWED_REQUEST":
       return Object.assign({}, defaultState);
     case "GET_FOLLOWED_SUCCESS":
-      return { data: action.data, loading: false, error: null };
+      return { loading: false, error: null };
     case "GET_FOLLOWED_FAILURE":
-      return { data: null, loading: false, error: action.data };
+      return { loading: false, error: action.payload };
     default:
       return state;
   }
@@ -35,9 +35,9 @@ function followers(state = defaultState, action) {
     case "GET_FOLLOWERS_REQUEST":
       return Object.assign({}, defaultState);
     case "GET_FOLLOWERS_SUCCESS":
-      return { data: action.data, loading: false, error: null };
+      return { loading: false, error: null };
     case "GET_FOLLOWERS_FAILURE":
-      return { data: null, loading: false, error: action.data };
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

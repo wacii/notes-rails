@@ -20,41 +20,31 @@ function get(id) {
 }
 
 function followed(id) {
-  return dispatch => {
-    dispatch({ type: "GET_FOLLOWED_REQUEST", id });
-
-    const promise = axios({
-      url: `/users/${id}/followed`,
-      method: "get"
-    });
-
-    promise.then(({ data }) => {
-      dispatch({ type: "GET_FOLLOWED_SUCCESS", data, id });
-    });
-
-    promise.catch(({ data }) => {
-      dispatch({ type: "GET_FOLLOWED_FAILURE", data, id });
-    });
-  }
+  return {
+    type: "GET_FOLLOWED_REQUEST",
+    id,
+    meta: {
+      offline: {
+        effect: { method: "get", url: `/users/${id}/followed` },
+        commit: { type: "GET_FOLLOWED_SUCCESS", id },
+        rollback: { type: "GET_FOLLOWED_FAILURE", id },
+      },
+    },
+  };
 }
 
 function followers(id) {
-  return dispatch => {
-    dispatch({ type: "GET_FOLLOWERS_REQUEST", id });
-
-    const promise = axios({
-      url: `/users/${id}/followers`,
-      method: "get"
-    });
-
-    promise.then(({ data }) => {
-      dispatch({ type: "GET_FOLLOWERS_SUCCESS", data, id });
-    });
-
-    promise.catch(({ data }) => {
-      dispatch({ type: "GET_FOLLOWERS_FAILURE", data, id });
-    });
-  }
+  return {
+    type: "GET_FOLLOWERS_REQUEST",
+    id,
+    meta: {
+      offline: {
+        effect: { method: "get", url: `/users/${id}/followers` },
+        commit: { type: "GET_FOLLOWERS_SUCCESS", id },
+        rollback: { type: "GET_FOLLOWERS_FAILURE", id },
+      },
+    },
+  };
 }
 
 export {

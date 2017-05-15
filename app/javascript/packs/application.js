@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let initialState;
   if (!preload.dataset.auth) {
     initialState = {
-      latestNotes: { data: latestNotes },
+      data: { latestNotes },
     };
   } else {
     const auth = JSON.parse(preload.dataset.auth);
