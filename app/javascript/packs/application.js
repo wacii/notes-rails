@@ -3,9 +3,14 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { applyMiddleware, compose, createStore } from "redux";
 import thunk from "redux-thunk";
+// import { devToolsEnhancer } from 'redux-devtools-extension/logOnlyInProduction';
+import { offline } from "redux-offline";
+import offlineConfig from "redux-offline/lib/defaults";
+import NetworkError from "redux-offline/lib/defaults/effect";
+import axios from "axios";
+
 import App from "./containers/app";
 import rootReducer from "./reducers";
-import axios from "axios";
 
 axios.defaults.headers.common["Accept"] = "application/json";
 
@@ -34,11 +39,21 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  // FIXME: add redux tools back in
+  // FIXME: extract and test changes to redux-offline
   const store = createStore(
     rootReducer,
     initialState,
-    composeEnhancers(applyMiddleware(thunk)),
+    compose(
+      applyMiddleware(thunk),
+      offline(Object.assign({}, offlineConfig, {
+        effect: effect => (
+          axios(effect)
+            .then(response => response.data)
+            .catch(response => new NetworkError(response.data, response.status))
+        ),
+      }))
+    )
   );
 
   render(

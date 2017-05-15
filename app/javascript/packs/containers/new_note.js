@@ -11,8 +11,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 function onSubmit(values, dispatch, props) {
+  props.reset()
   return dispatch(createNote(values))
-    .then(() => props.reset());
 }
 
 export default reduxForm({

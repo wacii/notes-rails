@@ -10,6 +10,7 @@ function mapStateToProps(state) {
   const notes = userNotes[currentUserId] || [];
 
   const today = new Date;
+  notes.forEach(note => note.review_after = new Date(note.review_after))
   const currentNote = notes
     .filter(note => note.review_after < today)
     .sort(note => note.review_after)[0];

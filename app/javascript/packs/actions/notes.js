@@ -3,77 +3,49 @@ import axios, { CancelToken } from "axios";
 // TODO: id => userId?
 
 function fetch(id) {
-  return dispatch => {
-    dispatch({ type: "FETCH_NOTES_REQUEST", id });
-
-    const promise = axios({
-      url: `/users/${id}/notes`,
-      method: "get",
-    });
-
-    promise.then(({ data }) => {
-      data.forEach(note => note.review_after = new Date(note.review_after));
-
-      dispatch({
-        type: "FETCH_NOTES_SUCCESS",
-        id,
-        data,
-      });
-    });
-
-    promise.catch(({ data }) => {
-      dispatch({
-        type: "FETCH_NOTES_FAILURE",
-        id,
-        data,
-      });
-    });
-  }
+  return {
+    type: "FETCH_NOTES_REQUEST",
+    meta: {
+      offline: {
+        effect: { method: "get", url: `/users/${id}/notes` },
+        commit: { type: "FETCH_NOTES_SUCCESS", id },
+        rollback: { type: "FETCH_NOTES_FAILURE", id },
+      },
+    },
+  };
 }
 
 function fetchLatest() {
-  return dispatch => {
-    dispatch({ type: "FETCH_LATEST_NOTES_REQUEST" });
-
-    const promise = axios({
-      url: `/notes/latest`,
-      method: "get",
-    });
-
-    promise.then(({ data }) => {
-      data.forEach(note => note.review_after = new Date(note.review_after));
-
-      dispatch({
-        type: "FETCH_LATEST_NOTES_SUCCESS",
-        data,
-      });
-    });
-
-    promise.catch(({ data }) => {
-      dispatch({
-        type: "FETCH_LATEST_NOTES_FAILURE",
-        data,
-      });
-    });
-  }
+  return {
+    type: "FETCH_LATEST_NOTES_REQUEST",
+    meta: {
+      offline: {
+        effect: { method: "get", url: "/notes/latest" },
+        commit: { type: "FETCH_LATEST_NOTES_SUCCESS" },
+        rollback: { type: "FETCH_LATEST_NOTES_FAILURE" },
+      }
+    }
+  };
 }
 
 function create(attributes) {
-  return dispatch => {
-    const data = {
-      note: attributes,
-    };
+  const data = {
+    note: attributes,
+  };
 
-    return axios({
-      url: "/notes",
-      method: "post",
-      data,
-    }).then(({ data }) => {
-      dispatch({ type: "CREATE_NOTE", data });
-    });
-  }
+  return {
+    type: "CREATE_NOTE_REQUEST",
+    meta: {
+      offline: {
+        effect: { method: "post", url: "/notes", data },
+        commit: { type: "CREATE_NOTE_SUCCESS" },
+        rollback: { type: "CREATE_NOTE_FAILURE" },
+      },
+    },
+  };
 }
 
+// FIXME: resolve dependency on state and currentUserId
 function destroy(id) {
   return (dispatch, getState) => {
     dispatch({
@@ -100,6 +72,7 @@ function destroy(id) {
   }
 }
 
+// FIXME: remove dependency on getState
 function update(id, attributes) {
   return (dispatch, getState) => {
     const { notes: { data: notes } } = getState();

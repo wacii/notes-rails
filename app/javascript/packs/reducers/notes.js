@@ -21,13 +21,13 @@ function notesReducer(state = defaultState, action) {
       return Object.assign(
         {},
         state,
-        { data: action.data, loading: false, error: null }
+        { data: action.payload, loading: false, error: null }
       );
     case "FETCH_NOTES_FAILURE":
       return Object.assign(
         {},
         state,
-        { data: [], loading: false, error: action.data }
+        { data: [], loading: false, error: action.payload }
       );
 
     case "DESTROY_NOTE_REQUEST":

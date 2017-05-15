@@ -9,9 +9,9 @@ function latestNotes(state = defaultState, action) {
     case "FETCH_LATEST_NOTES_REQUEST":
       return Object.assign(state, { loading: true, error: null });
     case "FETCH_LATEST_NOTES_SUCCESS":
-      return { data: action.data, loading: false, error: null };
+      return { data: action.payload, loading: false, error: null };
     case "FETCH_LATEST_NOTES_FAILURE":
-      return Object.assign(state, { loading: false, error: action.data });
+      return Object.assign(state, { loading: false, error: action.payload });
     default:
       return state;
   }

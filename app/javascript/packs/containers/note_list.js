@@ -7,6 +7,7 @@ function mapStateToProps(state, props) {
   const { data: { userNotes } } = state;
   const { match: { params: { id } } } = props;
   const notes = userNotes[id] || [];
+  notes.forEach(note => note.review_after = new Date(note.review_after));
   return { userId: id, notes };
 }
 
