@@ -18,32 +18,10 @@ const token = document.querySelector("meta[name='csrf-token']").content;
 axios.defaults.headers.common["X-CSRF-Token"] = token;
 
 document.addEventListener("DOMContentLoaded", () => {
-  const preload = document.getElementById("preload");
-  const latestNotes = JSON.parse(preload.dataset.latest);
-
-  let initialState;
-  if (!preload.dataset.auth) {
-    initialState = {
-      data: { latestNotes },
-    };
-  } else {
-    const auth = JSON.parse(preload.dataset.auth);
-    const notes = JSON.parse(preload.dataset.notes);
-    notes.forEach(note => note.review_after = new Date(note.review_after));
-    initialState = {
-      data: {
-        currentUserId: auth.id,
-        latestNotes,
-        users: { [auth.id]: auth }
-      },
-    };
-  }
-
   // FIXME: add redux tools back in
   // FIXME: extract and test changes to redux-offline
   const store = createStore(
     rootReducer,
-    initialState,
     compose(
       applyMiddleware(thunk),
       offline(Object.assign({}, offlineConfig, {
@@ -52,14 +30,15 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(response => response.data)
             .catch(response => new NetworkError(response.data, response.status))
         ),
+        persistCallback: () => {
+          render(
+            <Provider store={store}>
+              <App />
+            </Provider>,
+            document.getElementById("app")
+          );
+        },
       }))
     )
-  );
-
-  render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.getElementById("app")
   );
 });
