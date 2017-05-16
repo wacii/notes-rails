@@ -10,9 +10,6 @@ function CurrentNote({ currentNote, loading, error, destroyNote, keepNote }) {
     destroyNote(currentNote.id);
   }
 
-  if (loading)
-    return null;
-
   if (currentNote == null)
     return (
       <div className="empty">
