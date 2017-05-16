@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "/profiles/*other", to: "pages#index"
   get "/settings", to: "pages#index"
   get "/settings/password", to: "pages#index"
+  get "/offline", to: "pages#index"
 
   get "/notes/latest", to: "notes#latest"
   resources :users, only: :show, shallow: true do

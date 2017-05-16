@@ -1,7 +1,7 @@
 import axios, { CancelToken } from "axios";
 import { reset } from 'redux-form'
 
-const cancellationSource = CancelToken.source();
+let cancellationSource = CancelToken.source();
 
 function signIn(email, password) {
   return dispatch => {
