@@ -1,0 +1,10 @@
+{
+  "name": "notes-rails",
+  "short_name": "notes-rails",
+  "description": "A notes program with periodic reminders.",
+  "start_url": ".",
+  "display": "minimal-ui",
+  "orientation": "portrait-primary",
+  "background_color": "#fff",
+  "theme_color": "#f5f0eb"
+}
