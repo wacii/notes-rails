@@ -1,6 +1,6 @@
 const defaultState = {};
 
-let note, notes;
+let id, note, notes;
 
 function reducer(state = defaultState, action) {
   switch (action.type) {
@@ -15,8 +15,9 @@ function reducer(state = defaultState, action) {
       note = action.payload;
       return Object.assign({}, state, { [note.id]: note });
 
-    case "UPDATE_NOTE_SUCCESS":
-      note = action.payload;
+    case "UPDATE_NOTE_REQUEST":
+      const { id, attributes } = action;
+      note = Object.assign({}, state[id], attributes);
       return Object.assign({}, state, { [note.id]: note });
 
     case "DESTROY_NOTE_REQUEST":

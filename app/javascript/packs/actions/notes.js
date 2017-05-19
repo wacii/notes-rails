@@ -65,7 +65,7 @@ function update(id, attributes) {
   };
 
   return {
-    type: "UPDATE_NOTE_SUCCESS",
+    type: "UPDATE_NOTE_REQUEST",
     id,
     attributes,
     meta: {
