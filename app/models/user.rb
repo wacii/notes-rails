@@ -8,12 +8,7 @@ class User < ApplicationRecord
     :validatable
   )
 
-  has_many :notes, ->(user) do
-    joins("LEFT OUTER JOIN schedulers ON schedulers.note_id = notes.id")
-      .where(schedulers: { user_id: [user.id, nil] })
-      .where(schedulers: { active: [true, nil] })
-      .select("notes.*, schedulers.interval, schedulers.review_after")
-  end
+  has_many :notes
   has_many :followed_follows, class_name: "Follow", foreign_key: "followed_id"
   has_many :follower_follows, class_name: "Follow", foreign_key: "follower_id"
   has_many :followed, through: :follower_follows, source: :followed

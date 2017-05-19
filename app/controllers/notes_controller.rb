@@ -4,9 +4,15 @@ class NotesController < ApplicationController
   def index
     notes =
       if current_user.id == params[:user_id].to_i
-        current_user.notes.with_author
+        current_user.notes
+          .with_users_active_schedulers(current_user)
+          .with_author
       else
-        User.find(params[:user_id]).notes.where(public: true).with_author
+        user = User.find(params[:user_id])
+        user.notes
+          .where(public: true)
+          .with_users_schedulers(user)
+          .with_author
       end
     render json: notes
   end
