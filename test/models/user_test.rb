@@ -23,14 +23,4 @@ class UserTest < ActiveSupport::TestCase
     assert_includes(notes, public_note)
     assert_not_includes(notes, private_note)
   end
-
-  test "User::can_follow(user)" do
-    user = create(:user)
-    followed = create(:follow, follower: user).followed
-    followable = create(:user)
-
-    users = User.can_follow(user)
-    assert_not(users.find(followed.id).can_follow)
-    assert(users.find(followable.id).can_follow)
-  end
 end

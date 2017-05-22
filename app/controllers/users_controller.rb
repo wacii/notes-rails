@@ -5,8 +5,9 @@ class UsersController < ApplicationController
     if current_user.id == params[:id].to_i
       render json: current_user.public_attributes.merge(can_follow: false)
     else
-      user = User.can_follow(current_user).find(params[:id])
-      render json: user.public_attributes
+      user = User.find(params[:id])
+      followed = current_user.followed.exists?(id: user.id)
+      render json: user.public_attributes.merge(can_follow: !followed)
     end
   end
 
