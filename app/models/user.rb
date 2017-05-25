@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  attribute :can_follow, :boolean, default: false
+
   devise(
     :database_authenticatable,
     :registerable,
@@ -19,16 +21,4 @@ class User < ApplicationRecord
   has_many :followers, through: :followed_follows, source: :follower
 
   validates :username, presence: true
-
-  def public_attributes
-    attributes.slice(
-      "id",
-      "username",
-      "email",
-      "notes_count",
-      "followers_count",
-      "followed_count",
-      "can_follow"
-    )
-  end
 end

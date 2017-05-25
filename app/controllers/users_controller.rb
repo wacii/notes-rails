@@ -2,22 +2,23 @@ class UsersController < ApplicationController
   before_action :ensure_user_signed_in!
 
   def show
-    if current_user.id == params[:id].to_i
-      render json: current_user.public_attributes.merge(can_follow: false)
-    else
-      user = User.find(params[:id])
-      followed = current_user.followed.exists?(id: user.id)
-      render json: user.public_attributes.merge(can_follow: !followed)
-    end
+    @user =
+      if current_user.id == params[:id].to_i
+        current_user
+      else
+        user = User.find(params[:id])
+        user.can_follow = !current_user.followed.exists?(id: user.id)
+        user
+      end
   end
 
   def followers
-    user = User.find(params[:id])
-    render json: user.followers
+    @users = User.find(params[:id]).followers
+    render template: "users/index"
   end
 
   def followed
-    user = User.find(params[:id])
-    render json: user.followed
+    @users = User.find(params[:id]).followed
+    render template: "users/index"
   end
 end
