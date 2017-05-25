@@ -31,15 +31,4 @@ class User < ApplicationRecord
       "can_follow"
     )
   end
-
-  def all_notes
-    notes = Note
-      .joins(:user)
-      .joins("LEFT OUTER JOIN follows ON follows.followed_id = users.id")
-      .references(:follows)
-
-    notes.where(user_id: id).or(
-      notes.where(follows: { follower_id: id }, public: true)
-    )
-  end
 end
