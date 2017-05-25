@@ -26,6 +26,8 @@ class NotesController < ApplicationController
   def create
     note = current_user.notes.build(note_params)
     if note.save
+      note.schedulers.create!(user: current_user)
+      CreateFanoutSchedulers.new(note).run if note.public
       render json: note, status: :created
     else
       render json: note.errors, status: :unprocessable_entity
@@ -34,8 +36,11 @@ class NotesController < ApplicationController
 
   def update
     note = Note.find(params[:id])
-    params = (current_user == note.user ? note_params : follower_note_params)
-    if note.update_attributes(params)
+    scheduler = note.schedulers.find_by(user_id: current_user.id)
+    if scheduler.update_attributes(scheduler_params)
+      if scheduler.first_review?
+        CreateNextFollowerScheduler.new(note.user, current_user).run
+      end
       render json: note
     else
       render json: note.errors, status: :unprocessable_entity
@@ -57,16 +62,10 @@ class NotesController < ApplicationController
   private
 
   def note_params
-    params
-      .require(:note)
-      .permit(:text, :interval, :review_after, :public)
-      .merge(recorder_id: current_user.id)
+    params.require(:note).permit(:text, :public)
   end
 
-  def follower_note_params
-    params
-      .require(:note)
-      .permit(:interval, :review_after)
-      .merge(recorder_id: current_user.id)
+  def scheduler_params
+    params.require(:note).permit(:interval, :review_after)
   end
 end

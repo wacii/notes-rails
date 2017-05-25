@@ -5,6 +5,7 @@ class FollowsController < ApplicationController
     follow = Follow.new(follow_params)
     follow.follower = current_user
     if follow.save
+      CreateNextFollowerScheduler.new(follow.followed, current_user).run
       render json: follow, status: :created
     else
       render json: follow.errors, status: :unprocessable_entity
