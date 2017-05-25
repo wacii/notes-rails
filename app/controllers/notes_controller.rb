@@ -18,39 +18,38 @@ class NotesController < ApplicationController
   end
 
   def create
-    note = current_user.notes.build(note_params)
-    if note.save
-      note.schedulers.create!(user: current_user)
-      CreateFanoutSchedulers.new(note).run if note.public
-      render json: note, status: :created
+    @note = current_user.notes.build(note_params)
+    if @note.save
+      @scheduler = @note.schedulers.create!(user: current_user)
+      CreateFanoutSchedulers.new(@note).run if note.public
+      render template: "notes/scheduled_note"
     else
-      render json: note.errors, status: :unprocessable_entity
+      render json: @note.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    note = Note.find(params[:id])
-    scheduler = note.schedulers.find_by(user_id: current_user.id)
-    if scheduler.update_attributes(scheduler_params)
-      if scheduler.first_review?
-        CreateNextFollowerScheduler.new(note.user, current_user).run
+    @note = Note.find(params[:id])
+    @scheduler = @note.schedulers.find_by(user_id: current_user.id)
+    if @scheduler.update_attributes(scheduler_params)
+      if @scheduler.first_review?
+        CreateNextFollowerScheduler.new(@note.user, current_user).run
       end
-      render json: note
+      render template: "notes/scheduled_note"
     else
-      render json: note.errors, status: :unprocessable_entity
+      render json: @note.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    note = Note.find(params[:id])
-    Scheduler.find_or_create_by(
-      note_id: note.id,
+    @note = Note.find(params[:id])
+    @scheduler = Scheduler.find_or_create_by(
+      note_id: @note.id,
       user_id: current_user.id
-    ).update_attributes!(
-      active: false
     )
+    @scheduler.update_attributes!(active: false)
     User.decrement_counter(:notes_count, current_user.id)
-    render json: note
+    render template: "notes/scheduled_note"
   end
 
   private
