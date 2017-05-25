@@ -2,24 +2,18 @@ class NotesController < ApplicationController
   before_action :ensure_user_signed_in!
 
   def index
-    notes =
-      if current_user.id == params[:user_id].to_i
-        current_user.notes
-          .with_users_active_schedulers(current_user)
-          .with_author
-      else
-        user = User.find(params[:user_id])
-        user.notes
-          .where(public: true)
-          .with_users_schedulers(user)
-          .with_author
-      end
-    render json: notes
+    @schedulers = current_user.schedulers.includes(note: :user)
+      .where(active: true)
   end
 
   def latest
+    # TODO: move into materialized view
     latest_notes = Note
-      .where(public: true).order(created_at: :desc).limit(3).with_author
+      .joins(:user)
+      .select("notes.*, users.username AS author")
+      .where(public: true)
+      .order(created_at: :desc)
+      .limit(3)
     render json: latest_notes
   end
 
