@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import Input from "./input";
 import { email, required, min, max } from "../utils/validations";
 
-// TODO: use button to submit, not link
-
 function SignIn({ handleSubmit, submitting, error }) {
   return (
     <section>
@@ -28,11 +26,10 @@ function SignIn({ handleSubmit, submitting, error }) {
           label="Password" />
 
         <fieldset>
-          <a className="button button-primary"
-            onClick={handleSubmit}
+          <button className="button button-primary"
             disabled={submitting}>
             Sign In
-          </a>
+          </button>
 
           <Link to="/sign-up" className="button button-secondary">
             Sign up
