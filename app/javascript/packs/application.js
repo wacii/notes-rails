@@ -20,6 +20,10 @@ const token = document.querySelector("meta[name='csrf-token']").content;
 axios.defaults.headers.common["X-CSRF-Token"] = token;
 
 document.addEventListener("DOMContentLoaded", () => {
+  const preloadUser = document.getElementById("user");
+  const currentUser = preloadUser &&
+    JSON.parse(preloadUser.dataset.user);
+
   // FIXME: add redux tools back in
   // FIXME: extract and test changes to redux-offline
   const store = createStore(
@@ -33,6 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(response => new NetworkError(response.data, response.status))
         ),
         persistCallback: () => {
+          // TODO: don't repurpose existing actions here
+
           // If server responds 401 unauthorized, signout user
           axios.interceptors.response.use(
             response => response,
@@ -42,6 +48,16 @@ document.addEventListener("DOMContentLoaded", () => {
               return Promise.reject(error)
             }
           )
+
+          if (currentUser)
+            store.dispatch({
+              type: "SIGN_IN_SUCCESS",
+              data: currentUser
+            });
+          else
+            store.dispatch({
+              type: "SIGN_OUT_REQUEST",
+            });
 
           render(
             <Provider store={store}>

@@ -1,1 +1,4 @@
+<% if user_signed_in? -%>
+  <%= content_tag("div", nil, id: "user", data: { user: current_user }) %>
+<% end -%>
 <div id="app"></div>
