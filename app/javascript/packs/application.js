@@ -33,6 +33,16 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(response => new NetworkError(response.data, response.status))
         ),
         persistCallback: () => {
+          // If server responds 401 unauthorized, signout user
+          axios.interceptors.response.use(
+            response => response,
+            error => {
+              if (error.status == 401)
+                store.dispatch({ type: "SIGN_OUT_REQUEST" });
+              return Promise.reject(error)
+            }
+          )
+
           render(
             <Provider store={store}>
               <App />
