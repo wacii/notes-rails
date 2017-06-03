@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(response => response.data)
             .catch(response => new NetworkError(response.data, response.status))
         ),
+        persistOptions: { blacklist: ["form"] },
         persistCallback: () => {
           // TODO: don't repurpose existing actions here
 
