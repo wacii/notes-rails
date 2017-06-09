@@ -28,36 +28,33 @@ document.addEventListener("DOMContentLoaded", () => {
     rootReducer,
     compose(
       applyMiddleware(thunk),
-      offline(offlineConfig(() => {
-        // TODO: don't repurpose existing actions here
-
-        // If server responds 401 unauthorized, signout user
-        axios.interceptors.response.use(
-          response => response,
-          error => {
-            if (error.status == 401)
-              store.dispatch({ type: "SIGN_OUT_REQUEST" });
-            return Promise.reject(error)
-          }
-        )
-
-        if (currentUser)
-          store.dispatch({
-            type: "SIGN_IN_SUCCESS",
-            data: currentUser
-          });
-        else
-          store.dispatch({
-            type: "SIGN_OUT_REQUEST",
-          });
-
-        render(
-          <Provider store={store}>
-            <App />
-          </Provider>,
-          document.getElementById("app")
-        );
-      }))
+      offline(offlineConfig)
     )
+  );
+
+  axios.interceptors.response.use(
+    response => response,
+    error => {
+      if (error.status == 401)
+        store.dispatch({ type: "SIGN_OUT_REQUEST" });
+      return Promise.reject(error)
+    }
+  )
+
+  if (currentUser)
+    store.dispatch({
+      type: "SIGN_IN_SUCCESS",
+      data: currentUser
+    });
+  else
+    store.dispatch({
+      type: "SIGN_OUT_REQUEST",
+    });
+
+  render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById("app")
   );
 });
