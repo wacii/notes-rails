@@ -1,13 +1,11 @@
-// TODO: id => userId?
-
-function fetch(id) {
+function fetch(userId) {
   return {
     type: "FETCH_NOTES_REQUEST",
     meta: {
       offline: {
-        effect: { method: "get", url: `/users/${id}/notes` },
-        commit: { type: "FETCH_NOTES_SUCCESS", id },
-        rollback: { type: "FETCH_NOTES_FAILURE", id },
+        effect: { method: "get", url: `/users/${userId}/notes` },
+        commit: { type: "FETCH_NOTES_SUCCESS", userId },
+        rollback: { type: "FETCH_NOTES_FAILURE", userId },
       },
     },
   };
