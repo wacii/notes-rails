@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 
 function Input({ input, label, type, meta: { touched, error } }) {
   return (
