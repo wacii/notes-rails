@@ -1,7 +1,13 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { reduxForm } from "redux-form";
 import AccountComponent from "../components/account";
-import { update as updateSettings } from "../actions/auth";
+import { update } from "../actions/auth";
+
+function onSubmit(values, dispatch, props) {
+  const { email, username, current_password } = values;
+  dispatch(update({ email, username, current_password }));
+}
 
 function mapStateToProps(state) {
   const { data: { currentUserId, users } } = state;
@@ -10,11 +16,10 @@ function mapStateToProps(state) {
   return { initialValues };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ updateSettings }, dispatch);
-}
-
-export default connect(
+export default reduxForm({
+  form: "settingsAccount",
+  onSubmit,
+})(connect(
   mapStateToProps,
-  mapDispatchToProps
-)(AccountComponent);
+  () => ({})
+)(AccountComponent));

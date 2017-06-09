@@ -1,5 +1,5 @@
 import React from "react";
-import { reduxForm, Field } from "redux-form";
+import { Field } from "redux-form";
 import Input from "./input";
 import { email, required, min, max } from "../utils/validations";
 
@@ -31,12 +31,4 @@ function Account({ handleSubmit }) {
   );
 }
 
-function onSubmit(values, _dispatch, props) {
-  const { email, username, current_password } = values;
-  props.updateSettings({ email, username, current_password });
-}
-
-export default reduxForm({
-  form: "settingsAccount",
-  onSubmit,
-})(Account);
+export default Account;
