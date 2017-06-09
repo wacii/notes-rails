@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link, NavLink } from "react-router-dom";
 import Dropdown from "./dropdown";
 import SignOut from "../containers/sign_out";
@@ -25,5 +26,9 @@ function Header({ userId }) {
     </header>
   );
 }
+
+Header.propTypes = {
+  userId: PropTypes.number.isRequired,
+};
 
 export default Header;

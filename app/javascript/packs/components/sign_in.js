@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Field } from "redux-form";
 import { Link } from "react-router-dom";
 import Input from "./input";
@@ -39,5 +40,11 @@ function SignIn({ handleSubmit, submitting, error }) {
     </section>
   )
 }
+
+SignIn.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  error: PropTypes.object,
+};
 
 export default SignIn;

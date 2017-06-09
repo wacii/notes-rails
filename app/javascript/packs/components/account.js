@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Field } from "redux-form";
 import Input from "./input";
 import { email, required, min, max } from "../utils/validations";
@@ -30,5 +31,9 @@ function Account({ handleSubmit }) {
     </form>
   );
 }
+
+Account.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+};
 
 export default Account;

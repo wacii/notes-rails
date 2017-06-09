@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 // TODO: proper plurality rules for counts
+// TODO: extract fetch into container
 
 class UserList extends Component {
   componentWillMount() {
@@ -48,5 +50,19 @@ class UserList extends Component {
     )
   }
 }
+
+UserList.propTypes = {
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      username: PropTypes.string.isRequired,
+      notes_count: PropTypes.number.isRequired,
+      followed_count: PropTypes.number.isRequired,
+      followers_count: PropTypes.number.isRequired,
+    })
+  ),
+  loading: PropTypes.bool,
+  error: PropTypes.object,
+};
 
 export default UserList;

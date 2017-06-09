@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+
+// TODO: move function definitions to container
 
 function CurrentNote({ currentNote, loading, error, destroyNote, keepNote }) {
   function keepCurrentNote() {
@@ -39,6 +42,18 @@ function CurrentNote({ currentNote, loading, error, destroyNote, keepNote }) {
       </div>
     </div>
   );
+}
+
+CurrentNote.propTypes = {
+  currentNote: PropTypes.shape({
+    user_id: PropTypes.number.isRequired,
+    author: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  }),
+  loading: PropTypes.bool,
+  error: PropTypes.object,
+  destroyNote: PropTypes.func.isRequired,
+  keepNote: PropTypes.func.isRequired,
 }
 
 export default CurrentNote;

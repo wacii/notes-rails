@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 // TODO: move dateToDays to util
+// TODO: move fetch into container
 
 const msInDay = 1000 * 60 * 60 * 24;
 
@@ -30,9 +31,9 @@ class NoteList extends Component {
   }
 
   render() {
-    const { notes, loading, error } = this.props;
+    const { notes } = this.props;
 
-    if (loading)
+    if (!notes)
       return null;
 
     return (
@@ -50,7 +51,13 @@ class NoteList extends Component {
 
 NoteList.propTypes = {
   fetch: PropTypes.func.isRequired,
-  notes: PropTypes.array.isRequired,
+  notes: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      text: PropTypes.string.isRequired,
+      review_after: PropTypes.object.isRequired
+    })
+  ).isRequired,
 };
 
 export default NoteList;

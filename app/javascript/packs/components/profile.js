@@ -1,8 +1,11 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Link, NavLink, Redirect, Route, Switch } from "react-router-dom";
 import NotesList from "../containers/note_list";
 import Followed from "../containers/followed";
 import Followers from "../containers/followers";
+
+// TODO: extract logic into container/multiple components
 
 class Profile extends Component {
   constructor(props) {
@@ -74,5 +77,17 @@ class Profile extends Component {
     );
   }
 }
+
+Profile.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    username: PropTypes.string.isRequired,
+    notes_count: PropTypes.number.isRequired,
+    followed_count: PropTypes.number.isRequired,
+    followers_count: PropTypes.number.isRequired
+  }).isRequired,
+  loading: PropTypes.bool,
+  error: PropTypes.object,
+};
 
 export default Profile;

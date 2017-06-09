@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Field } from "redux-form";
 
 function NewNote({ handleSubmit, submitting, error, post, share }) {
@@ -23,5 +24,13 @@ function NewNote({ handleSubmit, submitting, error, post, share }) {
     </form>
   )
 }
+
+NewNote.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool,
+  error: PropTypes.object,
+  post: PropTypes.func.isRequired,
+  share: PropTypes.func.isRequired,
+};
 
 export default NewNote

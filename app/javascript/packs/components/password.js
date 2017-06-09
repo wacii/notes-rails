@@ -1,7 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { reduxForm, Field } from "redux-form";
 import Input from "./input";
 import { required, confirm, min, max } from "../utils/validations";
+
+// TODO: move redux-form logic to container
 
 function Password({ handleSubmit, password }) {
   return (
@@ -30,6 +33,11 @@ function Password({ handleSubmit, password }) {
     </form>
   );
 }
+
+Password.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  password: PropTypes.string,
+};
 
 function onSubmit(values, _dispatch, props) {
   const { password, password_confirmation, current_password } = values;
