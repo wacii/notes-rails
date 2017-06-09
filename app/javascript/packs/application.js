@@ -7,21 +7,20 @@ import { applyMiddleware, compose, createStore } from "redux";
 import thunk from "redux-thunk";
 // import { devToolsEnhancer } from 'redux-devtools-extension/logOnlyInProduction';
 import { offline } from "redux-offline";
+
 import axios from "axios";
 
 import App from "./containers/app";
+import setDefaultHeaders from "./init/default_headers";
 import offlineConfig from "./init/offline_config";
 import rootReducer from "./reducers";
-
-axios.defaults.headers.common["Accept"] = "application/json";
-
-const token = document.querySelector("meta[name='csrf-token']").content;
-axios.defaults.headers.common["X-CSRF-Token"] = token;
 
 document.addEventListener("DOMContentLoaded", () => {
   const preloadUser = document.getElementById("user");
   const currentUser = preloadUser &&
     JSON.parse(preloadUser.dataset.user);
+
+  setDefaultHeaders();
 
   // FIXME: add redux tools back in
   const store = createStore(
