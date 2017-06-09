@@ -1,5 +1,3 @@
-import axios, { CancelToken } from "axios";
-
 // TODO: id => userId?
 
 function fetch(id) {

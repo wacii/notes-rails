@@ -1,5 +1,3 @@
-import axios from "axios";
-
 function get(id) {
   return {
     type: "GET_USER_REQUEST",

@@ -1,5 +1,3 @@
-import axios from "axios";
-
 function create(id) {
   const data = {
     follow: {
