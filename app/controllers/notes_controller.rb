@@ -1,5 +1,6 @@
 class NotesController < ApplicationController
   before_action :ensure_user_signed_in!
+  before_action :respond_with_json
 
   def index
     @schedulers = current_user.schedulers.includes(note: :user)

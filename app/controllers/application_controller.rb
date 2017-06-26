@@ -12,4 +12,8 @@ class ApplicationController < ActionController::Base
   def ensure_user_signed_in!
     return head :unauthorized unless user_signed_in?
   end
+
+  def respond_with_json
+    request.format = :json
+  end
 end

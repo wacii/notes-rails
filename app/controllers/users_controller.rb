@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :ensure_user_signed_in!
+  before_action :respond_with_json
 
   def show
     @user =
