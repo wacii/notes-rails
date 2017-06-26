@@ -3,7 +3,8 @@ class NotesController < ApplicationController
   before_action :respond_with_json
 
   def index
-    @schedulers = current_user.schedulers.includes(note: :user)
+    user = User.find(params[:user_id])
+    @schedulers = user.schedulers.includes(note: :user)
       .where(active: true)
   end
 
