@@ -7,7 +7,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "index serves own notes" do
-    note = create(:note, user: @user)
+    note = create(:scheduler, user: @user).note
     get user_notes_path(@user)
 
     notes_json = JSON.parse(@response.body)
@@ -18,8 +18,8 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
 
   test "index serves accessible notes" do
     user = create(:user)
-    create(:note, user: user, public: false)
-    note = create(:note, user: user, public: true)
+    create(:scheduler, user: user, active: false)
+    note = create(:scheduler, user: user, active: true).note
 
     get user_notes_path(user)
 
@@ -52,26 +52,24 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     assert_response(:unprocessable_entity)
   end
 
-  # test "updates own note" do
-  #   note = create(:note, user: @user)
-  #   patch note_path(note, "note[text]" => "a change")
-  #   assert_response(:ok)
-  #   assert_equal(note.reload.text, "a change")
-  #
-  #   note = create(:note)
-  #   patch note_path(note, "note[text]" => "a change")
-  #   assert_response(:forbidden)
-  # end
-  #
-  # test "destroys own note" do
-  #   note = create(:note, user: @user)
-  #   assert_difference("Note.count", -1) do
-  #     delete note_path(note)
-  #   end
-  #   assert_response :ok
-  #
-  #   note = create(:note)
-  #   delete note_path(note)
-  #   assert_response :forbidden
-  # end
+  test "updates own note" do
+    scheduler = create(:scheduler, user: @user)
+    note = scheduler.note
+    patch note_path(note, "note[interval]" => "11")
+    assert_response(:ok)
+    assert_equal(scheduler.reload.interval, 11)
+
+    # TODO: test authorization
+  end
+
+  test "destroys own note" do
+    note = create(:note, user: @user)
+    delete note_path(note)
+    assert_response :ok
+
+    scheduler = Scheduler.find_by(note: note, user: @user)
+    assert_not(scheduler.active)
+
+    # TODO: test authorization
+  end
 end

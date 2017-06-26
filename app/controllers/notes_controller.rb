@@ -23,7 +23,7 @@ class NotesController < ApplicationController
     if @note.save
       @scheduler = @note.schedulers.create!(user: current_user)
       CreateFanoutSchedulers.new(@note).run if @note.public
-      render template: "notes/scheduled_note"
+      render template: "notes/scheduled_note", status: :created
     else
       render json: @note.errors, status: :unprocessable_entity
     end
