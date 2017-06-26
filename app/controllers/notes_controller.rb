@@ -33,6 +33,7 @@ class NotesController < ApplicationController
   def update
     @note = Note.find(params[:id])
     @scheduler = @note.schedulers.find_by(user_id: current_user.id)
+    return head :forbidden if @scheduler.nil?
     if @scheduler.update_attributes(scheduler_params)
       if @scheduler.first_review?
         CreateNextFollowerScheduler.new(@note.user, current_user).run
@@ -45,10 +46,11 @@ class NotesController < ApplicationController
 
   def destroy
     @note = Note.find(params[:id])
-    @scheduler = Scheduler.find_or_create_by(
+    @scheduler = Scheduler.find_by(
       note_id: @note.id,
       user_id: current_user.id
     )
+    return head :forbidden if @scheduler.nil?
     @scheduler.update_attributes!(active: false)
     User.decrement_counter(:notes_count, current_user.id)
     render template: "notes/scheduled_note"

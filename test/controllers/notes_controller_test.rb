@@ -59,17 +59,21 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     assert_response(:ok)
     assert_equal(scheduler.reload.interval, 11)
 
-    # TODO: test authorization
+    note = create(:note)
+    patch note_path(note, "note[interval]" => "11")
+    assert_response(:forbidden)
   end
 
   test "destroys own note" do
-    note = create(:note, user: @user)
+    note = create(:scheduler, user: @user).note
     delete note_path(note)
     assert_response :ok
 
     scheduler = Scheduler.find_by(note: note, user: @user)
     assert_not(scheduler.active)
 
-    # TODO: test authorization
+    note = create(:note)
+    delete note_path(note)
+    assert_response :forbidden
   end
 end
