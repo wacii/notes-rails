@@ -10,7 +10,6 @@ class User < ApplicationRecord
     :validatable
   )
 
-  # TODO: cleanup associated records when deleted
   has_many :notes
   has_many :schedulers
   has_many :followed_follows,
