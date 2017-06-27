@@ -5,7 +5,7 @@ import fetchOnMount from "./fetch_on_mount";
 import { fetchLatest as fetch } from "../actions/notes";
 
 function mapStateToProps(state) {
-  const { latestNotes: { loading, error } } = state;
+  const { requests: { fetchLatestNotes: { loading, error } } } = state;
   const { data: { latestNotes: notes } } = state;
   return { notes, loading, error };
 }

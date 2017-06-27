@@ -7,7 +7,7 @@ import ProfileComponent from "../components/profile";
 function mapStateToProps(state, props) {
   const { match: { params: { id } } } = props;
   const { data: { users } } = state;
-  const { users: { error, loading } } = state;
+  const { requests: { getUser: { error, loading } } } = state;
   const user = users[id];
   return { user, error, loading };
 }

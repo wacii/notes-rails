@@ -5,7 +5,7 @@ import CurrentNoteComponent from "../components/current_note";
 import currentUserNotes from "./current_user_notes";
 
 function mapStateToProps(state) {
-  const { notes: { error, loading } } = state;
+  const { requests: { fetchNotes: { error, loading } } } = state;
   let { data: { currentUserId, notes } } = state;
   const id = parseInt(currentUserId, 10);
   notes = Object.values(notes || {})

@@ -6,7 +6,7 @@ import UserList from "../components/user_list";
 function mapStateToProps(state, props) {
   let { match: { params: { id } } } = props;
   let { data: { userFollowers, users } } = state;
-  const { followers: { loading, error } } = state;
+  const { requests: { getFollowers: { loading, error } } } = state;
   id = parseInt(id, 10);
   userFollowers = userFollowers[id] || [];
   users = Object.values(users || {})
