@@ -2,15 +2,13 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import NoteListComponent from "../components/note_list";
 import { fetch as fetchNotes } from "../actions/notes";
+import { idFromParamsSelector, userNotesSelector } from "../selectors";
 
 function mapStateToProps(state, props) {
-  let { data: { notes } } = state;
-  let { match: { params: { id } } } = props;
-  id = parseInt(id, 10);
-  notes = Object.values(notes || {})
-    .filter(note => note.user_id === id);
-  notes.forEach(note => note.review_after = new Date(note.review_after));
-  return { userId: id, notes };
+  return {
+    userId: idFromParamsSelector(state, props),
+    notes: userNotesSelector(state, props),
+  };
 }
 
 function mapDispatchToProps(dispatch, props) {

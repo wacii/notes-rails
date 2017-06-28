@@ -1,12 +1,16 @@
 import { connect } from "react-redux";
+import { compose } from "redux";
 import { withRouter } from "react-router-dom"
 import HeaderComponent from "../components/header";
+import { entitiesSelector } from "../selectors";
 
-function mapStateToProps({ data: { currentUserId: userId } }) {
-  return { userId };
+function mapStateToProps(state) {
+  return {
+    userId: entitiesSelector("currentUserId")(state),
+  };
 }
 
-export default withRouter(connect(
-  mapStateToProps,
-  () => ({})
-)(HeaderComponent));
+export default compose(
+  withRouter,
+  connect(mapStateToProps)
+)(HeaderComponent);

@@ -1,8 +1,9 @@
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { bindActionCreators, compose } from "redux";
 import { reduxForm } from "redux-form";
 import AccountComponent from "../components/account";
 import { update } from "../actions/auth";
+import { currentUserSelector } from "../selectors";
 
 function onSubmit(values, dispatch, props) {
   const { email, username, current_password } = values;
@@ -10,16 +11,12 @@ function onSubmit(values, dispatch, props) {
 }
 
 function mapStateToProps(state) {
-  const { data: { currentUserId, users } } = state;
-  const { username, email } = users[currentUserId];
-  const initialValues = { username, email };
-  return { initialValues };
+  return {
+    user: currentUserSelector(state),
+  };
 }
 
-export default reduxForm({
-  form: "settingsAccount",
-  onSubmit,
-})(connect(
-  mapStateToProps,
-  () => ({})
-)(AccountComponent));
+export default compose(
+  reduxForm({ form: "settingsAccount", onSubmit }),
+  connect(mapStateToProps)
+)(AccountComponent);

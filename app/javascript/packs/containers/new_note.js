@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { compose } from "redux";
 import { reduxForm, change } from "redux-form";
 import { create as createNote } from "../actions/notes";
 import NewNoteComponent from "../components/new_note";
@@ -15,10 +16,7 @@ function onSubmit(values, dispatch, props) {
   return dispatch(createNote(values))
 }
 
-export default reduxForm({
-  form: "newNote",
-  onSubmit,
-})(connect(
-  null,
-  mapDispatchToProps
-)(NewNoteComponent));
+export default compose(
+  reduxForm({ form: "newNote", onSubmit, }),
+  connect(null, mapDispatchToProps)
+)(NewNoteComponent);

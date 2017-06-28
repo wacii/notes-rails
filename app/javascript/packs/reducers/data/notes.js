@@ -5,14 +5,17 @@ let id, note, notes;
 function reducer(state = defaultState, action) {
   switch (action.type) {
     case "FETCH_NOTES_SUCCESS":
-      notes = action.payload.reduce((obj, note) => {
+      notes = action.payload.reduce((obj, item) => {
+        note = Object.assign({}, item);
         obj[note.id] = note;
+        note.review_after = new Date(note.review_after);
         return obj;
       }, {});
       return Object.assign({}, state, notes);
 
     case "CREATE_NOTE_SUCCESS":
-      note = action.payload;
+      note = Object.assign({}, action.payload);
+      note.review_after = new Date(note.review_after);
       return Object.assign({}, state, { [note.id]: note });
 
     case "UPDATE_NOTE_REQUEST":

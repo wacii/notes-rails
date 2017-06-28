@@ -4,6 +4,8 @@ import { Field } from "redux-form";
 import Input from "./input";
 import { email, required, min, max } from "../utils/validations";
 
+// TODO: initial value for email and username, state.user
+
 function Account({ handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>

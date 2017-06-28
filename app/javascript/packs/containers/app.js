@@ -1,12 +1,11 @@
 import { connect } from "react-redux";
 import AppComponent from "../components/app";
+import { currentUserSelector } from "../selectors";
 
-function mapStateToProps({ data: { currentUserId, users }}) {
-  const user = users[currentUserId];
-  return { signedIn: !!user };
+function mapStateToProps(state) {
+  return {
+    signedIn: !!currentUserSelector(state),
+  };
 }
 
-export default connect(
-  mapStateToProps,
-  () => ({})
-)(AppComponent);
+export default connect(mapStateToProps)(AppComponent);

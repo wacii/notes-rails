@@ -3,11 +3,12 @@ import { bindActionCreators } from "redux";
 import BrowseComponent from "../components/browse";
 import fetchOnMount from "./fetch_on_mount";
 import { fetchLatest as fetch } from "../actions/notes";
+import { entitiesSelector, requestsSelector } from "../selectors";
 
 function mapStateToProps(state) {
-  const { requests: { fetchLatestNotes: { loading, error } } } = state;
-  const { data: { latestNotes: notes } } = state;
-  return { notes, loading, error };
+  return Object.assign({}, requestsSelector("fetchLatestNotes")(state), {
+    notes: entitiesSelector("latestNotes")(state)
+  });
 }
 
 function mapDispatchToProps(dispatch) {

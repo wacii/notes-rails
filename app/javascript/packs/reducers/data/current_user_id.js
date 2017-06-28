@@ -5,7 +5,7 @@ function currentUserId(state = defaultState, action) {
     case "SET_CURRENT_USER":
     case "SIGN_IN_SUCCESS":
     case "SIGN_UP_SUCCESS":
-      return action.data.id;
+      return parseInt(action.data.id, 10);
     case "SIGN_OUT_REQUEST":
       return null;
     default:
