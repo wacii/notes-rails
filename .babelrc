@@ -8,5 +8,19 @@
       },
       "useBuiltIns": true
     }]
-  ]
+  ],
+
+  "env": {
+    "test": {
+      "presets": [
+        ["env", {
+          "targets": {
+            "browsers": "> 1%",
+            "uglify": true
+          },
+          "useBuiltIns": true
+        }]
+      ]
+    }
+  }
 }

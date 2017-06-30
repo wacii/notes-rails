@@ -1,10 +1,15 @@
 {
   "name": "notes-rails",
   "private": true,
+  "scripts": {
+    "test": "jest app/javascript/packs",
+    "test:watch": "npm test -- --watch"
+  },
   "dependencies": {
     "autoprefixer": "^7.1.0",
     "axios": "^0.16.0",
     "babel-core": "^6.24.1",
+    "babel-jest": "^20.0.3",
     "babel-loader": "7.x",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.4.0",
@@ -43,6 +48,8 @@
     "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
+    "enzyme": "^2.9.1",
+    "jest": "^20.0.4",
     "webpack-dev-server": "^2.4.5"
   }
 }
