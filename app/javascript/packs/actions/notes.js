@@ -68,7 +68,7 @@ function update(id, attributes) {
       offline: {
         effect: { method: "patch", url: `/notes/${id}`, data },
         commit: { type: "UPDATE_NOTE_SUCCESS", id, attributes },
-        commit: { type: "UPDATE_NOTE_FAILURE", id, attributes },
+        rollback: { type: "UPDATE_NOTE_FAILURE", id, attributes },
       }
     }
   }

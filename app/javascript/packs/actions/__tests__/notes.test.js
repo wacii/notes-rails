@@ -47,6 +47,7 @@ test("update() uses async with retries", () => {
 
 test("keep() uses async with retries", () => {
   const id = 1;
-  const action = keep(id);
+  const interval = 1;
+  const action = keep(id, interval);
   expect(action.meta).toMatchObject(asyncWithRetries);
 });
