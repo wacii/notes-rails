@@ -21,4 +21,4 @@ const reducers = Object.keys(config).reduce((reducers, key) => {
   return reducers;
 }, {});
 
-export default combineReducers(reducers)
+export default combineReducers(reducers);
