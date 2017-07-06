@@ -1,7 +1,11 @@
 import axios, { CancelToken } from "axios";
-import { reset } from 'redux-form'
+import { reset } from 'redux-form';
 
 let cancellationSource = CancelToken.source();
+
+// FIXME: use action types that describe the event not the consequences
+// FIXME: use `payload` not `data`
+// FIXME: catch errors
 
 function signIn(email, password) {
   return dispatch => {
@@ -44,6 +48,8 @@ function signOut() {
       const message = "An error prevented you from signing out.";
       dispatch({ type: "SIGN_OUT_FAILURE", error: message });
     });
+
+    return promise;
   }
 }
 
@@ -62,12 +68,11 @@ function signUp(username, email, password, passwordConfirmation) {
       url: "/users",
       method: "post",
       data,
-      cancelToken: cancellationSource.token,
     }).then(updateCSRFToken)
       .then(({ data }) => {
         dispatch({ type: "UPDATE_USERS", data });
         dispatch({ type: "SET_CURRENT_USER", data });
-      });
+      }).catch(error => log(error));
   }
 }
 
@@ -100,6 +105,8 @@ function update(attributes) {
     promise.catch(_response => {
       dispatch({ type: "UPDATE_REGISTRATION_FAILURE" });
     });
+
+    return promise;
   };
 }
 
