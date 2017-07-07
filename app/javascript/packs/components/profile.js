@@ -6,6 +6,8 @@ import Followed from "../containers/followed";
 import Followers from "../containers/followers";
 
 // TODO: extract logic into container/multiple components
+//  including moving merging action with param
+// TODO: there are keys missing from proptypes, like params
 
 class Profile extends Component {
   constructor(props) {

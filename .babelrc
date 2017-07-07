@@ -19,7 +19,8 @@
             "uglify": true
           },
           "useBuiltIns": true
-        }]
+        }],
+        "react"
       ]
     }
   }

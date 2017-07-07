@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 // TODO: proper plurality rules for counts
 // TODO: extract fetch into container
+// TODO: extract params in container, shouldn't have to pull them out here
 
 class UserList extends Component {
   componentWillMount() {

@@ -57,7 +57,7 @@ NoteList.propTypes = {
       text: PropTypes.string.isRequired,
       review_after: PropTypes.object.isRequired
     })
-  ).isRequired,
+  ),
 };
 
 export default NoteList;
