@@ -11,14 +11,16 @@ Rails.application.routes.draw do
   get "/settings/password", to: "pages#index"
   get "/offline", to: "pages#index"
 
-  get "/notes/latest", to: "notes#latest"
-  resources :users, only: :show, shallow: true do
-    resources :notes, only: [:index, :update, :destroy]
-    member do
-      get :followers, to: "users#followers"
-      get :followed, to: "users#followed"
+  constraints lambda { |request| request.xhr? } do
+    get "/notes/latest", to: "notes#latest"
+    resources :users, only: :show, shallow: true do
+      resources :notes, only: [:index, :update, :destroy]
+      member do
+        get :followers, to: "users#followers"
+        get :followed, to: "users#followed"
+      end
     end
+    resources :notes, only: :create
+    resources :follows, only: [:create, :destroy]
   end
-  resources :notes, only: :create
-  resources :follows, only: [:create, :destroy]
 end
