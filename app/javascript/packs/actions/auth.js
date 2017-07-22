@@ -17,8 +17,7 @@ function signIn(email, password) {
       url: "/users/sign_in",
       method: "post",
       data,
-    }).then(updateCSRFToken)
-      .then(({ data }) => {
+    }).then(({ data }) => {
         dispatch({ type: "UPDATE_USERS", data });
         dispatch({ type: "SET_CURRENT_USER", data });
       });
@@ -37,8 +36,6 @@ function signOut() {
       method: "delete",
       cancelToken: cancellationSource.token,
     });
-
-    promise.then(updateCSRFToken);
 
     promise.then(_request => {
       dispatch({ type: "SIGN_OUT_SUCCESS" });
@@ -68,8 +65,7 @@ function signUp(username, email, password, passwordConfirmation) {
       url: "/users",
       method: "post",
       data,
-    }).then(updateCSRFToken)
-      .then(({ data }) => {
+    }).then(({ data }) => {
         dispatch({ type: "UPDATE_USERS", data });
         dispatch({ type: "SET_CURRENT_USER", data });
       }).catch(error => log(error));
@@ -108,13 +104,6 @@ function update(attributes) {
 
     return promise;
   };
-}
-
-function updateCSRFToken(response) {
-  const { headers } = response;
-  const token = headers["x-csrf-token"];
-  axios.defaults.headers.common["X-CSRF-Token"] = token;
-  return response;
 }
 
 export {

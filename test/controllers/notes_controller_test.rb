@@ -8,7 +8,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
 
   test "index serves own notes" do
     note = create(:scheduler, user: @user).note
-    get user_notes_path(@user)
+    get user_notes_path(@user), xhr: true
 
     notes_json = JSON.parse(@response.body)
 
@@ -21,7 +21,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     create(:scheduler, user: user, active: false)
     note = create(:scheduler, user: user, active: true).note
 
-    get user_notes_path(user)
+    get user_notes_path(user), xhr: true
 
     notes_json = JSON.parse(@response.body)
     assert_equal(notes_json.length, 1)
@@ -36,7 +36,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     create(:note, user: user, public: false)
     3.times { create(:note, user: user, public: true) }
 
-    get notes_latest_path
+    get notes_latest_path, xhr: true
 
     notes_json = JSON.parse(@response.body)
     assert_equal(notes_json.length, 3)
@@ -44,36 +44,36 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
 
   test "creates note" do
     assert_difference("Note.count", 1) do
-      post notes_path("note[text]" => "text")
+      post notes_path("note[text]" => "text"), xhr: true
     end
     assert_response(:created)
 
-    post notes_path("note[text]" => "")
+    post notes_path("note[text]" => ""), xhr: true
     assert_response(:unprocessable_entity)
   end
 
   test "updates own note" do
     scheduler = create(:scheduler, user: @user)
     note = scheduler.note
-    patch note_path(note, "note[interval]" => "11")
+    patch note_path(note, "note[interval]" => "11"), xhr: true
     assert_response(:ok)
     assert_equal(scheduler.reload.interval, 11)
 
     note = create(:note)
-    patch note_path(note, "note[interval]" => "11")
+    patch note_path(note, "note[interval]" => "11"), xhr: true
     assert_response(:forbidden)
   end
 
   test "destroys own note" do
     note = create(:scheduler, user: @user).note
-    delete note_path(note)
+    delete note_path(note), xhr: true
     assert_response :ok
 
     scheduler = Scheduler.find_by(note: note, user: @user)
     assert_not(scheduler.active)
 
     note = create(:note)
-    delete note_path(note)
+    delete note_path(note), xhr: true
     assert_response :forbidden
   end
 end

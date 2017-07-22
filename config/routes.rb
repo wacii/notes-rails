@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { sessions: "sessions" }
+  devise_for :users
   root to: "pages#index"
 
   get "/sign-in", to: "pages#index"
