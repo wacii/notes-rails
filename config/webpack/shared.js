@@ -50,5 +50,12 @@ module.exports = {
 
   resolveLoader: {
     modules: [paths.node_modules]
-  }
+  },
+
+  externals: {
+    'react/addons': true,
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true,
+    'react-addons-test-utils': 'react-dom',
+  },
 }
