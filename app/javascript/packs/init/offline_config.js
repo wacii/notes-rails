@@ -1,6 +1,6 @@
 import axios from "axios";
-import offlineConfig from "redux-offline/lib/defaults";
-import NetworkError from "redux-offline/lib/defaults/effect";
+import offlineConfig from "@redux-offline/redux-offline/lib/defaults";
+import NetworkError from "@redux-offline/redux-offline/lib/defaults/effect";
 import createBlacklistFilter from 'redux-persist-transform-filter';
 
 const config = Object.assign({}, offlineConfig, {
