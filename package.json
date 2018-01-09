@@ -40,8 +40,6 @@
     "redux": "^3.6.0",
     "redux-devtools-extension": "^2.13.2",
     "redux-form": "^6.6.3",
-    "redux-logger": "^3.0.6",
-    "redux-offline": "^2.0.0",
     "redux-persist-transform-filter": "^0.0.10",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
