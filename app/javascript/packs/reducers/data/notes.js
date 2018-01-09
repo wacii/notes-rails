@@ -1,9 +1,20 @@
+import { REHYDRATE } from "redux-persist/constants";
+
 const defaultState = {};
 
 let id, note, notes;
 
 function reducer(state = defaultState, action) {
   switch (action.type) {
+    case REHYDRATE:
+      const incoming = action.payload.data.notes || {};
+      return Object.keys(incoming).reduce((notes, id) => {
+        const note = incoming[id];
+        note.review_after = new Date(note.review_after);
+        notes[id] = note;
+        return notes;
+      }, {});
+
     case "FETCH_NOTES_SUCCESS":
       notes = action.payload.reduce((obj, item) => {
         note = Object.assign({}, item);
